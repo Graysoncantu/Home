@@ -31,16 +31,40 @@
             line-height: 1.6;
             transition: var(--transition);
             overflow-x: hidden;
+            position: relative;
         }
 
-        a {
-            color: inherit;
-            text-decoration: none;
-            transition: var(--transition);
+        /* --- VISUAL BACKGROUND NOISE --- */
+        body::before {
+            content: "";
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            right: -50%;
+            bottom: -50%;
+            width: 200%;
+            height: 200%;
+            /* Uses a high-performance SVG fractal noise generator */
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.025; /* Keep it ultra-subtle so text stays highly readable */
+            pointer-events: none; /* Allows users to click through the noise layer */
+            z-index: 9999;
+            animation: noiseAnimation 0.2s infinite steps(4);
         }
 
-        ul {
-            list-style: none;
+        /* Rapid, microscopic shifting to give the noise a dynamic, analog feel */
+        @keyframes noiseAnimation {
+            0% { transform: translate(0,0); }
+            10% { transform: translate(-1%, -1%); }
+            20% { transform: translate(-2%, 1%); }
+            30% { transform: translate(1%, -2%); }
+            40% { transform: translate(-1%, 3%); }
+            50% { transform: translate(-2%, 1%); }
+            60% { transform: translate(1%, 2%); }
+            70% { transform: translate(2%, 1%); }
+            80% { transform: translate(-2%, -1%); }
+            90% { transform: translate(1%, 3%); }
+            100% { transform: translate(0, 0); }
         }
 
         /* --- LAYOUT STRUCTURE --- */
@@ -48,6 +72,8 @@
             max-width: 1000px;
             margin: 0 auto;
             padding: 2rem 1.5rem;
+            position: relative;
+            z-index: 1; /* Pushes content above background structure if needed */
         }
 
         header {
@@ -346,12 +372,10 @@
 
     <div class="container">
         
-        <!-- HEADER -->
         <header>
             <div style="font-weight: 600; letter-spacing: -0.02em;">GC.</div>
         </header>
 
-        <!-- HERO SECTION -->
         <section class="hero">
             <h1>Grayson Cantu</h1>
             <p>Technical Writer bridging the gap between complex architectural systems and human understanding through elegant, minimalist documentation.</p>
@@ -362,11 +386,9 @@
             </div>
         </section>
 
-        <!-- PORTFOLIO PROJECTS SECTION -->
         <section id="portfolio">
             <h2 class="section-title">Selected Work</h2>
             
-            <!-- Interactive Filters -->
             <div class="filter-container">
                 <button class="filter-btn active" data-filter="all">All Docs</button>
                 <button class="filter-btn" data-filter="api">API Ref</button>
@@ -374,7 +396,6 @@
                 <button class="filter-btn" data-filter="architecture">Architecture</button>
             </div>
 
-            <!-- Dynamic Project Grid -->
             <div class="project-grid">
                 
                 <div class="project-card" data-category="api" onclick="window.open('https://github.com/Graysoncantu', '_blank')">
@@ -416,14 +437,12 @@
             </div>
         </section>
 
-        <!-- EXPANDABLE RESUME SECTION -->
         <section id="experience">
             <h2 class="section-title">Experience Placeholder</h2>
             <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size:0.95rem;">Click to expand / collapse roles.</p>
             
             <div class="timeline">
                 
-                <!-- Item 1 -->
                 <div class="experience-item">
                     <div class="experience-header">
                         <div class="experience-title">
@@ -443,7 +462,6 @@
                     </div>
                 </div>
 
-                <!-- Item 2 -->
                 <div class="experience-item">
                     <div class="experience-header">
                         <div class="experience-title">
@@ -466,7 +484,6 @@
             </div>
         </section>
 
-        <!-- FOOTER / CONTACT -->
         <footer id="contact">
             <div class="contact-info">
                 <h2>Get in touch.</h2>
@@ -494,11 +511,10 @@
 
     </div>
 
-    <!-- INTERACTIVE JAVASCRIPT -->
     <script>
         // 1. Interactive Portfolio Grid Filtering
         const filterButtons = document.querySelectorAll('.filter-btn');
-        const projectCards = document.querySelectorAll('.project-card');
+        const projectCards = document.querySelectorAll('.project-grid .project-card');
 
         filterButtons.forEach(button => {
             button.addEventListener('click', () => {
@@ -532,4 +548,3 @@
     </script>
 </body>
 </html>
-
