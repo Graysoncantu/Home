@@ -3,523 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grayson Cantu | Technical Writer Portfolio</title>
+    <title>Grayson Cantu | Portfolio</title>
     <style>
-        /* --- DESIGN SYSTEM & VARIABLES --- */
         :root {
             --bg: #0a0a0a;
-            --surface: #121212;
-            --surface-accent: #1a1a1a;
-            --text: #f5f5f5;
-            --text-muted: #a0a0a0;
-            --border: #262626;
-            --accent: #ffffff;
-            --transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --sf: #121212;
+            --txt: #f5f5f5;
+            --mut: #a0a0a0;
+            --brd: #262626;
         }
-
-        /* --- RESET & BASE STYLES --- */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--txt);
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.5;
-            transition: var(--transition);
-            overflow-x: hidden;
             font-size: 0.95rem;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        ul {
-            list-style: none;
-        }
-
-        /* --- LAYOUT STRUCTURE --- */
-        .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 1rem 1.25rem;
+            padding: 2rem 1.25rem;
         }
-
-        header {
-            display: flex;
+        a { color: inherit; text-decoration: none; border-bottom: 1px dashed var(--mut); }
+        a:hover { color: #fff; border-bottom-style: solid; }
+        header, section, footer { margin-bottom: 3rem; }
+        h1 { font-size: 2.2rem; font-weight: 400; letter-spacing: -0.02em; margin-bottom: 1rem; }
+        .mut { color: var(--mut); }
+        .hero p { font-size: 1.1rem; max-width: 550px; margin-bottom: 1.5rem; }
+        .links { display: flex; gap: 1.25rem; font-size: 0.9rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+        .card { 
+            background: var(--sf); 
+            border: 1px solid var(--brd); 
+            padding: 1.5rem; 
+            display: flex; 
+            flex-direction: column; 
             justify-content: space-between;
-            align-items: center;
-            padding: 1.25rem 0;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 2.5rem;
         }
-
-        section {
-            margin-bottom: 3.5rem;
-            opacity: 0;
-            transform: translateY(15px);
-            animation: fadeInUp 0.6s ease forwards;
-        }
-
-        section:nth-child(2) { animation-delay: 0.15s; }
-        section:nth-child(3) { animation-delay: 0.3s; }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .section-title {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--text-muted);
-            margin-bottom: 1.25rem;
-            border-left: 2px solid var(--accent);
-            padding-left: 0.5rem;
-        }
-
-        /* --- HERO SECTION --- */
-        .hero h1 {
-            font-size: 2.2rem;
-            font-weight: 400;
-            letter-spacing: -0.02em;
-            line-height: 1.15;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            max-width: 550px;
-            margin-bottom: 1.5rem;
-        }
-
-        .meta-links {
-            display: flex;
-            gap: 1.25rem;
-            font-size: 0.9rem;
-        }
-
-        .meta-links a {
-            border-bottom: 1px dashed var(--text-muted);
-        }
-
-        .meta-links a:hover {
-            color: var(--accent);
-            border-bottom-style: solid;
-        }
-
-        /* --- INTERACTIVE PORTFOLIO/PROJECTS --- */
-        .filter-container {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            background: none;
-            border: 1px solid var(--border);
-            color: var(--text-muted);
-            padding: 0.3rem 0.75rem;
-            font-size: 0.75rem;
-            cursor: pointer;
-            transition: var(--transition);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .filter-btn.active, .filter-btn:hover {
-            border-color: var(--accent);
-            color: var(--text);
-            background-color: var(--surface-accent);
-        }
-
-        .project-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1rem;
-        }
-
-        @media (min-width: 600px) {
-            .project-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        .project-card {
-            background-color: var(--surface);
-            border: 1px solid var(--border);
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: var(--transition);
-            cursor: pointer;
-        }
-
-        .project-card:hover {
-            transform: translateY(-2px);
-            border-color: var(--accent);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-        }
-
-        .project-tag {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
-        }
-
-        .project-card h3 {
-            font-size: 1.15rem;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-        }
-
-        .project-card p {
-            font-size: 0.88rem;
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-            flex-grow: 1;
-        }
-
-        .project-link {
-            font-size: 0.85rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.2rem;
-            font-weight: 500;
-        }
-
-        .project-link::after {
-            content: " ↗";
-            font-size: 0.75rem;
-            transition: var(--transition);
-        }
-
-        .project-card:hover .project-link::after {
-            transform: translate(1px, -1px);
-        }
-
-        /* --- EXPANDABLE RESUME/EXPERIENCE SECTION --- */
-        .timeline {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .experience-item {
-            border: 1px solid var(--border);
-            background-color: var(--surface);
-        }
-
-        .experience-header {
-            padding: 1.25rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .experience-title h3 {
-            font-size: 1rem;
-            font-weight: 500;
-        }
-
-        .experience-title p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .experience-date {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            text-align: right;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .toggle-icon {
-            font-size: 0.75rem;
-            transition: var(--transition);
-        }
-
-        .experience-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.25s ease-out;
-            padding: 0 1.25rem;
-        }
-
-        .experience-content ul {
-            padding-bottom: 1.25rem;
-            list-style-type: square;
-            padding-left: 1.1rem;
-        }
-
-        .experience-content li {
-            font-size: 0.88rem;
-            color: var(--text-muted);
-            margin-bottom: 0.4rem;
-        }
-
-        .experience-item.active .toggle-icon {
-            transform: rotate(180deg);
-        }
-
-        .experience-item.active .experience-content {
-            max-height: 400px;
-            transition: max-height 0.4s ease-in;
-        }
-
-        /* --- CONTACT FOOTER --- */
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 2.5rem 0 1.5rem 0;
-            margin-top: 4.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        @media (min-width: 600px) {
-            footer {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-            }
-        }
-
-        .contact-info h2 {
-            font-size: 1.5rem;
-            font-weight: 400;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 0.75rem;
-        }
-
-        @media (min-width: 480px) {
-            .contact-grid {
-                grid-template-columns: repeat(3, auto);
-                gap: 1.75rem;
-            }
-        }
-
-        .contact-item span {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            display: block;
-        }
-
-        .contact-item a {
-            font-size: 0.95rem;
-            border-bottom: 1px solid transparent;
-        }
-
-        .contact-item a:hover {
-            border-bottom-color: var(--accent);
-        }
-
-        .copyright {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
+        .card:hover { border-color: #fff; }
+        .tag { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; }
+        .card h3 { font-size: 1.15rem; font-weight: 500; margin: 0.5rem 0; }
+        .card p { font-size: 0.88rem; margin-bottom: 1rem; }
+        .card a { border: none; font-size: 0.85rem; font-weight: 500; }
+        .card a::after { content: " ↗"; }
+        details { background: var(--sf); border: 1px solid var(--brd); margin-bottom: 0.75rem; }
+        summary { padding: 1.25rem; cursor: pointer; display: flex; justify-content: space-between; user-select: none; }
+        summary::-webkit-details-marker { display: none; }
+        .exp-meta { text-align: right; font-size: 0.85rem; }
+        details ul { padding: 0 1.25rem 1.25rem 2.5rem; font-size: 0.88rem; color: var(--mut); }
+        details li { margin-bottom: 0.4rem; }
+        footer { border-top: 1px solid var(--brd); padding-top: 2rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1.5rem; }
+        .c-grid { display: flex; flex-wrap: wrap; gap: 1.75rem; }
+        .c-item span { font-size: 0.75rem; text-transform: uppercase; display: block; color: var(--mut); }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <header style="font-weight: 600; font-size: 0.95rem; border-bottom: 1px solid var(--brd); padding-bottom: 1.25rem;">GC.</header>
+
+    <section class="hero">
+        <h1>Grayson Cantu</h1>
+        <p class="mut">Technical Writer bridging the gap between complex architectural systems and human understanding through elegant, minimalist documentation.</p>
+        <div class="links">
+            <a href="https://drive.google.com/file/d/1FL8EGQiNx-W4XICZ3l2bjkt9CWKUz4ib/view?usp=sharing" target="_blank" rel="noopener">Resume</a>
+            <a href="https://github.com/Graysoncantu" target="_blank" rel="noopener">GitHub</a>
+            <a href="mailto:graysonfabiancantu@icloud.com">Email</a>
+        </div>
+    </section>
+
+    <section>
+        <h2 style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--mut); margin-bottom: 1.25rem; border-left: 2px solid #fff; padding-left: 0.5rem;">Selected Work</h2>
+        <div class="grid">
+            <div class="card">
+                <div>
+                    <div class="tag mut">API Documentation</div>
+                    <h3>RESTful Service Specification</h3>
+                    <p class="mut">A comprehensive API reference manual built using OpenAPI 3.0 frameworks, mapping high-throughput financial microservices.</p>
+                </div>
+                <a href="https://github.com/Graysoncantu" target="_blank" rel="noopener">View Case Study</a>
+            </div>
+            <div class="card">
+                <div>
+                    <div class="tag mut">User Guides</div>
+                    <h3>Cloud Deployment Runbook</h3>
+                    <p class="mut">An interactive markdown-based onboarding engine reducing engineer environment configuration time by 40%.</p>
+                </div>
+                <a href="https://github.com/Graysoncantu" target="_blank" rel="noopener">View Repository</a>
+            </div>
+            <div class="card">
+                <div>
+                    <div class="tag mut">System Architecture</div>
+                    <h3>Distributed Systems Playbook</h3>
+                    <p class="mut">Deep-dive architecture walkthroughs explaining consensus mechanisms and horizontal database scaling models.</p>
+                </div>
+                <a href="https://github.com/Graysoncantu" target="_blank" rel="noopener">View Document</a>
+            </div>
+            <div class="card">
+                <div>
+                    <div class="tag mut">Guides / Docs-as-Code</div>
+                    <h3>CI/CD Documentation Pipeline</h3>
+                    <p class="mut">A technical design document detailing the automation of documentation linting and generation via GitHub Actions.</p>
+                </div>
+                <a href="https://github.com/Graysoncantu" target="_blank" rel="noopener">View Markdown</a>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2 style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--mut); margin-bottom: 0.5rem; border-left: 2px solid #fff; padding-left: 0.5rem;">Experience</h2>
+        <p class="mut" style="font-size:0.88rem; margin-bottom: 1.25rem;">Click to expand roles.</p>
         
-        <header>
-            <div style="font-weight: 600; letter-spacing: -0.02em; font-size: 0.95rem;">GC.</div>
-        </header>
-
-        <section class="hero">
-            <h1>Grayson Cantu</h1>
-            <p>Technical Writer bridging the gap between complex architectural systems and human understanding through elegant, minimalist documentation.</p>
-            <div class="meta-links">
-                <a href="https://drive.google.com/file/d/1FL8EGQiNx-W4XICZ3l2bjkt9CWKUz4ib/view?usp=sharing" target="_blank" rel="noopener">Resume</a>
-                <a href="https://github.com/Graysoncantu" target="_blank" rel="noopener">GitHub</a>
-                <a href="mailto:graysonfabiancantu@icloud.com">Email</a>
-            </div>
-        </section>
-
-        <section id="portfolio">
-            <h2 class="section-title">Selected Work</h2>
-            
-            <div class="filter-container">
-                <button class="filter-btn active" data-filter="all">All Docs</button>
-                <button class="filter-btn" data-filter="api">API Ref</button>
-                <button class="filter-btn" data-filter="guides">Guides</button>
-                <button class="filter-btn" data-filter="architecture">Architecture</button>
-            </div>
-
-            <div class="project-grid">
-                
-                <div class="project-card" data-category="api" onclick="window.open('https://github.com/Graysoncantu', '_blank')">
-                    <div>
-                        <div class="project-tag">API Documentation</div>
-                        <h3>RESTful Service Specification</h3>
-                        <p>A comprehensive API reference manual built using OpenAPI 3.0 frameworks, mapping high-throughput financial microservices.</p>
-                    </div>
-                    <span class="project-link">View Case Study</span>
+        <details>
+            <summary>
+                <div>
+                    <h3 style="font-size:1rem; font-weight:500;">Senior Technical Writer</h3>
+                    <p class="mut" style="font-size:0.85rem;">Tech Corp International</p>
                 </div>
+                <div class="exp-meta mut">2024 — Present<br>▼</div>
+            </summary>
+            <ul>
+                <li>Authored developer-facing platform SDK documentation across three distinct core codebases.</li>
+                <li>Implemented a Docs-as-Code ecosystem utilizing Markdown, Git, and automated static site generators.</li>
+                <li>Collaborated with product managers and engineers to build a cohesive internal wiki structure.</li>
+            </ul>
+        </details>
 
-                <div class="project-card" data-category="guides" onclick="window.open('https://github.com/Graysoncantu', '_blank')">
-                    <div>
-                        <div class="project-tag">User Guides</div>
-                        <h3>Cloud Deployment Runbook</h3>
-                        <p>An interactive markdown-based onboarding engine reducing engineer environment configuration time by 40%.</p>
-                    </div>
-                    <span class="project-link">View Repository</span>
+        <details>
+            <summary>
+                <div>
+                    <h3 style="font-size:1rem; font-weight:500;">Technical Communicator</h3>
+                    <p class="mut" style="font-size:0.85rem;">Software Solutions Inc.</p>
                 </div>
+                <div class="exp-meta mut">2022 — 2024<br>▼</div>
+            </summary>
+            <ul>
+                <li>Wrote and structured complex API references, tutorials, and configuration guides.</li>
+                <li>Standardized corporate style guides reducing document production lifecycle by 15%.</li>
+                <li>Managed continuous localization and versioning updates across major product releases.</li>
+            </ul>
+        </details>
+    </section>
 
-                <div class="project-card" data-category="architecture" onclick="window.open('https://github.com/Graysoncantu', '_blank')">
-                    <div>
-                        <div class="project-tag">System Architecture</div>
-                        <h3>Distributed Systems Playbook</h3>
-                        <p>Deep-dive architecture walkthroughs explaining consensus mechanisms and horizontal database scaling models.</p>
-                    </div>
-                    <span class="project-link">View Document</span>
-                </div>
+    <footer>
+        <div class="c-grid">
+            <div class="c-item"><span>Email</span><a href="mailto:graysonfabiancantu@icloud.com">graysonfabiancantu@icloud.com</a></div>
+            <div class="c-item"><span>Phone</span><a href="tel:7377701981">737-770-1981</a></div>
+            <div class="c-item"><span>GitHub</span><a href="https://github.com/Graysoncantu" target="_blank" rel="noopener">github.com/Graysoncantu</a></div>
+        </div>
+        <div class="mut" style="font-size: 0.75rem; align-self: flex-end;">&copy; 2026 Grayson Cantu</div>
+    </footer>
 
-                <div class="project-card" data-category="guides" onclick="window.open('https://github.com/Graysoncantu', '_blank')">
-                    <div>
-                        <div class="project-tag">Guides / Docs-as-Code</div>
-                        <h3>CI/CD Documentation Pipeline</h3>
-                        <p>A technical design document detailing the automation of documentation linting and generation via GitHub Actions.</p>
-                    </div>
-                    <span class="project-link">View Markdown</span>
-                </div>
-
-            </div>
-        </section>
-
-        <section id="experience">
-            <h2 class="section-title">Experience</h2>
-            <p style="color: var(--text-muted); margin-bottom: 1rem; font-size:0.88rem;">Click to expand / collapse roles.</p>
-            
-            <div class="timeline">
-                
-                <div class="experience-item">
-                    <div class="experience-header">
-                        <div class="experience-title">
-                            <h3>Senior Technical Writer</h3>
-                            <p>Tech Corp International</p>
-                        </div>
-                        <div class="experience-date">
-                            2024 — Present <span class="toggle-icon">▼</span>
-                        </div>
-                    </div>
-                    <div class="experience-content">
-                        <ul>
-                            <li>Authored developer-facing platform SDK documentation across three distinct core codebases.</li>
-                            <li>Implemented a Docs-as-Code ecosystem utilizing Markdown, Git, and automated static site generators.</li>
-                            <li>Collaborated with product managers and engineers to build a cohesive internal wiki structure.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="experience-item">
-                    <div class="experience-header">
-                        <div class="experience-title">
-                            <h3>Technical Communicator</h3>
-                            <p>Software Solutions Inc.</p>
-                        </div>
-                        <div class="experience-date">
-                            2022 — 2024 <span class="toggle-icon">▼</span>
-                        </div>
-                    </div>
-                    <div class="experience-content">
-                        <ul>
-                            <li>Wrote and structured complex API references, tutorials, and configuration guides.</li>
-                            <li>Standardized corporate style guides reducing document production lifecycle by 15%.</li>
-                            <li>Managed continuous localization and versioning updates across major product releases.</li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <footer id="contact">
-            <div class="contact-info">
-                <h2>Get in touch.</h2>
-            </div>
-            
-            <div class="contact-grid">
-                <div class="contact-item">
-                    <span>Email</span>
-                    <a href="mailto:graysonfabiancantu@icloud.com">graysonfabiancantu@icloud.com</a>
-                </div>
-                <div class="contact-item">
-                    <span>Phone</span>
-                    <a href="tel:7377701981">737-770-1981</a>
-                </div>
-                <div class="contact-item">
-                    <span>GitHub</span>
-                    <a href="https://github.com/Graysoncantu" target="_blank" rel="noopener">github.com/Graysoncantu</a>
-                </div>
-            </div>
-
-            <div class="copyright">
-                &copy; 2026 Grayson Cantu
-            </div>
-        </footer>
-
-    </div>
-
-    <script>
-        // 1. Interactive Portfolio Grid Filtering
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const projectCards = document.querySelectorAll('.project-card');
-
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-
-                const filterValue = button.getAttribute('data-filter');
-
-                projectCards.forEach(card => {
-                    const cardCategory = card.getAttribute('data-category');
-                    if (filterValue === 'all' || cardCategory === filterValue) {
-                        card.style.display = 'flex';
-                        card.style.opacity = '0';
-                        setTimeout(() => card.style.opacity = '1', 50);
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
-        });
-
-        // 2. Expandable Resume Timeline Accordion
-        const experienceHeaders = document.querySelectorAll('.experience-header');
-
-        experienceHeaders.forEach(header => {
-            header.addEventListener('click', () => {
-                const parent = header.parentElement;
-                parent.classList.toggle('active');
-            });
-        });
-    </script>
 </body>
 </html>
