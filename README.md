@@ -1,7 +1,7 @@
 ```markdown
 # Portfolio
 
-Welcome to my professional portfolio repository. This space serves as a central hub for my technical documentation, standard operating procedures (SOPs), and analytical summaries. 
+Welcome to my professional portfolio repository. This space serves as a central hub for all my samples. 
 
 The projects below highlight my ability to communicate complex technical concepts, optimize business operations, and deliver data-driven insights.
 
