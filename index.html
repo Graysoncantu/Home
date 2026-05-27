@@ -310,6 +310,7 @@
         .contact-grid {
             display: grid;
             grid-template-columns: 1fr;
+            gap: 11rem;
             gap: 1rem;
         }
 
@@ -356,9 +357,9 @@
             <h1>Grayson Cantu</h1>
             <p>Technical Writer bridging the gap between complex architectural systems and human understanding through elegant, minimalist documentation.</p>
             <div class="meta-links">
-                <a href="https://drive.google.com/file/d/1FL8EGQiNx-W4XICZ3l2bjkt9CWKUz4ib/view?usp=sharing" target="_blank" rel="noopener">Resume</a>
-                <a href="https://github.com/Graysoncantu" target="_blank" rel="noopener">GitHub</a>
-                <a href="mailto:graysonfabiancantu@icloud.com">Email</a>
+                <a href="https://drive.google.com/file/d/1FL8EGQiNx-W4XICZ3l2bjkt9CWKUz4ib/view?usp=sharing" target="_blank" rel="noopener" class="sound-link">Resume</a>
+                <a href="https://github.com/Graysoncantu" target="_blank" rel="noopener" class="sound-link">GitHub</a>
+                <a href="mailto:graysonfabiancantu@icloud.com" class="sound-link">Email</a>
             </div>
         </section>
 
@@ -475,15 +476,15 @@
             <div class="contact-grid">
                 <div class="contact-item">
                     <span>Email</span>
-                    <a href="mailto:graysonfabiancantu@icloud.com">graysonfabiancantu@icloud.com</a>
+                    <a href="mailto:graysonfabiancantu@icloud.com" class="sound-link">graysonfabiancantu@icloud.com</a>
                 </div>
                 <div class="contact-item">
                     <span>Phone</span>
-                    <a href="tel:7377701981">737-770-1981</a>
+                    <a href="tel:7377701981" class="sound-link">737-770-1981</a>
                 </div>
                 <div class="contact-item">
                     <span>GitHub</span>
-                    <a href="https://github.com/Graysoncantu" target="_blank" rel="noopener">github.com/Graysoncantu</a>
+                    <a href="https://github.com/Graysoncantu" target="_blank" rel="noopener" class="sound-link">github.com/Graysoncantu</a>
                 </div>
             </div>
 
@@ -496,6 +497,67 @@
 
     <!-- INTERACTIVE JAVASCRIPT -->
     <script>
+        // --- WEB AUDIO API ENGINE ---
+        // Generates organic minimalist UI synthetic audio accents
+        let audioCtx = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        // Clean high-passed click sound for text links
+        function playClickSound() {
+            initAudio();
+            if (!audioCtx) return;
+
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            osc.type = 'sine';
+            // Crisp, high-frequency micro-tone
+            osc.frequency.setValueAtTime(1200, audioCtx.currentTime); 
+            osc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.04);
+
+            gainNode.gain.setValueAtTime(0.08, audioCtx.currentTime); // Low volume profile
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
+
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.04);
+        }
+
+        // Deeper, smooth tone transition for container toggles
+        function playSlideSound(isOpen) {
+            initAudio();
+            if (!audioCtx) return;
+
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            osc.type = 'sine';
+            
+            // Pitch sweeps up if expanding, sweeps down if collapsing
+            const startFreq = isOpen ? 300 : 450;
+            const endFreq = isOpen ? 450 : 300;
+
+            osc.frequency.setValueAtTime(startFreq, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(endFreq, audioCtx.currentTime + 0.12);
+
+            gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.12);
+
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.12);
+        }
+
+
         // 1. Interactive Portfolio Grid Filtering
         const filterButtons = document.querySelectorAll('.filter-btn');
         const projectCards = document.querySelectorAll('.project-card');
@@ -520,13 +582,25 @@
             });
         });
 
-        // 2. Expandable Resume Timeline Accordion
+        // 2. Expandable Resume Timeline Accordion & Sounds
         const experienceHeaders = document.querySelectorAll('.experience-header');
 
         experienceHeaders.forEach(header => {
             header.addEventListener('click', () => {
                 const parent = header.parentElement;
                 parent.classList.toggle('active');
+                
+                // Track state to alter tone pitch directionally
+                const isOpen = parent.classList.contains('active');
+                playSlideSound(isOpen);
+            });
+        });
+
+        // 3. Attach Audio Triggers to Specified Essential Links
+        const targetLinks = document.querySelectorAll('.sound-link');
+        targetLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                playClickSound();
             });
         });
     </script>
