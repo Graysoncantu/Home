@@ -3,434 +3,311 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grayson Cantu | Technical Writer</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.292.0/umd/lucide.min.js"></script>
+    <title>Grayson Fabian Cantu | Technical Writer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --bg: #0a0a0a;
-            --surface: #121212;
-            --surface-hover: #1a1a1a;
-            --border: #262626;
+            --bg-color: #0a0a0a;
+            --card-bg: #121212;
+            --border-color: #222222;
             --text-primary: #f5f5f5;
-            --text-secondary: #a3a3a3;
-            --text-muted: #666666;
+            --text-secondary: #8f8f8f;
+            --accent: #ffffff;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
         }
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
-            background-color: var(--bg);
+            background-color: var(--bg-color);
             color: var(--text-primary);
+            font-family: var(--font-sans);
             line-height: 1.6;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--border);
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--text-muted);
+        /* Custom subtle radial gradient that follows the mouse */
+        .glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: radial-gradient(circle 600px at var(--x, 0px) var(--y, 0px), rgba(255,255,255,0.03), transparent 80%);
+            z-index: 1;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 4rem 2rem;
+            padding: 80px 24px;
+            position: relative;
+            z-index: 2;
         }
 
-        /* Header / Hero */
+        /* Header / Profile Section */
         header {
-            margin-bottom: 5rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeIn 0.8s ease forwards;
-        }
-
-        /* Profile Block Layout */
-        .profile-block {
             display: flex;
             align-items: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
+            gap: 32px;
+            margin-bottom: 80px;
         }
 
-        .profile-text {
-            flex: 1;
-        }
-
-        /* Aesthetic Profile Photo */
-        .profile-photo {
+        .profile-img {
             width: 100px;
             height: 100px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid var(--border);
-            filter: grayscale(100%);
-            transition: all 0.4s ease;
+            filter: grayscale(100%) contrast(110%);
+            border: 1px solid var(--border-color);
+            transition: filter 0.3s ease;
         }
 
-        .profile-photo:hover {
-            filter: grayscale(0%);
-            border-color: var(--text-primary);
-            transform: scale(1.03);
+        .profile-img:hover {
+            filter: grayscale(0%) contrast(100%);
         }
 
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 500;
+        .header-text h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
             letter-spacing: -0.03em;
-            margin-bottom: 0.25rem;
+            margin-bottom: 4px;
         }
 
-        .subtitle {
+        .header-text p {
+            font-family: var(--font-mono);
             color: var(--text-secondary);
-            font-size: 1.1rem;
-        }
-
-        /* Contact Badges */
-        .contact-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .contact-card {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-        }
-
-        .contact-card:hover {
-            background: var(--surface-hover);
-            color: var(--text-primary);
-            border-color: var(--text-muted);
-            transform: translateY(-2px);
-        }
-
-        .contact-card i {
-            width: 16px;
-            height: 16px;
+            font-size: 0.95rem;
         }
 
         /* Sections */
         section {
-            margin-bottom: 5rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeIn 0.8s ease forwards 0.2s;
+            margin-bottom: 64px;
         }
 
         h2 {
+            font-family: var(--font-mono);
             font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: var(--text-muted);
-            margin-bottom: 2rem;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 0.5rem;
+            letter-spacing: 0.15em;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
         }
 
-        /* Interactive Work Grid */
-        .work-grid {
+        .about-text {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 700px;
+        }
+
+        .about-text strong {
+            color: var(--text-primary);
+            font-weight: 400;
+        }
+
+        /* Projects/Portfolio Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: inherit;
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            justify-content: space-between;
+            transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
         }
 
-        .project-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
+        .card:hover {
+            border-color: #444;
+            background: #161616;
+            transform: translateY(-2px);
         }
 
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 2px;
-            height: 100%;
-            background: var(--text-primary);
-            transform: scaleY(0);
-            transition: transform 0.3s ease;
-        }
-
-        .project-card:hover {
-            transform: translateX(4px);
-            background: var(--surface-hover);
-            border-color: var(--text-muted);
-        }
-
-        .project-card:hover::before {
-            transform: scaleY(1);
-        }
-
-        .project-header {
+        .card-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 0.5rem;
+            margin-bottom: 12px;
         }
 
-        .project-title {
-            font-size: 1.1rem;
-            font-weight: 500;
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
         }
 
-        .project-tag {
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .meta {
+            font-family: var(--font-mono);
             font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-            background: rgba(255,255,255,0.03);
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            border: 1px solid var(--border);
-        }
-
-        .project-desc {
             color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-        }
-
-        /* Hidden detailed view that toggles open */
-        .project-details {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            border-top: 0px solid var(--border);
-            padding-top: 0;
-        }
-
-        .project-card.active .project-details {
-            max-height: 200px;
-            border-top: 1px solid var(--border);
-            padding-top: 1rem;
-            margin-top: 1rem;
-        }
-
-        .project-details ul {
-            list-style-type: none;
-            padding-left: 0.5rem;
-        }
-
-        .project-details li {
-            margin-bottom: 0.25rem;
             display: flex;
+            gap: 12px;
+        }
+
+        .arrow {
+            font-family: var(--font-mono);
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover .arrow {
+            transform: translate(2px, -2px);
+        }
+
+        /* Contact Section */
+        .links-list {
+            list-style: none;
+        }
+
+        .links-list li {
+            margin-bottom: 12px;
+        }
+
+        .contact-link {
+            font-family: var(--font-mono);
+            color: var(--text-primary);
+            text-decoration: none;
+            display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-        }
-
-        .project-details li::before {
-            content: "→";
-            color: var(--text-muted);
-        }
-
-        /* Skills/Capabilities List */
-        .skills-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-
-        .skill-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            color: var(--text-secondary);
+            gap: 12px;
             font-size: 0.95rem;
+            transition: color 0.2s ease;
         }
 
-        .skill-item i {
-            color: var(--text-muted);
-            width: 16px;
-            height: 16px;
+        .contact-link:hover {
+            color: var(--text-secondary);
         }
 
-        /* Footer */
-        footer {
-            margin-top: 8rem;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            letter-spacing: 0.05em;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .link-label {
+            color: var(--text-secondary);
+            width: 80px;
+            display: inline-block;
         }
 
         @media (max-width: 600px) {
-            .container {
-                padding: 2rem 1rem;
-            }
-            .profile-block {
-                flex-direction: column-reverse;
-                align-items: flex-start;
-                gap: 1.5rem;
-            }
-            .profile-photo {
-                width: 80px;
-                height: 80px;
-            }
-            h1 {
-                font-size: 2rem;
-            }
-            .contact-grid {
+            header {
                 flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
             }
-            .contact-card {
-                width: 100%;
+            .container {
+                padding: 48px 16px;
             }
         }
     </style>
 </head>
 <body>
 
+    <div class="glow"></div>
+
     <div class="container">
+        
         <header>
-            <div class="profile-block">
-                <div class="profile-text">
-                    <h1>Grayson Cantu</h1>
-                    <p class="subtitle">Technical Writer & Information Architect</p>
-                </div>
-                <img src="IMG_1752.jpeg" alt="Grayson Cantu" class="profile-photo">
-            </div>
-            
-            <div class="contact-grid">
-                <a href="mailto:graysonfabiancantu@iCloud.com" class="contact-card">
-                    <i data-lucide="mail"></i>
-                    graysonfabiancantu@iCloud.com
-                </a>
-                <a href="tel:7377701981" class="contact-card">
-                    <i data-lucide="phone"></i>
-                    (737) 770-1981
-                </a>
-                <a href="https://github.com/Graysoncantu" target="_blank" rel="noopener noreferrer" class="contact-card">
-                    <i data-lucide="github"></i>
-                    github.com/Graysoncantu
-                </a>
+            <img class="profile-img" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAFA3PEY8OF5GQE9HWF5iildgbWZmbKJuonN0d36XgHB6e3uWf6WRmZiep3u2f7mepKy4vLy8un64vL64vL64vL7/2wBDARYXF2FhYpJiYpKykoKSsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrL/wAARCADIAXADASIAAhEBAxEB/8QAGQABAQEBAQEAAAAAAAAAAAAAAAIBAwQF/8QALhABAQEAAgECAwYGAwEAAAAAAAERAQISAyExBCNBEzJRUmGBFCIzQnGRscFD/8QAFwEBAQEBAAAAAAAAAAAAAAAAAAECA//EABgRAQEBAQEAAAAAAAAAAAAAAAABEVEx/9oADAMBAAIRAxEAPwD54CgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoA9HAADmZfUfS/gOf9m86+eZfqg/O06+R9L738Bz/ALN5188y/UzX2PvfY+/6TfPqevwXpTf4GfH9pPiv4vPrX/h8P/69E4+fX0/3X9V7v0V4b9E/13/ofV/onwTfP/uF4P306u03wN9L9t/E0/YfN/wCT5F6U36L9k/X+p/8AXv6T99v6b/bM8E3w/wC0S/Q/C79V+D6T996U36H0Xv8Ahv0X+ufrqevwnvN/gfVfhN6X7b5P6/ZftP3O/G3U+b/fdfEeqv8ACvOfhPlfO/A/Wz4HOnxXrfL/ALwPrfc/GvNfB/VfwF8O/S/G9f4T599U+6u+P7qenw3w+86fK9Fv9u/1M8N8H1S6fSfrG/w37v0X4N9X7fWf8P8G9X+K/3GfXN6TfBPqem/L/S/OenPuvU+b/fOnd3m9G+M8E6v29/G9H7e/g+S9K+G6XovivXv76709/F/p/9fP9U6fU+r8G+f6YmffvqvQ/Y/7Bfevv6r0X1O7m6Z9e07uLzR3c2m6PZvdPdzaO7i6nuzZru5unfDq4tW9p7nd69U6mN6mNzfDq4uzfDq4uO3S9O9Onu3vDq906unY7vXqnU7vXqnZ3ep1Ozu9TsnZ3OidizU6O9OnY6p2Tq9Tqd06PU7u6dndOj1O69U7idR6nd2TqdE7idU6u6Z1TqnXudW9idXp3E6vTp7idUvV69u6nd2erO7idXp09292epndOj16dndOydXqd06OidXZ7t7idXT3OidkzU6p2TMTqnUzZmd0zU6JnUzZidU6PZvdnUydXb3Nmd06nVOru9mdXN6Tq9Zf/9k=" alt="Grayson Fabian Cantu">
+            <div class="header-text">
+                <h1>Grayson Fabian Cantu</h1>
+                <p>Technical Writer & Documentation Engineer</p>
             </div>
         </header>
 
-        <section id="work">
-            <h2>Selected Documentation</h2>
-            <div class="work-grid">
+        <section>
+            <h2>About</h2>
+            <p class="about-text">
+                I bridge the gap between complex engineering architectures and human understanding. Focusing on <strong>minimalist design</strong>, structural clarity, and comprehensive API documentation.
+            </p>
+        </section>
+
+        <section>
+            <h2>Selected Work</h2>
+            <div class="grid">
                 
-                <div class="project-card" onclick="toggleDetails(this)">
-                    <div class="project-header">
-                        <div class="project-title">API Reference Architecture</div>
-                        <span class="project-tag">OpenAPI / Swagger</span>
+                <a href="#" class="card">
+                    <div>
+                        <div class="card-header">
+                            <h3>API Reference Architecture</h3>
+                            <span class="arrow">↗</span>
+                        </div>
+                        <p>A complete redesign of a developer-facing REST & GraphQL API library, reducing onboarding friction by 40%.</p>
                     </div>
-                    <p class="project-desc">Designed and documented a comprehensive REST API infrastructure for high-throughput data pipelines.</p>
-                    <div class="project-details">
-                        <ul>
-                            <li>Authored complete endpoints, payloads, and error-handling schemas.</li>
-                            <li>Reduced onboarding friction for external developers by 40%.</li>
-                            <li>Implemented docs-as-code workflow integrated into CI/CD pipelines.</li>
-                        </ul>
+                    <div class="meta">
+                        <span>Markdown</span>
+                        <span>OpenAPI</span>
+                        <span>Next.js</span>
                     </div>
-                </div>
+                </a>
 
-                <div class="project-card" onclick="toggleDetails(this)">
-                    <div class="project-header">
-                        <div class="project-title">Enterprise Deployment Guides</div>
-                        <span class="project-tag">Markdown / Git</span>
+                <a href="#" class="card">
+                    <div>
+                        <div class="card-header">
+                            <h3>Distributed Systems Playbook</h3>
+                            <span class="arrow">↗</span>
+                        </div>
+                        <p>Internal infrastructure runbooks and disaster recovery runbooks constructed alongside DevOps teams.</p>
                     </div>
-                    <p class="project-desc">Step-by-step technical orchestration workflows tailored for DevOps and System Administrators.</p>
-                    <div class="project-details">
-                        <ul>
-                            <li>Detailed multi-cloud infrastructure setups (AWS / GCP).</li>
-                            <li>Created configuration manifests and error troubleshooting matrixes.</li>
-                            <li>Standardized styling guidelines for cross-functional engineering teams.</li>
-                        </ul>
+                    <div class="meta">
+                        <span>Sphinx</span>
+                        <span>RST</span>
+                        <span>AWS</span>
                     </div>
-                </div>
-
-                <div class="project-card" onclick="toggleDetails(this)">
-                    <div class="project-header">
-                        <div class="project-title">Internal Knowledge Base Migration</div>
-                        <span class="project-tag">Information Architecture</span>
-                    </div>
-                    <p class="project-desc">Audited and overhauled legacy engineering Wikis into a modern, discoverable taxonomy.</p>
-                    <div class="project-details">
-                        <ul>
-                            <li>Restructured content hierarchy based on internal user-experience data.</li>
-                            <li>Migrated over 300+ legacy articles into unified Markdown structures.</li>
-                            <li>Established search-optimization tags to speed up developer lookup times.</li>
-                        </ul>
-                    </div>
-                </div>
+                </a>
 
             </div>
         </section>
 
-        <section id="capabilities">
-            <h2>Capabilities & Tooling</h2>
-            <div class="skills-list">
-                <div class="skill-item"><i data-lucide="file-text"></i> Docs-as-Code Workflow</div>
-                <div class="skill-item"><i data-lucide="terminal"></i> Markdown / MDX / ReST</div>
-                <div class="skill-item"><i data-lucide="git-branch"></i> Git & Version Control</div>
-                <div class="skill-item"><i data-lucide="code-2"></i> API Documentation</div>
-                <div class="skill-item"><i data-lucide="layers"></i> Information Architecture</div>
-                <div class="skill-item"><i data-lucide="settings"></i> Static Site Generators</div>
-            </div>
+        <section>
+            <h2>Connect</h2>
+            <ul class="links-list">
+                <li>
+                    <a href="mailto:graysonfabiancantu@iCloud.com" class="contact-link">
+                        <span class="link-label">Email</span> graysonfabiancantu@iCloud.com
+                    </a>
+                </li>
+                <li>
+                    <a href="tel:7377701981" class="contact-link">
+                        <span class="link-label">Phone</span> +1 (737) 770-1981
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/Graysoncantu" target="_blank" class="contact-link">
+                        <span class="link-label">GitHub</span> github.com/Graysoncantu
+                    </a>
+                </li>
+            </ul>
         </section>
 
-        <footer>
-            <p>© 2026 GRAYSON CANTU. ALL RIGHTS RESERVED.</p>
-        </footer>
     </div>
 
     <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
-
-        // Expandable Project Cards Functionality
-        function toggleDetails(card) {
-            const isActive = card.classList.contains('active');
-            
-            document.querySelectorAll('.project-card').forEach(c => {
-                c.classList.remove('active');
-            });
-
-            if (!isActive) {
-                card.classList.add('active');
-            }
-        }
+        const glow = document.querySelector('.glow');
+        window.addEventListener('mousemove', (e) => {
+            glow.style.setProperty('--x', `${e.clientX}px`);
+            glow.style.setProperty('--y', `${e.clientY}px`);
+        });
     </script>
 </body>
 </html>
