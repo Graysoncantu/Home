@@ -4,19 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grayson Fabian Cantu | Technical Writer</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-    
     <style>
         :root {
-            --bg-color: #080808;
-            --card-bg: #101010;
-            --border-color: #1c1c1c;
-            --text-primary: #e5e5e5;
-            --text-secondary: #737373;
-            --font-sans: 'Plus Jakarta Sans', sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
+            --bg-color: #0a0a0a;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --accent: #ffffff;
+            --border-color: #222222;
+            --hover-bg: #161616;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         * {
@@ -28,259 +24,309 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-primary);
-            font-family: var(--font-sans);
-            line-height: 1.5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
         }
 
-        .glow {
+        /* Noise overlay for texture */
+        body::before {
+            content: "";
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            opacity: 0.02;
             pointer-events: none;
-            background: radial-gradient(circle 500px at var(--x, 0px) var(--y, 0px), rgba(255,255,255,0.02), transparent 80%);
-            z-index: 1;
+            z-index: 9999;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
         .container {
-            max-width: 680px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 60px 20px;
-            position: relative;
-            z-index: 2;
+            padding: 4rem 2rem;
         }
 
+        /* Header / Nav */
         header {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 48px;
-        }
-
-        .profile-img {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            object-fit: cover;
-            filter: grayscale(100%) contrast(110%);
-            border: 1px solid var(--border-color);
-        }
-
-        .header-text h1 {
-            font-size: 1.35rem;
-            font-weight: 500;
-            letter-spacing: -0.02em;
-            margin-bottom: 2px;
-        }
-
-        .header-text p {
-            font-family: var(--font-mono);
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-        }
-
-        section {
-            margin-bottom: 40px;
-        }
-
-        h2 {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-secondary);
-            margin-bottom: 16px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 6px;
-        }
-
-        .about-text {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            max-width: 600px;
-        }
-
-        .about-text strong {
-            color: var(--text-primary);
-            font-weight: 400;
-        }
-
-        .grid {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 16px;
-            border-radius: 4px;
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: column;
-            transition: border-color 0.2s ease, background 0.2s ease;
-        }
-
-        .card:hover {
-            border-color: #333;
-            background: #141414;
-        }
-
-        .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 4px;
+            margin-bottom: 8rem;
         }
 
-        .card h3 {
-            font-size: 0.95rem;
+        .logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: -0.05em;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-left: 2rem;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--text-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-bottom: 8rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
             font-weight: 500;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 2rem;
         }
 
-        .card p {
+        .hero p {
+            font-size: 1.25rem;
             color: var(--text-secondary);
-            font-size: 0.85rem;
-            margin-bottom: 12px;
+            max-width: 600px;
         }
 
-        .meta {
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
+        /* Section Layout */
+        section {
+            margin-bottom: 8rem;
+        }
+
+        .section-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
             color: var(--text-secondary);
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        /* Interactive Project/Writing Feed */
+        .work-item {
             display: flex;
-            gap: 12px;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            color: inherit;
         }
 
-        .arrow {
-            font-family: var(--font-mono);
+        .work-item:hover {
+            padding-left: 1rem;
+            background-color: var(--hover-bg);
+        }
+
+        .work-details {
+            max-width: 70%;
+        }
+
+        .work-title {
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+
+        .work-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .work-meta {
+            text-align: right;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Contact / Footer */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-card {
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            transition: var(--transition);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .contact-card:hover {
+            border-color: var(--accent);
+            background-color: var(--hover-bg);
+        }
+
+        .contact-label {
             font-size: 0.8rem;
             color: var(--text-secondary);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
         }
 
-        .links-list {
-            list-style: none;
+        .contact-value {
+            font-size: 1.1rem;
+            word-break: break-all;
         }
 
-        .links-list li {
-            margin-bottom: 8px;
-        }
-
-        .contact-link {
-            font-family: var(--font-mono);
-            color: var(--text-primary);
-            text-decoration: none;
-            display: inline-flex;
+        footer {
+            margin-top: 8rem;
             font-size: 0.85rem;
-        }
-
-        .contact-link:hover {
-            text-decoration: underline;
-        }
-
-        .link-label {
             color: var(--text-secondary);
-            width: 70px;
-            display: inline-block;
+            display: flex;
+            justify-content: space-between;
         }
 
-        @media (max-width: 480px) {
-            header {
-                gap: 16px;
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
             }
-            .container {
-                padding: 40px 16px;
+            .work-item {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .work-details {
+                max-width: 100%;
+            }
+            .work-meta {
+                text-align: left;
+            }
+            header {
+                margin-bottom: 4rem;
+            }
+            section {
+                margin-bottom: 4rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="glow"></div>
-
     <div class="container">
-        
         <header>
-            <img class="profile-img" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAFA3PEY8OF5GQE9HWF5iildgbWZmbKJuonN0d36XgHB6e3uWf6WRmZiep3u2f7mepKy4vLy8un64vL64vL64vL64vL7/2wBDARYXF2FhYpJiYpKykoKSsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrL/wAARCADIAXADASIAAhEBAxEB/8QAGQABAQEBAQEAAAAAAAAAAAAAAAIBAwQF/8QALhABAQEAAgECAwYGAwEAAAAAAAERAQISAyExBCNBEzJRUmGBFCIzQnGRscFD/8QAFwEBAQEBAAAAAAAAAAAAAAAAAAECA//EABgRAQEBAQEAAAAAAAAAAAAAAAABEVEx/9oADAMBAAIRAxEAPwD54CgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoA9HAADmZfUfS/gOf9m86+eZfqg/O06+R9L738Bz/ALN5188y/UzX2PvfY+/6TfPqevwXpTf4GfH9pPiv4vPrX/h8P/69E4+fX0/3X9V7v0V4b9E/13/ofV/onwTfP/uF4P306u03wN9L9t/E0/YfN/wCT5F6U36L9k/X+p/8AXv6T99v6b/bM8E3w/wC0S/Q/C79V+D6T996U36H0Xv8Ahv0X+ufrqevwnvN/gfVfhN6X7b5P6/ZftP3O/G3U+b/fdfEeqv8ACvOfhPlfO/A/Wz4HOnxXrfL/ALwPrfc/GvNfB/VfwF8O/S/G9f4T599U+6u+P7qenw3w+86fK9Fv9u/1M8N8H1S6fSfrG/w37v0X4N9X7fWf8P8G9X+K/3GfXN6TfBPqem/L/S/OenPuvU+b/fOnd3m9G+M8E6v29/G9H7e/g+S9K+G6XovivXv76709/F/p/9fP9U6fU+r8G+f6YmffvqvQ/Y/7Bfevv6r0X1O7m6Z9e07uLzR3c2m6PZvdPdzaO7i6nuzZru5unfDq4tW9p7nd69U6mN6mNzfDq4uzfDq4uO3S9O9Onu3vDq906unY7vXqnU7vXqnZ3ep1Ozu9TsnZ3OidizU6O9OnY6p2Tq9Tqd06PU7u6dndOj1O69U7idR6nd2TqdE7idU6u6Z1TqnXudW9idXp3E6vTp7idUvV69u6nd2erO7idXp09292epndOj16dndOydXqd06OidXZ7t7idXT3OidkzU6p2TMTqnUzZmd0zU6JnUzZidU6PZvdnUydXb3Nmd06nVOru9mdXN6Tq9Zf/9k=" alt="Grayson Fabian Cantu">
-            <div class="header-text">
-                <h1>Grayson Fabian Cantu</h1>
-                <p>Technical Writer & Documentation Engineer</p>
-            </div>
+            <a href="#" class="logo">GFC.</a>
+            <nav>
+                <a href="#work">Work</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
         </header>
 
-        <section>
-            <h2>About</h2>
-            <p class="about-text">
-                I bridge the gap between complex engineering architectures and human understanding. Focusing on <strong>minimalist design</strong>, structural clarity, and comprehensive API documentation.
-            </p>
-        </section>
+        <main>
+            <section class="hero">
+                <h1>Grayson Fabian Cantu</h1>
+                <p>Technical Writer. Bridging the gap between complex engineering architectures and human understanding through precise, elegant documentation.</p>
+            </section>
 
-        <section>
-            <h2>Selected Work</h2>
-            <div class="grid">
+            <section id="work">
+                <div class="section-title">Selected Documentation</div>
                 
-                <a href="#" class="card">
-                    <div class="card-header">
-                        <h3>API Reference Architecture</h3>
-                        <span class="arrow">↗</span>
+                <a href="#" class="work-item">
+                    <div class="work-details">
+                        <div class="work-title">API Reference Architecture</div>
+                        <div class="work-desc">Comprehensive developer documentation for a distributed microservices platform, focusing on low-latency endpoints.</div>
                     </div>
-                    <p>A complete redesign of a developer-facing REST & GraphQL API library, reducing onboarding friction by 40%.</p>
-                    <div class="meta">
-                        <span>Markdown</span>
-                        <span>OpenAPI</span>
-                        <span>Next.js</span>
+                    <div class="work-meta">
+                        <div>Guide</div>
+                        <div>2026</div>
                     </div>
                 </a>
 
-                <a href="#" class="card">
-                    <div class="card-header">
-                        <h3>Distributed Systems Playbook</h3>
-                        <span class="arrow">↗</span>
+                <a href="#" class="work-item">
+                    <div class="work-details">
+                        <div class="work-title">CI/CD Pipeline Integration</div>
+                        <div class="work-desc">A step-by-step tutorial series reducing developer onboarding time from days to minutes.</div>
                     </div>
-                    <p>Internal infrastructure runbooks and disaster recovery runbooks constructed alongside DevOps teams.</p>
-                    <div class="meta">
-                        <span>Sphinx</span>
-                        <span>RST</span>
-                        <span>AWS</span>
+                    <div class="work-meta">
+                        <div>Tutorial</div>
+                        <div>2025</div>
                     </div>
                 </a>
 
-            </div>
-        </section>
+                <a href="#" class="work-item">
+                    <div class="work-details">
+                        <div class="work-title">Internal Engineering Wiki</div>
+                        <div class="work-desc">Rethinking knowledge management and information architecture for scaling engineering organizations.</div>
+                    </div>
+                    <div class="work-meta">
+                        <div>Case Study</div>
+                        <div>2025</div>
+                    </div>
+                </a>
+            </section>
 
-        <section>
-            <h2>Connect</h2>
-            <ul class="links-list">
-                <li>
-                    <a href="mailto:graysonfabiancantu@iCloud.com" class="contact-link">
-                        <span class="link-label">Email</span> graysonfabiancantu@iCloud.com
-                    </a>
-                </li>
-                <li>
-                    <a href="tel:7377701981" class="contact-link">
-                        <span class="link-label">Phone</span> +1 (737) 770-1981
-                    </a>
-                </li>
-                <li>
-                    <a href="https://github.com/Graysoncantu" target="_blank" class="contact-link">
-                        <span class="link-label">GitHub</span> github.com/Graysoncantu
-                    </a>
-                </li>
-            </ul>
-        </section>
+            <section id="about">
+                <div class="section-title">Philosophy</div>
+                <p style="font-size: 1.4rem; font-weight: 300; max-width: 750px; color: #e0e0e0;">
+                    Good documentation is fundamentally great user experience design. I believe in eliminating cognitive load, enforcing strict semantic consistency, and treating documentation with the same rigor as clean code.
+                </p>
+            </section>
 
+            <section id="contact">
+                <div class="section-title">Connect</div>
+                <div class="contact-grid">
+                    <a href="mailto:graysonfabiancantu@iCloud.com" class="contact-card">
+                        <div class="contact-label">Email</div>
+                        <div class="contact-value">graysonfabiancantu@iCloud.com</div>
+                    </a>
+                    
+                    <a href="tel:7377701981" class="contact-card">
+                        <div class="contact-label">Phone</div>
+                        <div class="contact-value">+1 (737) 770-1981</div>
+                    </a>
+
+                    <a href="https://github.com/Graysoncantu" target="_blank" class="contact-card">
+                        <div class="contact-label">GitHub</div>
+                        <div class="contact-value">github.com/Graysoncantu</div>
+                    </a>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div>© 2026 Grayson Fabian Cantu</div>
+            <div>Built with precision.</div>
+        </footer>
     </div>
 
     <script>
-        const glow = document.querySelector('.glow');
-        window.addEventListener('mousemove', (e) => {
-            glow.style.setProperty('--x', `${e.clientX}px`);
-            glow.style.setProperty('--y', `${e.clientY}px`);
+        // Smooth scroll interaction for navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Subtle entry interaction for a premium feel
+        document.addEventListener("DOMContentLoaded", () => {
+            const elements = document.querySelectorAll('.hero, section, footer');
+            elements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, 150 * index);
+            });
         });
     </script>
 </body>
