@@ -23,9 +23,9 @@
             margin: 0 auto;
             padding: 2rem 1.25rem;
         }
-        a { color: inherit; text-decoration: none; border-bottom: 1px dashed var(--mut); }
-        a:hover { color: #fff; border-bottom-style: solid; }
-        header, section, footer { margin-bottom: 3rem; }
+        a { color: inherit; text-decoration: none; border-bottom: 1px dashed var(--mut); transition: all 0.2s ease; }
+        a:hover { color: #fff; border-bottom-style: solid; border-bottom-color: #fff; }
+        header, section { margin-bottom: 3.5rem; }
         h1 { font-size: 2.2rem; font-weight: 400; letter-spacing: -0.02em; margin-bottom: 1rem; }
         .mut { color: var(--mut); }
         .hero p { font-size: 1.1rem; max-width: 550px; margin-bottom: 1.5rem; }
@@ -38,6 +38,7 @@
             display: flex; 
             flex-direction: column; 
             justify-content: space-between;
+            transition: all 0.2s ease;
         }
         .card:hover { border-color: #fff; }
         .tag { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; }
@@ -51,9 +52,24 @@
         .exp-meta { text-align: right; font-size: 0.85rem; }
         details ul { padding: 0 1.25rem 1.25rem 2.5rem; font-size: 0.88rem; color: var(--mut); }
         details li { margin-bottom: 0.4rem; }
-        footer { border-top: 1px solid var(--brd); padding-top: 2rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1.5rem; }
-        .c-grid { display: flex; flex-wrap: wrap; gap: 1.75rem; }
-        .c-item span { font-size: 0.75rem; text-transform: uppercase; display: block; color: var(--mut); }
+
+        /* --- REDESIGNED FOOTER SECTION --- */
+        footer { 
+            border-top: 1px solid var(--brd); 
+            padding-top: 3rem; 
+            margin-top: 5rem;
+            display: grid; 
+            grid-template-columns: 1fr;
+            gap: 2.5rem; 
+        }
+        @media (min-width: 600px) {
+            footer { grid-template-columns: 1fr 2fr; gap: 1.5rem; }
+        }
+        .f-cta h2 { font-size: 1.5rem; font-weight: 400; letter-spacing: -0.01em; margin-bottom: 0.5rem; }
+        .c-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; }
+        .c-item span { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; display: block; color: var(--mut); margin-bottom: 0.25rem; }
+        .c-item a { font-size: 0.9rem; }
+        .copyright { grid-column: 1 / -1; border-top: 1px solid #161616; padding-top: 1.5rem; font-size: 0.75rem; color: var(--mut); display: flex; justify-content: space-between; }
     </style>
 </head>
 <body>
@@ -144,12 +160,28 @@
     </section>
 
     <footer>
-        <div class="c-grid">
-            <div class="c-item"><span>Email</span><a href="mailto:graysonfabiancantu@icloud.com">graysonfabiancantu@icloud.com</a></div>
-            <div class="c-item"><span>Phone</span><a href="tel:7377701981">737-770-1981</a></div>
-            <div class="c-item"><span>GitHub</span><a href="https://github.com/Graysoncantu" target="_blank" rel="noopener">github.com/Graysoncantu</a></div>
+        <div class="f-cta">
+            <h2>Let's connect.</h2>
+            <p class="mut" style="font-size: 0.88rem;">Open to technical writing and documentation strategy opportunities.</p>
         </div>
-        <div class="mut" style="font-size: 0.75rem; align-self: flex-end;">&copy; 2026 Grayson Cantu</div>
+        <div class="c-grid">
+            <div class="c-item">
+                <span>Email</span>
+                <a href="mailto:graysonfabiancantu@icloud.com">graysonfabiancantu@icloud.com</a>
+            </div>
+            <div class="c-item">
+                <span>Phone</span>
+                <a href="tel:7377701981">737-770-1981</a>
+            </div>
+            <div class="c-item">
+                <span>GitHub</span>
+                <a href="https://github.com/Graysoncantu" target="_blank" rel="noopener">github.com/Graysoncantu</a>
+            </div>
+        </div>
+        <div class="copyright">
+            <span>&copy; 2026 Grayson Cantu</span>
+            <span style="color: #333;">Built with simplicity</span>
+        </div>
     </footer>
 
 </body>
