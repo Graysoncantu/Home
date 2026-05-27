@@ -3,212 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grayson Fabian Cantu | Technical Writer</title>
+    <title>Grayson Cantu | Technical Writer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.292.0/umd/lucide.min.js"></script>
     <style>
         :root {
-            --bg-color: #0a0a0a;
-            --text-primary: #ffffff;
-            --text-secondary: #888888;
-            --accent: #ffffff;
-            --border-color: #222222;
-            --hover-bg: #161616;
-            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --bg: #0a0a0a;
+            --surface: #121212;
+            --surface-hover: #1a1a1a;
+            --border: #262626;
+            --text-primary: #f5f5f5;
+            --text-secondary: #a3a3a3;
+            --text-muted: #666666;
         }
 
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
-            background-color: var(--bg-color);
+            background-color: var(--bg);
             color: var(--text-primary);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* Noise overlay for texture */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            opacity: 0.02;
-            pointer-events: none;
-            z-index: 9999;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
         }
 
         .container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 4rem 2rem;
         }
 
-        /* Header / Nav */
+        /* Header / Hero */
         header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8rem;
+            margin-bottom: 5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s ease forwards;
         }
 
-        .logo {
-            font-weight: 700;
-            font-size: 1.2rem;
-            letter-spacing: -0.05em;
-            text-decoration: none;
-            color: var(--text-primary);
-        }
-
-        nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            margin-left: 2rem;
-            transition: var(--transition);
-        }
-
-        nav a:hover {
-            color: var(--text-primary);
-        }
-
-        /* Hero Section */
-        .hero {
-            margin-bottom: 8rem;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
+        h1 {
+            font-size: 2.5rem;
             font-weight: 500;
             letter-spacing: -0.03em;
-            line-height: 1.1;
-            margin-bottom: 2rem;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-        }
-
-        /* Section Layout */
-        section {
-            margin-bottom: 8rem;
-        }
-
-        .section-title {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 0.5rem;
-        }
-
-        /* Interactive Project/Writing Feed */
-        .work-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding: 2rem 0;
-            border-bottom: 1px solid var(--border-color);
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .work-item:hover {
-            padding-left: 1rem;
-            background-color: var(--hover-bg);
-        }
-
-        .work-details {
-            max-width: 70%;
-        }
-
-        .work-title {
-            font-size: 1.4rem;
-            font-weight: 400;
             margin-bottom: 0.5rem;
         }
 
-        .work-desc {
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Contact Badges */
+        .contact-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .contact-card {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .contact-card:hover {
+            background: var(--surface-hover);
+            color: var(--text-primary);
+            border-color: var(--text-muted);
+            transform: translateY(-2px);
+        }
+
+        .contact-card i {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s ease forwards 0.2s;
+        }
+
+        h2 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        /* Interactive Work Grid */
+        .work-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 100%;
+            background: var(--text-primary);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateX(4px);
+            background: var(--surface-hover);
+            border-color: var(--text-muted);
+        }
+
+        .project-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .project-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            background: rgba(255,255,255,0.03);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+
+        .project-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Hidden detailed view that toggles open */
+        .project-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 0px solid var(--border);
+            padding-top: 0;
+        }
+
+        .project-card.active .project-details {
+            max-height: 200px;
+            border-top: 1px solid var(--border);
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+
+        .project-details ul {
+            list-style-type: none;
+            padding-left: 0.5rem;
+        }
+
+        .project-details li {
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .project-details li::before {
+            content: "→";
+            color: var(--text-muted);
+        }
+
+        /* Skills/Capabilities List */
+        .skills-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
             color: var(--text-secondary);
             font-size: 0.95rem;
         }
 
-        .work-meta {
-            text-align: right;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
+        .skill-item i {
+            color: var(--text-muted);
+            width: 16px;
+            height: 16px;
         }
 
-        /* Contact / Footer */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .contact-card {
-            border: 1px solid var(--border-color);
-            padding: 1.5rem;
-            transition: var(--transition);
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-
-        .contact-card:hover {
-            border-color: var(--accent);
-            background-color: var(--hover-bg);
-        }
-
-        .contact-label {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-        }
-
-        .contact-value {
-            font-size: 1.1rem;
-            word-break: break-all;
-        }
-
+        /* Footer */
         footer {
             margin-top: 8rem;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            display: flex;
-            justify-content: space-between;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
+        /* Animations */
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
-            .work-item {
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .contact-grid {
                 flex-direction: column;
-                gap: 1rem;
             }
-            .work-details {
-                max-width: 100%;
-            }
-            .work-meta {
-                text-align: left;
-            }
-            header {
-                margin-bottom: 4rem;
-            }
-            section {
-                margin-bottom: 4rem;
+            .contact-card {
+                width: 100%;
             }
         }
     </style>
@@ -217,117 +285,113 @@
 
     <div class="container">
         <header>
-            <a href="#" class="logo">GFC.</a>
-            <nav>
-                <a href="#work">Work</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
-            </nav>
+            <h1>Grayson Cantu</h1>
+            <p class="subtitle">Technical Writer & Information Architect</p>
+            
+            <div class="contact-grid">
+                <a href="mailto:graysonfabiancantu@iCloud.com" class="contact-card">
+                    <i data-lucide="mail"></i>
+                    graysonfabiancantu@iCloud.com
+                </a>
+                <a href="tel:7377701981" class="contact-card">
+                    <i data-lucide="phone"></i>
+                    (737) 770-1981
+                </a>
+                <a href="https://github.com/Graysoncantu" target="_blank" rel="noopener noreferrer" class="contact-card">
+                    <i data-lucide="github"></i>
+                    github.com/Graysoncantu
+                </a>
+            </div>
         </header>
 
-        <main>
-            <section class="hero">
-                <h1>Grayson Fabian Cantu</h1>
-                <p>Technical Writer. Bridging the gap between complex engineering architectures and human understanding through precise, elegant documentation.</p>
-            </section>
-
-            <section id="work">
-                <div class="section-title">Selected Documentation</div>
+        <section id="work">
+            <h2>Selected Documentation</h2>
+            <div class="work-grid">
                 
-                <a href="#" class="work-item">
-                    <div class="work-details">
-                        <div class="work-title">API Reference Architecture</div>
-                        <div class="work-desc">Comprehensive developer documentation for a distributed microservices platform, focusing on low-latency endpoints.</div>
+                <div class="project-card" onclick="toggleDetails(this)">
+                    <div class="project-header">
+                        <div class="project-title">API Reference Architecture</div>
+                        <span class="project-tag">OpenAPI / Swagger</span>
                     </div>
-                    <div class="work-meta">
-                        <div>Guide</div>
-                        <div>2026</div>
+                    <p class="project-desc">Designed and documented a comprehensive REST API infrastructure for high-throughput data pipelines.</p>
+                    <div class="project-details">
+                        <ul>
+                            <li>Authored complete endpoints, payloads, and error-handling schemas.</li>
+                            <li>Reduced onboarding friction for external developers by 40%.</li>
+                            <li>Implemented docs-as-code workflow integrated into CI/CD pipelines.</li>
+                        </ul>
                     </div>
-                </a>
-
-                <a href="#" class="work-item">
-                    <div class="work-details">
-                        <div class="work-title">CI/CD Pipeline Integration</div>
-                        <div class="work-desc">A step-by-step tutorial series reducing developer onboarding time from days to minutes.</div>
-                    </div>
-                    <div class="work-meta">
-                        <div>Tutorial</div>
-                        <div>2025</div>
-                    </div>
-                </a>
-
-                <a href="#" class="work-item">
-                    <div class="work-details">
-                        <div class="work-title">Internal Engineering Wiki</div>
-                        <div class="work-desc">Rethinking knowledge management and information architecture for scaling engineering organizations.</div>
-                    </div>
-                    <div class="work-meta">
-                        <div>Case Study</div>
-                        <div>2025</div>
-                    </div>
-                </a>
-            </section>
-
-            <section id="about">
-                <div class="section-title">Philosophy</div>
-                <p style="font-size: 1.4rem; font-weight: 300; max-width: 750px; color: #e0e0e0;">
-                    Good documentation is fundamentally great user experience design. I believe in eliminating cognitive load, enforcing strict semantic consistency, and treating documentation with the same rigor as clean code.
-                </p>
-            </section>
-
-            <section id="contact">
-                <div class="section-title">Connect</div>
-                <div class="contact-grid">
-                    <a href="mailto:graysonfabiancantu@iCloud.com" class="contact-card">
-                        <div class="contact-label">Email</div>
-                        <div class="contact-value">graysonfabiancantu@iCloud.com</div>
-                    </a>
-                    
-                    <a href="tel:7377701981" class="contact-card">
-                        <div class="contact-label">Phone</div>
-                        <div class="contact-value">+1 (737) 770-1981</div>
-                    </a>
-
-                    <a href="https://github.com/Graysoncantu" target="_blank" class="contact-card">
-                        <div class="contact-label">GitHub</div>
-                        <div class="contact-value">github.com/Graysoncantu</div>
-                    </a>
                 </div>
-            </section>
-        </main>
+
+                <div class="project-card" onclick="toggleDetails(this)">
+                    <div class="project-header">
+                        <div class="project-title">Enterprise Deployment Guides</div>
+                        <span class="project-tag">Markdown / Git</span>
+                    </div>
+                    <p class="project-desc">Step-by-step technical orchestration workflows tailored for DevOps and System Administrators.</p>
+                    <div class="project-details">
+                        <ul>
+                            <li>Detailed multi-cloud infrastructure setups (AWS / GCP).</li>
+                            <li>Created configuration manifests and error troubleshooting matrixes.</li>
+                            <li>Standardized styling guidelines for cross-functional engineering teams.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="project-card" onclick="toggleDetails(this)">
+                    <div class="project-header">
+                        <div class="project-title">Internal Knowledge Base Migration</div>
+                        <span class="project-tag">Information Architecture</span>
+                    </div>
+                    <p class="project-desc">Audited and overhauled legacy engineering Wikis into a modern, discoverable taxonomy.</p>
+                    <div class="project-details">
+                        <ul>
+                            <li>Restructured content hierarchy based on internal user-experience data.</li>
+                            <li>Migrated over 300+ legacy articles into unified Markdown structures.</li>
+                            <li>Established search-optimization tags to speed up developer lookup times.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="capabilities">
+            <h2>Capabilities & Tooling</h2>
+            <div class="skills-list">
+                <div class="skill-item"><i data-lucide="file-text"></i> Docs-as-Code Workflow</div>
+                <div class="skill-item"><i data-lucide="terminal"></i> Markdown / MDX / ReST</div>
+                <div class="skill-item"><i data-lucide="git-branch"></i> Git & Version Control</div>
+                <div class="skill-item"><i data-lucide="code-2"></i> API Documentation</div>
+                <div class="skill-item"><i data-lucide="layers"></i> Information Architecture</div>
+                <div class="skill-item"><i data-lucide="settings"></i> Static Site Generators</div>
+            </div>
+        </section>
 
         <footer>
-            <div>© 2026 Grayson Fabian Cantu</div>
-            <div>Built with precision.</div>
+            <p>© 2026 GRAYSON CANTU. ALL RIGHTS RESERVED.</p>
         </footer>
     </div>
 
     <script>
-        // Smooth scroll interaction for navigation
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                document.querySelector(targetId).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
+        // Initialize Lucide icons
+        lucide.createIcons();
 
-        // Subtle entry interaction for a premium feel
-        document.addEventListener("DOMContentLoaded", () => {
-            const elements = document.querySelectorAll('.hero, section, footer');
-            elements.forEach((el, index) => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-                
-                setTimeout(() => {
-                    el.style.opacity = '1';
-                    el.style.transform = 'translateY(0)';
-                }, 150 * index);
+        // Expandable Project Cards Functionality
+        function toggleDetails(card) {
+            // Check if clicked card is already active
+            const isActive = card.classList.contains('active');
+            
+            // Close all cards first for a clean accordian effect
+            document.querySelectorAll('.project-card').forEach(c => {
+                c.classList.remove('active');
             });
-        });
+
+            // If the clicked card wasn't active, open it
+            if (!isActive) {
+                card.classList.add('active');
+            }
+        }
     </script>
 </body>
 </html>
