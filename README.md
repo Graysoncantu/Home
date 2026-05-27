@@ -4,13 +4,13 @@
 Grayson Cantu    
 graysonfabiancantu@icloud.com
 
----
+
 
  Overview
 
 A repository of standard operating procedures, technical troubleshooting workflows, and much more.
 
----
+
 
  Manifest
 
@@ -34,7 +34,7 @@ A repository of standard operating procedures, technical troubleshooting workflo
 * **Context:** IT operations and frontend development.
 * **Core Focus:** Technical debugging sequences, environment recovery steps, and dependency management for local development setups.
 
----
+
 
  Core Competencies
 
