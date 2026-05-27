@@ -1,6 +1,6 @@
 # Portfolio
 
-Welcome to my professional portfolio repository. This space serves as a central hub for my technical documentation, standard operating procedures (SOPs), analytical summaries and much more. 
+Welcome to my professional portfolio repository. This space serves as a central hub for my technical documentation, standard operating procedures (SOPs), and analytical summaries. 
 
 The projects below highlight my ability to communicate complex technical concepts, optimize business operations, and deliver data-driven insights.
 
@@ -29,4 +29,4 @@ The projects below highlight my ability to communicate complex technical concept
 ---
 
 ## 📫 Contact & Connect
-* **Email:** graysonfabiancantu@icloud.com
+* **Email:** your.email@example.com
