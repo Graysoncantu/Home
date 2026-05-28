@@ -3,401 +3,231 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grayson Cantu | Technical Writer</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.292.0/umd/lucide.min.js"></script>
+    <title>Grayson Fabian Cantu | Technical Writer</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
-        :root {
-            --bg: #0a0a0a;
-            --surface: #121212;
-            --surface-hover: #1a1a1a;
-            --border: #262626;
-            --text-primary: #f5f5f5;
-            --text-secondary: #a3a3a3;
-            --text-muted: #666666;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-
+        /* Custom ultra-dark monochrome styling */
         body {
-            background-color: var(--bg);
-            color: var(--text-primary);
-            line-height: 1.5;
+            background-color: #050505;
+            color: #e5e5e5;
+            font-family: 'Courier New', Courier, monospace;
             overflow-x: hidden;
-            font-size: 0.9rem; /* Scaled down base font size */
         }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 5px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--border);
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--text-muted);
-        }
-
-        .container {
-            max-width: 750px; /* Slightly tightened container */
-            margin: 0 auto;
-            padding: 3.5rem 2rem;
-        }
-
-        /* Header / Hero */
-        header {
-            margin-bottom: 4rem;
-            opacity: 0;
-            transform: translateY(15px);
-            animation: fadeIn 0.8s ease forwards;
-        }
-
-        h1 {
-            font-size: 2.1rem; /* Reduced from 2.5rem */
-            font-weight: 500;
-            letter-spacing: -0.03em;
-            margin-bottom: 0.4rem;
-        }
-
-        .subtitle {
-            color: var(--text-secondary);
-            font-size: 1rem; /* Reduced from 1.1rem */
-            margin-bottom: 1.75rem;
-        }
-
-        /* Contact Badges */
-        .contact-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem; /* Tighter gap */
-        }
-
-        .contact-card {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            padding: 0.4rem 0.8rem; /* Reduced padding */
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 5px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.82rem; /* Reduced from 0.9rem */
-            transition: all 0.2s ease;
-        }
-
-        .contact-card:hover {
-            background: var(--surface-hover);
-            color: var(--text-primary);
-            border-color: var(--text-muted);
-            transform: translateY(-1px);
-        }
-
-        .contact-card i {
-            width: 14px; /* Slightly smaller icons */
-            height: 14px;
-        }
-
-        /* Sections */
-        section {
-            margin-bottom: 4rem;
-            opacity: 0;
-            transform: translateY(15px);
-            animation: fadeIn 0.8s ease forwards 0.2s;
-        }
-
-        h2 {
-            font-size: 0.78rem; /* Reduced from 0.85rem */
-            text-transform: uppercase;
-            letter-spacing: 0.18em;
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 0.4rem;
-        }
-
-        /* Interactive Work Grid */
-        .work-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
-        }
-
-        .project-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 7px;
-            padding: 1.25rem; /* Reduced padding */
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
+        #canvas-container {
+            position: fixed;
             top: 0;
             left: 0;
-            width: 2px;
+            width: 100%;
             height: 100%;
-            background: var(--text-primary);
-            transform: scaleY(0);
-            transition: transform 0.3s ease;
+            z-index: -1;
+            pointer-events: none;
         }
-
-        .project-card:hover {
-            transform: translateX(3px);
-            background: var(--surface-hover);
-            border-color: var(--text-muted);
+        .glow-hover:hover {
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+            border-color: #ffffff;
         }
-
-        .project-card:hover::before {
-            transform: scaleY(1);
-        }
-
-        .project-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 0.4rem;
-        }
-
-        .project-title {
-            font-size: 1rem; /* Reduced from 1.1rem */
-            font-weight: 500;
-        }
-
-        .project-tag {
-            font-size: 0.7rem; /* Reduced from 0.75rem */
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-            background: rgba(255,255,255,0.03);
-            padding: 0.15rem 0.4rem;
-            border-radius: 4px;
-            border: 1px solid var(--border);
-        }
-
-        .project-desc {
-            color: var(--text-secondary);
-            font-size: 0.88rem; /* Reduced from 0.95rem */
-            margin-bottom: 0.25rem;
-        }
-
-        /* Hidden detailed view that toggles open */
-        .project-details {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-            color: var(--text-secondary);
-            font-size: 0.84rem; /* Reduced from 0.9rem */
-            border-top: 0px solid var(--border);
-            padding-top: 0;
-        }
-
-        .project-card.active .project-details {
-            max-height: 200px;
-            border-top: 1px solid var(--border);
-            padding-top: 0.85rem;
-            margin-top: 0.85rem;
-        }
-
-        .project-details ul {
-            list-style-type: none;
-            padding-left: 0.4rem;
-        }
-
-        .project-details li {
-            margin-bottom: 0.2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-
-        .project-details li::before {
-            content: "→";
-            color: var(--text-muted);
-        }
-
-        /* Skills/Capabilities List */
-        .skills-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Adjusted for smaller layout */
-            gap: 0.85rem;
-        }
-
-        .skill-item {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            color: var(--text-secondary);
-            font-size: 0.88rem; /* Reduced from 0.95rem */
-        }
-
-        .skill-item i {
-            color: var(--text-muted);
-            width: 14px;
-            height: 14px;
-        }
-
-        /* Footer */
-        footer {
-            margin-top: 6rem;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.75rem; /* Reduced from 0.8rem */
-            letter-spacing: 0.05em;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                padding: 2rem 1rem;
-            }
-            h1 {
-                font-size: 1.8rem;
-            }
-            .contact-grid {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-            .contact-card {
-                width: 100%;
-            }
+        .blur-buffer {
+            backdrop-filter: blur(4px);
         }
     </style>
 </head>
-<body>
+<body class="selection:bg-white selection:text-black">
 
-    <div class="container">
-        <header>
-            <h1>Grayson Cantu</h1>
-            <p class="subtitle">Technical Writer</p>
-            
-            <div class="contact-grid">
-                <a href="https://drive.google.com/file/d/1FL8EGQiNx-W4XICZ3l2bjkt9CWKUz4ib/view" target="_blank" rel="noopener noreferrer" class="contact-card">
-                    <i data-lucide="file-text"></i>
-                    Resume
-                </a>
-                <a href="mailto:graysonfabiancantu@iCloud.com" class="contact-card">
-                    <i data-lucide="mail"></i>
-                    graysonfabiancantu@iCloud.com
-                </a>
-                <a href="tel:7377701981" class="contact-card">
-                    <i data-lucide="phone"></i>
-                    (737) 770-1981
-                </a>
-                <a href="https://github.com/Graysoncantu" target="_blank" rel="noopener noreferrer" class="contact-card">
-                    <i data-lucide="github"></i>
-                    github.com/Graysoncantu
-                </a>
+    <div id="canvas-container"></div>
+
+    <nav class="fixed top-0 left-0 w-full z-50 border-b border-neutral-900 bg-black/40 blur-buffer px-6 py-4 flex justify-between items-center">
+        <a href="#" class="text-sm font-bold tracking-widest uppercase text-white glow-hover transition-all duration-300">GFC // DOCS</a>
+        <div class="space-x-6 text-xs tracking-wider uppercase text-neutral-400">
+            <a href="#about" class="hover:text-white transition-colors">About</a>
+            <a href="#projects" class="hover:text-white transition-colors">Projects</a>
+            <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+        </div>
+    </nav>
+
+    <header class="min-h-screen flex flex-col justify-center items-start px-8 md:px-24 max-w-5xl mx-auto pt-16">
+        <p class="text-xs tracking-widest text-neutral-500 uppercase mb-3">// Portfolio_v1.0</p>
+        <h1 class="text-4xl md:text-7xl font-light tracking-tighter text-white mb-4">
+            GRAYSON FABIAN CANTU
+        </h1>
+        <h2 class="text-lg md:text-2xl font-mono text-neutral-400 mb-8 max-w-2xl leading-relaxed">
+            Translating complex architectures into elegant, human-readable documentation. API reference, system design, and developer guides.
+        </h2>
+        <div class="flex flex-wrap gap-4">
+            <a href="#projects" class="px-6 py-3 border border-neutral-800 text-xs tracking-widest uppercase hover:bg-white hover:text-black transition-all duration-500 font-mono">
+                Explore Documentation
+            </a>
+            <a href="#contact" class="px-6 py-3 bg-neutral-900 text-xs tracking-widest uppercase hover:bg-neutral-800 transition-all duration-500 font-mono">
+                Get In Touch
+            </a>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-8 md:px-24 space-y-32 pb-32">
+        
+        <section id="about" class="grid md:grid-cols-3 gap-8 border-t border-neutral-950 pt-16">
+            <div class="md:col-span-1">
+                <h3 class="text-xs tracking-widest uppercase text-neutral-500 font-mono font-bold sticky top-24">01 // Expertise</h3>
             </div>
-        </header>
+            <div class="md:col-span-2 space-y-6 text-sm text-neutral-400 font-mono leading-relaxed">
+                <p>
+                    I bridge the gap between engineering teams and end-users. By diving deep into source code and infrastructure, I architect documentation ecosystems that scale.
+                </p>
+                <div class="grid grid-cols-2 gap-4 pt-4 text-xs">
+                    <div class="border border-neutral-900 p-4 bg-black/20 blur-buffer">
+                        <span class="text-white block mb-2 font-bold">CORE SKILLS</span>
+                        API Documentation<br>Markdown / MDX<br>GitOps Workflows<br>CI/CD Pipelines
+                    </div>
+                    <div class="border border-neutral-900 p-4 bg-black/20 blur-buffer">
+                        <span class="text-white block mb-2 font-bold">TECHNOLOGIES</span>
+                        GraphQL / REST<br>JSON / YAML<br>Static Site Gens<br>Docker / K8s
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <section id="work">
-            <h2>Selected Documentation</h2>
-            <div class="work-grid">
+        <section id="projects" class="grid md:grid-cols-3 gap-8 border-t border-neutral-950 pt-16">
+            <div class="md:col-span-1">
+                <h3 class="text-xs tracking-widest uppercase text-neutral-500 font-mono font-bold sticky top-24">02 // Selected Works</h3>
+            </div>
+            <div class="md:col-span-2 space-y-6">
                 
-                <div class="project-card" onclick="toggleDetails(this)">
-                    <div class="project-header">
-                        <div class="project-title">API Reference Architecture</div>
-                        <span class="project-tag">OpenAPI / Swagger</span>
+                <div class="group border border-neutral-900 p-6 bg-black/10 blur-buffer hover:border-neutral-700 transition-all duration-500 structural-card">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs text-neutral-600 font-mono">PROJECT_01</span>
+                        <span class="text-xs text-neutral-400 font-mono">REST API Reference</span>
                     </div>
-                    <p class="project-desc">Designed and documented a comprehensive REST API infrastructure for high-throughput data pipelines.</p>
-                    <div class="project-details">
-                        <ul>
-                            <li>Authored complete endpoints, payloads, and error-handling schemas.</li>
-                            <li>Reduced onboarding friction for external developers by 40%.</li>
-                            <li>Implemented docs-as-code workflow integrated into CI/CD pipelines.</li>
-                        </ul>
-                    </div>
+                    <h4 class="text-lg text-white mb-2 font-mono group-hover:text-neutral-300 transition-colors">Distributed Ledger API Docs</h4>
+                    <p class="text-xs text-neutral-400 font-mono leading-relaxed mb-4">
+                        Authored complete onboarding setup and endpoint maps for a high-throughput financial ledger API. Included automated SDK generation workflows.
+                    </p>
+                    <div class="text-[10px] text-neutral-500 font-mono">TAGS: OPENAPI / SWAGGER / REDOC</div>
                 </div>
 
-                <div class="project-card" onclick="toggleDetails(this)">
-                    <div class="project-header">
-                        <div class="project-title">Enterprise Deployment Guides</div>
-                        <span class="project-tag">Markdown / Git</span>
+                <div class="group border border-neutral-900 p-6 bg-black/10 blur-buffer hover:border-neutral-700 transition-all duration-500 structural-card">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs text-neutral-600 font-mono">PROJECT_02</span>
+                        <span class="text-xs text-neutral-400 font-mono">Architecture Guides</span>
                     </div>
-                    <p class="project-desc">Step-by-step technical orchestration workflows tailored for DevOps and System Administrators.</p>
-                    <div class="project-details">
-                        <ul>
-                            <li>Detailed multi-cloud infrastructure setups (AWS / GCP).</li>
-                            <li>Created configuration manifests and error troubleshooting matrixes.</li>
-                            <li>Standardized styling guidelines for cross-functional engineering teams.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="project-card" onclick="toggleDetails(this)">
-                    <div class="project-header">
-                        <div class="project-title">Internal Knowledge Base Migration</div>
-                        <span class="project-tag">Information Architecture</span>
-                    </div>
-                    <p class="project-desc">Audited and overhauled legacy engineering Wikis into a modern, discoverable taxonomy.</p>
-                    <div class="project-details">
-                        <ul>
-                            <li>Restructured content hierarchy based on internal user-experience data.</li>
-                            <li>Migrated over 300+ legacy articles into unified Markdown structures.</li>
-                            <li>Established search-optimization tags to speed up developer lookup times.</li>
-                        </ul>
-                    </div>
+                    <h4 class="text-lg text-white mb-2 font-mono group-hover:text-neutral-300 transition-colors">Cloud-Native Migration Playbook</h4>
+                    <p class="text-xs text-neutral-400 font-mono leading-relaxed mb-4">
+                        Collaborated with Principal Architects to document legacy-to-mesh migration strategies for internal engineering onboarding.
+                    </p>
+                    <div class="text-[10px] text-neutral-500 font-mono">TAGS: KUBERNETES / ISTIO / RUNBOOKS</div>
                 </div>
 
             </div>
         </section>
 
-        <section id="capabilities">
-            <h2>Capabilities & Tooling</h2>
-            <div class="skills-list">
-                <div class="skill-item"><i data-lucide="file-text"></i> Docs-as-Code Workflow</div>
-                <div class="skill-item"><i data-lucide="terminal"></i> Markdown / MDX / ReST</div>
-                <div class="skill-item"><i data-lucide="git-branch"></i> Git & Version Control</div>
-                <div class="skill-item"><i data-lucide="code-2"></i> API Documentation</div>
-                <div class="skill-item"><i data-lucide="layers"></i> Information Architecture</div>
-                <div class="skill-item"><i data-lucide="settings"></i> Static Site Generators</div>
+        <section id="contact" class="grid md:grid-cols-3 gap-8 border-t border-neutral-950 pt-16">
+            <div class="md:col-span-1">
+                <h3 class="text-xs tracking-widest uppercase text-neutral-500 font-mono font-bold Multi-line">03 // Connect</h3>
+            </div>
+            <div class="md:col-span-2 space-y-8 font-mono">
+                <p class="text-sm text-neutral-400 leading-relaxed">
+                    Available for contract technical writing, documentation auditing, and full-time technical communication roles. 
+                </p>
+                
+                <div class="space-y-4 text-xs">
+                    <div class="flex items-center justify-between border-b border-neutral-900 pb-3">
+                        <span class="text-neutral-500">EMAIL</span>
+                        <a href="mailto:graysonfabiancantu@iCloud.com" class="text-white hover:underline glow-hover transition-all">graysonfabiancantu@iCloud.com</a>
+                    </div>
+                    <div class="flex items-center justify-between border-b border-neutral-900 pb-3">
+                        <span class="text-neutral-500">PHONE</span>
+                        <a href="tel:7377701981" class="text-white hover:underline">737.770.1981</a>
+                    </div>
+                    <div class="flex items-center justify-between border-b border-neutral-900 pb-3">
+                        <span class="text-neutral-500">GITHUB</span>
+                        <a href="https://github.com/Graysoncantu" target="_blank" rel="noopener noreferrer" class="text-white hover:underline">github.com/Graysoncantu</a>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <footer>
-            <p>© 2026 GRAYSON CANTU. ALL RIGHTS RESERVED.</p>
-        </footer>
-    </div>
+    </main>
+
+    <footer class="w-full border-t border-neutral-950 py-8 text-center text-[10px] text-neutral-600 font-mono tracking-widest">
+        &copy; 2026 GRAYSON FABIAN CANTU. ALL SYSTEMS NOMINAL.
+    </footer>
 
     <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
+        // Setup Scene, Camera, and Renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-        // Expandable Project Cards Functionality
-        function toggleDetails(card) {
-            // Check if clicked card is already active
-            const isActive = card.classList.contains('active');
-            
-            // Close all cards first for a clean accordian effect
-            document.querySelectorAll('.project-card').forEach(c => {
-                c.classList.remove('active');
-            });
+        // Create a 3D Particle Cluster (Globe/Data Cloud structure)
+        const particleCount = 700;
+        const geometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(particleCount * 3);
 
-            // If the clicked card wasn't active, open it
-            if (!isActive) {
-                card.classList.add('active');
-            }
+        for (let i = 0; i < particleCount * 3; i += 3) {
+            // Generate coordinates in a spherical distribution
+            const u = Math.random();
+            const v = Math.random();
+            const theta = u * 2.0 * Math.PI;
+            const phi = Math.acos(2.0 * v - 1.0);
+            const r = 15 + Math.random() * 4; // Radius variation
+
+            positions[i] = r * Math.sin(phi) * Math.cos(theta);
+            positions[i + 1] = r * Math.sin(phi) * Math.sin(theta);
+            positions[i + 2] = r * Math.cos(phi);
         }
+
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+        // Monochrome subtle particle styling
+        const material = new THREE.PointsMaterial({
+            color: 0xffffff,
+            size: 0.05,
+            transparent: true,
+            opacity: 0.25,
+            blending: THREE.AdditiveBlending
+        });
+
+        const particleSystem = new THREE.Points(geometry, material);
+        scene.add(particleSystem);
+
+        camera.position.z = 30;
+
+        // Interaction: Track Mouse Movement
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (event) => {
+            // Normalize mouse position from -1 to 1
+            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        // Animation Loop
+        const animate = () => {
+            requestAnimationFrame(animate);
+
+            // Subtle default rotation
+            particleSystem.rotation.y += 0.001;
+            particleSystem.rotation.x += 0.0005;
+
+            // Interactive response: lean towards mouse position
+            particleSystem.rotation.y += (mouseX * 0.2 - particleSystem.rotation.y) * 0.05;
+            particleSystem.rotation.x += (-mouseY * 0.2 - particleSystem.rotation.x) * 0.05;
+
+            renderer.render(scene, camera);
+        };
+
+        animate();
+
+        // Handle window resizing seamlessly
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
     </script>
 </body>
 </html>
