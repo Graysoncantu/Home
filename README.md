@@ -1,6 +1,6 @@
 ## Grayson Cantu
 **Technical Writer**  
-✉️ [graysonfabiancantu@icloud.com](mailto:graysonfabiancantu@icloud.com) | 🌐 Portfolio Repository
+
 
 ---
 
