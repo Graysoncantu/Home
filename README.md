@@ -21,7 +21,7 @@ A curated repository of standard operating procedures (SOPs), technical troubles
 
 ---
 
-## 📂 documentations
+📂 documentations
 
 | Document Title | Core Focus & Methodologies | Impact & Context |
 | :--- | :--- | :--- |
