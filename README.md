@@ -1,5 +1,5 @@
 ## Grayson Cantu
-**Technical Writer**  
+###Technical Writer  
 
 
 ---
