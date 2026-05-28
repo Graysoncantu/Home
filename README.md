@@ -1,5 +1,5 @@
 # Grayson Cantu
-**Technical Writer & Operations Specialist** ✉️ [graysonfabiancantu@icloud.com](mailto:graysonfabiancantu@icloud.com)
+**Technical Writer**
 
 ---
 
