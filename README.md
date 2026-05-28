@@ -1,4 +1,4 @@
-# Grayson Cantu
+Grayson Cantu
 **Technical Writer**
 
 ---
