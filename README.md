@@ -4,7 +4,7 @@
 
 ---
 
-## 📌 Executive Overview
+## 📌 Overview
 A curated repository of standard operating procedures (SOPs), technical troubleshooting frameworks, and strategic documentation. This portfolio demonstrates an ability to translate complex technical architectures into highly actionable, low-friction internal resources that drive team alignment and operational efficiency.
 
 ---
