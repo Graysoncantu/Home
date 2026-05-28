@@ -9,6 +9,7 @@ Grayson Cantu
 
 📌 Overview
 
+```text
 A curated repository of standard operating procedures (SOPs), technical troubleshooting frameworks, and strategic documentation. This portfolio demonstrates an ability to translate complex technical architectures into highly actionable, low-friction internal resources that drive team alignment and operational efficiency.
 
 ---
@@ -24,7 +25,6 @@ A curated repository of standard operating procedures (SOPs), technical troubles
 
 📂 documentations
 
-```text
 | Document Title | Core Focus & Methodologies | Impact & Context |
 | :--- | :--- | :--- |
 | **Executive Summary:<br>Transitioning Strategy** | Change management, risk mitigation, and high-level impact analysis. | **Strategic Operations**<br>Guiding leadership through organizational and technical system transitions. |
