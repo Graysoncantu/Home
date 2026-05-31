@@ -1,271 +1,280 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grayson Cantu | Technical Communicator</title>
+    <title>Grayson Fabian Cantu | Technical Communicator</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500&family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
-    
     <style>
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #020202;
-        }
-        .heading-font {
-            font-family: 'Space Grotesk', sans-serif;
-        }
-        ::-webkit-scrollbar {
-            width: 4px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #020202;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #111;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #222;
-        }
-        #canvas-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-        .interactive-card {
-            background: rgba(5, 5, 5, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.03);
+        /* Custom styles for Liquid Glass backdrop blur */
+        .glass-card {
+            background: rgba(15, 15, 15, 0.45);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .interactive-card:hover {
+        .glass-card:hover {
+            background: rgba(25, 25, 25, 0.6);
             border-color: rgba(255, 255, 255, 0.15);
-            background: rgba(10, 10, 10, 0.8);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
             transform: translateY(-4px);
         }
-        /* Subtle vignette to deepen the dark atmosphere */
-        .vignette {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, transparent 30%, rgba(0,0,0,0.8) 100%);
-            z-index: 1;
-            pointer-events: none;
+        body {
+            background-color: #050505;
+            overflow-x: hidden;
+        }
+        /* Custom scrollbar to match monochrome aesthetic */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #222;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #444;
         }
     </style>
 </head>
-<body class="text-neutral-400 antialiased selection:bg-white selection:text-black">
+<body class="text-zinc-100 font-sans antialiased selection:bg-zinc-800 selection:text-white">
 
-    <div id="canvas-container"></div>
-    <div class="vignette"></div>
+    <canvas id="liquid-glass-canvas" class="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none"></canvas>
 
-    <div class="relative z-10 min-h-screen flex flex-col justify-between max-w-6xl mx-auto px-6 py-12 md:py-24">
-        
-        <header class="flex justify-between items-center w-full mb-24 md:mb-40">
-            <div class="text-white font-light tracking-widest heading-font text-xs uppercase">
-                GC <span class="text-neutral-800">//</span> TOTALITY
-            </div>
-            <a href="mailto:graysonfabiancantu@iCloud.com" class="text-xs tracking-widest text-neutral-400 hover:text-white transition-colors duration-300 uppercase border-b border-neutral-900 hover:border-white pb-1">
-                Establish Contact
+    <nav class="fixed top-0 left-0 w-full z-50 bg-neutral-950/20 backdrop-blur-md border-b border-zinc-900/50 px-6 py-4 flex justify-between items-center">
+        <a href="#" class="text-xs tracking-[0.3em] uppercase font-bold text-zinc-400 hover:text-white transition">G. Cantu</a>
+        <div class="flex gap-8 text-xs tracking-widest uppercase text-zinc-500">
+            <a href="#about" class="hover:text-white transition-colors duration-300">About</a>
+            <a href="#disciplines" class="hover:text-white transition-colors duration-300">Expertise</a>
+            <a href="#contact" class="hover:text-white transition-colors duration-300">Contact</a>
+        </div>
+    </nav>
+
+    <main class="min-h-screen flex flex-col justify-center px-6 md:px-24 pt-20 max-w-6xl mx-auto">
+        <div class="space-y-4 max-w-3xl">
+            <p class="text-xs tracking-[0.4em] uppercase text-zinc-500 animate-pulse">Portfolio &mdash; Technical Communicator</p>
+            <h1 class="text-5xl md:text-8xl font-light tracking-tighter text-zinc-200 leading-none">
+                Grayson Fabian Cantu
+            </h1>
+            <p class="text-lg md:text-xl font-light text-zinc-400 max-w-xl pt-4 leading-relaxed">
+                Architecting clarity out of complexity. Bridging the gap between deeply technical infrastructure and human intuition across all domains of professional writing.
+            </p>
+        </div>
+        <div class="mt-12 flex gap-6">
+            <a href="#disciplines" class="glass-card px-6 py-3 rounded-none text-xs tracking-widest uppercase text-zinc-300 hover:text-white">
+                View Disciplines &darr;
             </a>
-        </header>
+            <a href="#contact" class="px-6 py-3 text-xs tracking-widest uppercase text-zinc-500 hover:text-white transition-colors">
+                Get In Touch
+            </a>
+        </div>
+    </main>
 
-        <main class="flex-grow flex flex-col justify-center">
-            <div class="max-w-3xl mb-16">
-                <h1 class="text-5xl md:text-7xl lg:text-8xl text-white heading-font font-bold tracking-tighter leading-none mb-8">
-                    Grayson Cantu
-                </h1>
-                <p class="text-lg md:text-xl text-neutral-300 font-light max-w-2xl leading-relaxed mb-4">
-                    The complete spectrum of technical communication.
+    <section id="disciplines" class="py-32 px-6 md:px-24 max-w-6xl mx-auto">
+        <div class="border-b border-zinc-900 pb-6 mb-16">
+            <p class="text-xs tracking-[0.3em] uppercase text-zinc-500">01 / Focus Areas</p>
+            <h2 class="text-3xl font-light tracking-tight text-zinc-300 mt-2">Writing Across the Stack</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="glass-card p-8 group">
+                <span class="text-xs text-zinc-600 font-mono">01 // STRUCTURE</span>
+                <h3 class="text-xl font-normal text-zinc-200 mt-4 mb-2">Technical Writing</h3>
+                <p class="text-sm text-zinc-400 font-light leading-relaxed">
+                    API references, architecture deep-dives, developer documentation, and SDK guides. Turning rigid source code into accessible workflows.
                 </p>
-                <p class="text-xs md:text-sm text-neutral-500 max-w-xl uppercase tracking-wider leading-relaxed">
-                    Translating high-complexity systems across every written medium—from foundational developer logic to highly regulated consumer frameworks.
+            </div>
+
+            <div class="glass-card p-8 group">
+                <span class="text-xs text-zinc-600 font-mono">02 // INTERACTION</span>
+                <h3 class="text-xl font-normal text-zinc-200 mt-4 mb-2">UX Writing & Content Design</h3>
+                <p class="text-sm text-zinc-400 font-light leading-relaxed">
+                    Microcopy, error states, onboarding flows, and product taxonomy. Crafting the conversational UI layer that guides users intuitively.
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
-                
-                <div class="interactive-card p-6 rounded-sm">
-                    <span class="text-[10px] text-neutral-600 font-mono tracking-widest block mb-3">01 / LOGIC</span>
-                    <h3 class="text-white font-light heading-font text-lg mb-2 tracking-tight">API & Developer Docs</h3>
-                    <p class="text-xs text-neutral-500 leading-relaxed">SDK setups, OpenAPI specs, and system architecture mapping engineered directly for engineer workflows.</p>
-                </div>
-
-                <div class="interactive-card p-6 rounded-sm">
-                    <span class="text-[10px] text-neutral-600 font-mono tracking-widest block mb-3">02 / INTERACTION</span>
-                    <h3 class="text-white font-light heading-font text-lg mb-2 tracking-tight">UX & Product Copy</h3>
-                    <p class="text-xs text-neutral-500 leading-relaxed">Microcopy, contextual tooltips, transactional error frameworks, and interactive onboarding architecture.</p>
-                </div>
-
-                <div class="interactive-card p-6 rounded-sm">
-                    <span class="text-[10px] text-neutral-600 font-mono tracking-widest block mb-3">03 / STRUCTURAL</span>
-                    <h3 class="text-white font-light heading-font text-lg mb-2 tracking-tight">SOPs & White Papers</h3>
-                    <p class="text-xs text-neutral-500 leading-relaxed">Standard Operating Procedures, enterprise white papers, feasibility analyses, and deep architectural assessments.</p>
-                </div>
-
-                <div class="interactive-card p-6 rounded-sm">
-                    <span class="text-[10px] text-neutral-600 font-mono tracking-widest block mb-3">04 / PEDAGOGICAL</span>
-                    <h3 class="text-white font-light heading-font text-lg mb-2 tracking-tight">Instructional Design</h3>
-                    <p class="text-xs text-neutral-500 leading-relaxed">End-to-end curriculum mapping, enterprise learning modules, video scripts, and step-by-step master tutorials.</p>
-                </div>
-
-                <div class="interactive-card p-6 rounded-sm">
-                    <span class="text-[10px] text-neutral-600 font-mono tracking-widest block mb-3">05 / BIO-MEDICAL</span>
-                    <h3 class="text-white font-light heading-font text-lg mb-2 tracking-tight">Scientific Writing</h3>
-                    <p class="text-xs text-neutral-500 leading-relaxed">Regulatory clinical paperwork, clinical trial documentation, laboratory reports, and healthcare-tech translations.</p>
-                </div>
-
-                <div class="interactive-card p-6 rounded-sm">
-                    <span class="text-[10px] text-neutral-600 font-mono tracking-widest block mb-3">06 / LIFECYCLE</span>
-                    <h3 class="text-white font-light heading-font text-lg mb-2 tracking-tight">Content Strategy</h3>
-                    <p class="text-xs text-neutral-500 leading-relaxed">Document lifecycle management, governance matrices, taxonomics, information modeling, and unified style systems.</p>
-                </div>
-
-                <div class="interactive-card p-6 rounded-sm">
-                    <span class="text-[10px] text-neutral-600 font-mono tracking-widest block mb-3">07 / GOVERNANCE</span>
-                    <h3 class="text-white font-light heading-font text-lg mb-2 tracking-tight">Compliance & Legal</h3>
-                    <p class="text-xs text-neutral-500 leading-relaxed">Privacy policies, Terms of Service (ToS), EULAs, SOC2 security summaries, and accessibility (WCAG/508) declarations.</p>
-                </div>
-
-                <div class="interactive-card p-6 rounded-sm">
-                    <span class="text-[10px] text-neutral-600 font-mono tracking-widest block mb-3">08 / LOCALIZATION</span>
-                    <h3 class="text-white font-light heading-font text-lg mb-2 tracking-tight">Global Content Engine</h3>
-                    <p class="text-xs text-neutral-500 leading-relaxed">Designing culture-agnostic documentation frameworks built specifically for translation, localization, and multi-region deployment.</p>
-                </div>
-
-                <div class="interactive-card p-6 rounded-sm">
-                    <span class="text-[10px] text-neutral-600 font-mono tracking-widest block mb-3">09 / GROWTH</span>
-                    <h3 class="text-white font-light heading-font text-lg mb-2 tracking-tight">Technical MarCom</h3>
-                    <p class="text-xs text-neutral-500 leading-relaxed">High-fidelity documentation that acts as a marketing funnel: developer case studies, product feature explainers, and technical pitches.</p>
-                </div>
-
+            <div class="glass-card p-8 group">
+                <span class="text-xs text-zinc-600 font-mono">03 // EDUCATION</span>
+                <h3 class="text-xl font-normal text-zinc-200 mt-4 mb-2">Instructional Design & Training</h3>
+                <p class="text-sm text-zinc-400 font-light leading-relaxed">
+                    Curriculum development, interactive tutorials, knowledge bases, and enablement materials built around cognitive load theory.
+                </p>
             </div>
-        </main>
 
-        <footer class="mt-32 pt-8 border-t border-neutral-900 grid grid-cols-1 md:grid-cols-3 gap-8 text-[11px] font-mono uppercase tracking-widest">
+            <div class="glass-card p-8 group">
+                <span class="text-xs text-zinc-600 font-mono">04 // COMPLIANCE</span>
+                <h3 class="text-xl font-normal text-zinc-200 mt-4 mb-2">Medical & Scientific Writing</h3>
+                <p class="text-sm text-zinc-400 font-light leading-relaxed">
+                    Regulatory submissions, clinical summaries, and complex research translation. Adhering to strict compliance frameworks without sacrificing readability.
+                </p>
+            </div>
+
+            <div class="glass-card p-8 group">
+                <span class="text-xs text-zinc-600 font-mono">05 // STRATEGY</span>
+                <h3 class="text-xl font-normal text-zinc-200 mt-4 mb-2">Proposals, RFPs & Grants</h3>
+                <p class="text-sm text-zinc-400 font-light leading-relaxed">
+                    High-stakes business documentation, technical proposals, and public-private grant writing engineered to win buy-in and funding.
+                </p>
+            </div>
+
+            <div class="glass-card p-8 group">
+                <span class="text-xs text-zinc-600 font-mono">06 // GROWTH</span>
+                <h3 class="text-xl font-normal text-zinc-200 mt-4 mb-2">Technical Marketing & Thought Leadership</h3>
+                <p class="text-sm text-zinc-400 font-light leading-relaxed">
+                    Whitepapers, technical blogs, and product positioning. Translating cutting-edge features into clear, commercial value propositions.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-32 px-6 md:px-24 max-w-6xl mx-auto bg-neutral-950/40 border-t border-zinc-900/60">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>
-                <span class="text-neutral-700 block mb-2">// Repository</span>
-                <a href="https://github.com/Graysoncantu" target="_blank" class="text-neutral-400 hover:text-white transition-colors block">github.com/Graysoncantu</a>
+                <p class="text-xs tracking-[0.3em] uppercase text-zinc-500">02 / Connection</p>
+                <h2 class="text-4xl font-light tracking-tight text-zinc-200 mt-2 mb-6">Let's build a clearer system together.</h2>
+                <p class="text-sm text-zinc-400 font-light max-w-md leading-relaxed">
+                    Currently accepting technical documentation, consultation, and full-stack communications design contracts. 
+                </p>
             </div>
-            <div>
-                <span class="text-neutral-700 block mb-2">// Direct Link</span>
-                <a href="mailto:graysonfabiancantu@iCloud.com" class="text-neutral-400 hover:text-white transition-colors block">graysonfabiancantu@iCloud.com</a>
-            </div>
-            <div>
-                <span class="text-neutral-700 block mb-2">// Network</span>
-                <a href="tel:7377701981" class="text-neutral-400 hover:text-white transition-colors block">+1 (737) 770-1981</a>
-            </div>
-        </footer>
 
-    </div>
+            <div class="flex flex-col justify-end space-y-6 md:text-right">
+                <div>
+                    <span class="text-[10px] tracking-widest text-zinc-600 uppercase block">Inquire via Email</span>
+                    <a href="mailto:graysonfabiancantu@iCloud.com" class="text-lg font-light text-zinc-300 hover:text-white transition">
+                        graysonfabiancantu@iCloud.com
+                    </a>
+                </div>
+                <div>
+                    <span class="text-[10px] tracking-widest text-zinc-600 uppercase block">Direct Line</span>
+                    <a href="tel:7377701981" class="text-lg font-light text-zinc-300 hover:text-white transition">
+                        +1 (737) 770-1981
+                    </a>
+                </div>
+                <div>
+                    <span class="text-[10px] tracking-widest text-zinc-600 uppercase block">Codebase & Contributions</span>
+                    <a href="https://github.com/Graysoncantu" target="_blank" rel="noopener noreferrer" class="text-lg font-light text-zinc-300 hover:text-white transition inline-flex items-center gap-2 justify-end">
+                        github.com/Graysoncantu
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 px-6 text-center text-[10px] tracking-widest text-zinc-700 uppercase">
+        &copy; 2026 Grayson Fabian Cantu. All rights reserved.
+    </footer>
 
     <script>
-        let scene, camera, renderer, linesMesh;
-        let mouseX = 0, mouseY = 0;
-        let targetX = 0, targetY = 0;
+        const canvas = document.getElementById('liquid-glass-canvas');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
         
-        const SEPARATION = 40, AMOUNTX = 60, AMOUNTY = 60;
-        let count = 0;
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-        window.addEventListener('mousemove', (e) => {
-            // Normalized tracking vectors
-            mouseX = (e.clientX - window.innerWidth / 2) * 0.4;
-            mouseY = (e.clientY - window.innerHeight / 2) * 0.4;
+        // Create a morphing geometric mesh to act as the base for the liquid glass
+        const geometry = new THREE.IcosahedronGeometry(2, 64);
+        
+        // Custom physical material configurations for a "Liquid Glass / Chrome" effect
+        const material = new THREE.MeshPhysicalMaterial({
+            color: 0x111111,
+            roughness: 0.1,
+            metalness: 0.9,
+            clearcoat: 1.0,
+            clearcoatRoughness: 0.1,
+            transmission: 0.6, // Gives it that fluid glass quality
+            ior: 1.5,
+            thickness: 2.0,
+            flatShading: false
         });
 
-        function init3D() {
-            const container = document.getElementById('canvas-container');
-            
-            scene = new THREE.Scene();
-            
-            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 2000);
-            camera.position.z = 850;
-            camera.position.y = 350; // Dynamic pitch shift for topographic aesthetic
+        const mesh = new THREE.Mesh(geometry, material);
+        scene.add(mesh);
 
-            // Constructing a mathematical grid matrix
-            const numParticles = AMOUNTX * AMOUNTY;
-            const positions = new Float32Array(numParticles * 3);
-            
-            let i = 0;
-            for (let ix = 0; ix < AMOUNTX; ix++) {
-                for (let iy = 0; iy < AMOUNTY; iy++) {
-                    positions[i] = ix * SEPARATION - ((AMOUNTX * SEPARATION) / 2); // x
-                    positions[i + 1] = 0; // y (will be manipulated in loop)
-                    positions[i + 2] = iy * SEPARATION - ((AMOUNTY * SEPARATION) / 2); // z
-                    i += 3;
-                }
-            }
-
-            const geometry = new THREE.BufferGeometry();
-            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-            // Use crisp square points for maximum modern aesthetic
-            const material = new THREE.PointsMaterial({
-                color: 0xffffff,
-                size: 1.5,
-                transparent: true,
-                opacity: 0.12,
-                blending: THREE.AdditiveBlending
-            });
-
-            linesMesh = new THREE.Points(geometry, material);
-            scene.add(linesMesh);
-
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Caps execution load
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            container.appendChild(renderer.domElement);
-
-            window.addEventListener('resize', onWindowResize);
-            animate();
+        // Position the mesh toward the right side on desktop layouts
+        if(window.innerWidth > 768) {
+            mesh.position.x = 1.5;
         }
+        camera.position.z = 4.5;
 
-        function onWindowResize() {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        }
+        // Dynamic Lighting
+        const mainLight = new THREE.DirectionalLight(0xffffff, 2.5);
+        mainLight.position.set(5, 5, 5);
+        scene.add(mainLight);
+
+        const backlight = new THREE.DirectionalLight(0x333333, 2);
+        backlight.position.set(-5, -5, -5);
+        scene.add(backlight);
+
+        // Track interactive mouse positions to manipulate the fluid
+        let mouseX = 0;
+        let mouseY = 0;
+        let targetX = 0;
+        let targetY = 0;
+
+        window.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX / window.innerWidth) - 0.5;
+            mouseY = (event.clientY / window.innerHeight) - 0.5;
+        });
+
+        // Vertex Displacement animation script to make it "Liquid"
+        const clock = new THREE.Clock();
+        const originalPositions = geometry.attributes.position.clone();
 
         function animate() {
             requestAnimationFrame(animate);
 
-            // Interpolated camera tracking for smooth, non-snapping movement
-            targetX += (mouseX - targetX) * 0.04;
-            targetY += (mouseY - targetY) * 0.04;
+            const elapsedTime = clock.getElapsedTime();
+            const positionAttribute = geometry.attributes.position;
             
-            camera.position.x += (targetX - camera.position.x) * 0.05;
-            camera.position.y += ((-targetY + 300) - camera.position.y) * 0.05;
-            camera.lookAt(new THREE.Vector3(0, -50, 0));
+            // Simulating waves/liquidity on the object's surface mesh
+            for (let i = 0; i < positionAttribute.count; i++) {
+                const x = originalPositions.getX(i);
+                const y = originalPositions.getY(i);
+                const z = originalPositions.getZ(i);
 
-            // Mutate the topography array dynamically over time (Generates the 3D wave effect)
-            const positions = linesMesh.geometry.attributes.position.array;
-            let i = 0;
-            for (let ix = 0; ix < AMOUNTX; ix++) {
-                for (let iy = 0; iy < AMOUNTY; iy++) {
-                    // Sine and Cosine equations layer to create organic 3D fluid movement
-                    positions[i + 1] = (Math.sin((ix + count) * 0.2) * 40) + 
-                                       (Math.sin((iy + count) * 0.1) * 40);
-                    i += 3;
-                }
+                // Complex sine/cosine distortion calculation to emulate glass fluid dynamics
+                const waveX = Math.sin(x * 2 + elapsedTime) * 0.12;
+                const waveY = Math.cos(y * 2 + elapsedTime) * 0.12;
+                const waveZ = Math.sin(z * 2 + elapsedTime) * 0.12;
+
+                positionAttribute.setXYZ(i, x + waveX, y + waveY, z + waveZ);
             }
-            
-            linesMesh.geometry.attributes.position.needsUpdate = true;
-            count += 0.025; // Speed of the background landscape deformation
+            geometry.attributes.position.needsUpdate = true;
+            geometry.computeVertexNormals();
+
+            // Smooth mouse inertia integration
+            targetX += (mouseX - targetX) * 0.05;
+            targetY += (mouseY - targetY) * 0.05;
+
+            // Interactive response rotation based on user scroll and hover
+            mesh.rotation.y = elapsedTime * 0.15 + (targetX * 0.5);
+            mesh.rotation.x = elapsedTime * 0.1 + (targetY * 0.5);
 
             renderer.render(scene, camera);
         }
 
-        document.addEventListener('DOMContentLoaded', init3D);
+        animate();
+
+        // Screen resizing listener
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            
+            if(window.innerWidth <= 768) {
+                mesh.position.x = 0;
+                mesh.position.y = 0.5;
+            } else {
+                mesh.position.x = 1.5;
+                mesh.position.y = 0;
+            }
+        });
     </script>
 </body>
 </html>
