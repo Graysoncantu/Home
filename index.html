@@ -15,53 +15,43 @@
             scroll-behavior: smooth;
         }
         body {
-            background-color: #030303;
+            background-color: #050505;
         }
-        /* Enhanced Liquid Glass Core Effect */
+        /* Liquid Glass Core Effect */
         .liquid-glass {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.09);
-            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 10px 30px rgba(0, 0, 0, 0.5);
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(14px) saturate(160%);
+            -webkit-backdrop-filter: blur(14px) saturate(160%);
+            border: 1px solid rgba(255, 255, 255, 0.06);
         }
-        /* Structural Glass Cards with amplified refraction and sheen */
+        /* Structural Glass Cards */
         .liquid-glass-card {
-            background: rgba(10, 10, 10, 0.6);
-            backdrop-filter: blur(32px) saturate(140%);
-            -webkit-backdrop-filter: blur(32px) saturate(140%);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: inset 0 1px 0px rgba(255, 255, 255, 0.05), 0 40px 80px -20px rgba(0, 0, 0, 0.9);
+            background: rgba(8, 8, 8, 0.45);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.7);
             transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .liquid-glass-card:hover {
-            background: rgba(255, 255, 255, 0.04);
-            border-color: rgba(255, 255, 255, 0.18);
-            box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.15), 0 40px 80px -10px rgba(0, 0, 0, 0.9);
-            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.02);
+            border-color: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
         }
         /* Interactive Liquid Glass Buttons */
         .liquid-glass-btn {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             color: #f5f5f5;
-            box-shadow: inset 0 1px 0px rgba(255, 255, 255, 0.1);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .liquid-glass-btn:hover {
             background: #ffffff;
             color: #000000;
             border-color: #ffffff;
-            box-shadow: 0 0 50px rgba(255, 255, 255, 0.25);
-        }
-        /* Fixed Glass Navbar Container */
-        .glass-nav-container {
-            background: rgba(5, 5, 5, 0.15);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.12);
         }
         /* Custom Scrollbar for Dark Aesthetic */
         ::-webkit-scrollbar {
@@ -93,9 +83,9 @@
 </head>
 <body class="text-[#f5f5f5] font-sans antialiased selection:bg-white selection:text-black overflow-x-hidden">
 
-    <canvas id="webgl-canvas" class="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none opacity-60"></canvas>
+    <canvas id="webgl-canvas" class="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none opacity-40"></canvas>
 
-    <nav class="fixed top-0 left-0 w-full z-50 glass-nav-container mix-blend-difference px-6 py-6 md:px-12 flex justify-between items-center">
+    <nav class="fixed top-0 left-0 w-full z-50 mix-blend-difference px-6 py-6 md:px-12 flex justify-between items-center">
         <a href="#" class="font-display font-semibold tracking-wider text-xl uppercase text-white">GC.</a>
         <div class="hidden md:flex space-x-8 text-sm tracking-widest uppercase font-light">
             <a href="#about" class="hover:text-neutral-400 transition-colors">About</a>
@@ -111,7 +101,7 @@
     <main class="relative z-10 max-w-6xl mx-auto px-6 md:px-12">
 
         <section class="min-h-screen flex flex-col justify-center pt-20">
-            <div class="liquid-glass p-8 md:p-12 rounded-2xl max-w-3xl space-y-6">
+            <div class="max-w-3xl space-y-6">
                 <p class="font-display tracking-widest uppercase text-xs text-neutral-400 border-l border-neutral-700 pl-4">
                     Documentation Engineer
                 </p>
@@ -137,12 +127,10 @@
                 <h2 class="font-display text-xs uppercase tracking-widest text-neutral-500 sticky top-28">01 / Operational Philosophy</h2>
             </div>
             <div class="md:col-span-2 space-y-8">
-                <div class="liquid-glass p-8 rounded-xl space-y-4">
-                    <h3 class="font-display text-3xl font-light text-white">Documentation is a functional software product.</h3>
-                    <p class="text-neutral-400 text-lg font-light leading-relaxed">
-                        Modern technical writing spans the entire software engineering lifecycle. I build deeply integrated content pipelines that reduce engineering friction, optimize developer onboarding velocities, and scale effortlessly alongside rapid enterprise release cadences.
-                    </p>
-                </div>
+                <h3 class="font-display text-3xl font-light text-white">Documentation is a functional software product.</h3>
+                <p class="text-neutral-400 text-lg font-light leading-relaxed">
+                    Modern technical writing spans the entire software engineering lifecycle. I build deeply integrated content pipelines that reduce engineering friction, optimize developer onboarding velocities, and scale effortlessly alongside rapid enterprise release cadences.
+                </p>
             </div>
         </section>
 
@@ -158,32 +146,32 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="liquid-glass-card p-6 rounded-xl border border-neutral-900 space-y-3">
-                    <div class="text-neutral-300 text-base"><i class="fa-solid fa-code"></i></div>
+                    <div class="text-neutral-500 text-base"><i class="fa-solid fa-code"></i></div>
                     <h4 class="font-display text-lg font-medium">API Specifications</h4>
                     <p class="text-neutral-400 font-light text-xs leading-relaxed">Developing highly precise, interactive OpenAPI schema payloads, SDK references, and syntax endpoints.</p>
                 </div>
                 <div class="liquid-glass-card p-6 rounded-xl border border-neutral-900 space-y-3">
-                    <div class="text-neutral-300 text-base"><i class="fa-solid fa-arrows-spin"></i></div>
+                    <div class="text-neutral-500 text-base"><i class="fa-solid fa-arrows-spin"></i></div>
                     <h4 class="font-display text-lg font-medium">Docs-as-Code Ops</h4>
                     <p class="text-neutral-400 font-light text-xs leading-relaxed">Integrating content markdown into Git repositories, automated CI/CD linters, and static compilers.</p>
                 </div>
                 <div class="liquid-glass-card p-6 rounded-xl border border-neutral-900 space-y-3">
-                    <div class="text-neutral-300 text-base"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                    <div class="text-neutral-500 text-base"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
                     <h4 class="font-display text-lg font-medium">UX Writing & Copy</h4>
                     <p class="text-neutral-400 font-light text-xs leading-relaxed">Authoring concise in-app error matrices, interactive wizard text, and granular tooltip layouts.</p>
                 </div>
                 <div class="liquid-glass-card p-6 rounded-xl border border-neutral-900 space-y-3">
-                    <div class="text-neutral-300 text-base"><i class="fa-solid fa-earth-americas"></i></div>
+                    <div class="text-neutral-500 text-base"><i class="fa-solid fa-earth-americas"></i></div>
                     <h4 class="font-display text-lg font-medium">Localization Setup</h4>
                     <p class="text-neutral-400 font-light text-xs leading-relaxed">Isolating presentation layers from text properties into key-value internationalization schemas.</p>
                 </div>
                 <div class="liquid-glass-card p-6 rounded-xl border border-neutral-900 space-y-3">
-                    <div class="text-neutral-300 text-base"><i class="fa-solid fa-chart-line"></i></div>
+                    <div class="text-neutral-500 text-base"><i class="fa-solid fa-chart-line"></i></div>
                     <h4 class="font-display text-lg font-medium">Telemetry & Analytics</h4>
                     <p class="text-neutral-400 font-light text-xs leading-relaxed">Tracking search-miss metrics, user bounce patterns, and data-driven documentation helpfulness scores.</p>
                 </div>
                 <div class="liquid-glass-card p-6 rounded-xl border border-neutral-900 space-y-3">
-                    <div class="text-neutral-300 text-base"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div class="text-neutral-500 text-base"><i class="fa-solid fa-shield-halved"></i></div>
                     <h4 class="font-display text-lg font-medium">Compliance & Security</h4>
                     <p class="text-neutral-400 font-light text-xs leading-relaxed">Structuring engineering runbooks, access protocols, and architectural compliance assets for SOC2 auditing cycles.</p>
                 </div>
@@ -252,26 +240,24 @@
                     <h2 class="font-display text-xs uppercase tracking-widest text-neutral-500 sticky top-28">04 / Connectivity</h2>
                 </div>
                 <div class="md:col-span-2 space-y-12">
-                    <div class="liquid-glass p-8 md:p-12 rounded-2xl space-y-12">
-                        <h3 class="font-display text-2xl md:text-4xl font-light text-white tracking-tight">Let's connect.</h3>
-                        
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-6 font-display">
-                            <div class="space-y-1">
-                                <span class="text-xs text-neutral-500 uppercase tracking-widest">Secure Email</span>
-                                <a href="mailto:graysonfabiancantu@iCloud.com" class="block text-lg text-white hover:text-neutral-400 transition-colors">graysonfabiancantu@iCloud.com</a>
-                            </div>
-                            <div class="space-y-1">
-                                <span class="text-xs text-neutral-500 uppercase tracking-widest">Communications Line</span>
-                                <a href="tel:7377701981" class="block text-lg text-white hover:text-neutral-400 transition-colors">737.770.1981</a>
-                            </div>
-                            <div class="space-y-1">
-                                <span class="text-xs text-neutral-500 uppercase tracking-widest">GitHub Repository</span>
-                                <a href="https://github.com/Graysoncantu" target="_blank" class="block text-lg text-white hover:text-neutral-400 transition-colors">github.com/Graysoncantu</a>
-                            </div>
-                            <div class="space-y-1">
-                                <span class="text-xs text-neutral-500 uppercase tracking-widest">Curriculum Vitae</span>
-                                <a href="https://github.com/Graysoncantu/Home/blob/main/Resume.pdf" target="_blank" class="block text-lg text-white hover:text-neutral-400 transition-colors">Resume <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-1"></i></a>
-                            </div>
+                    <h3 class="font-display text-2xl md:text-4xl font-light text-white tracking-tight">Let's connect.</h3>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-6 font-display">
+                        <div class="space-y-1">
+                            <span class="text-xs text-neutral-500 uppercase tracking-widest">Secure Email</span>
+                            <a href="mailto:graysonfabiancantu@iCloud.com" class="block text-lg text-white hover:text-neutral-400 transition-colors">graysonfabiancantu@iCloud.com</a>
+                        </div>
+                        <div class="space-y-1">
+                            <span class="text-xs text-neutral-500 uppercase tracking-widest">Communications Line</span>
+                            <a href="tel:7377701981" class="block text-lg text-white hover:text-neutral-400 transition-colors">737.770.1981</a>
+                        </div>
+                        <div class="space-y-1">
+                            <span class="text-xs text-neutral-500 uppercase tracking-widest">GitHub Repository</span>
+                            <a href="https://github.com/Graysoncantu" target="_blank" class="block text-lg text-white hover:text-neutral-400 transition-colors">github.com/Graysoncantu</a>
+                        </div>
+                        <div class="space-y-1">
+                            <span class="text-xs text-neutral-500 uppercase tracking-widest">Curriculum Vitae</span>
+                            <a href="https://github.com/Graysoncantu/Home/blob/main/Resume.pdf" target="_blank" class="block text-lg text-white hover:text-neutral-400 transition-colors">Resume <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-1"></i></a>
                         </div>
                     </div>
                 </div>
@@ -384,14 +370,14 @@
             camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
             camera.position.z = 5;
 
-            geometry = new THREE.IcosahedronGeometry(2.1, 5); // Larger and more defined geometry
+            geometry = new THREE.IcosahedronGeometry(1.9, 4);
 
             material = new THREE.MeshPhysicalMaterial({
                 color: 0xffffff,
-                roughness: 0.1,
+                roughness: 0.15,
                 metalness: 0.1,
-                transmission: 0.9, // Higher transmission for clear glass look
-                ior: 1.52, // Standard glass index of refraction
+                transmission: 0.85, 
+                ior: 1.45,
                 side: THREE.DoubleSide,
                 depthWrite: false,
                 wireframe: true
@@ -400,24 +386,20 @@
             mesh = new THREE.Mesh(geometry, material);
             scene.add(mesh);
 
-            const ambient = new THREE.AmbientLight(0x0f0f0f);
+            const ambient = new THREE.AmbientLight(0x0a0a0a);
             scene.add(ambient);
 
-            const dir1 = new THREE.DirectionalLight(0xffffff, 0.95);
+            const dir1 = new THREE.DirectionalLight(0xffffff, 0.7);
             dir1.position.set(1, 1, 1).normalize();
             scene.add(dir1);
-
-            const dir2 = new THREE.DirectionalLight(0xffffff, 0.4);
-            dir2.position.set(-1, -1, -1).normalize();
-            scene.add(dir2);
 
             renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('webgl-canvas'), alpha: true, antialias: true });
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
             renderer.setSize(window.innerWidth, window.innerHeight);
 
             document.addEventListener('mousemove', (e) => {
-                mouseX = (e.clientX - windowHalfX) / 100;
-                mouseY = (e.clientY - windowHalfY) / 100;
+                mouseX = (e.clientX - windowHalfX) / 120;
+                mouseY = (e.clientY - windowHalfY) / 120;
             });
             window.addEventListener('resize', () => {
                 camera.aspect = window.innerWidth / window.innerHeight;
@@ -430,8 +412,8 @@
             requestAnimationFrame(animate3D);
             targetX += (mouseX - targetX) * 0.05;
             targetY += (mouseY - targetY) * 0.05;
-            mesh.rotation.y = performance.now() * 0.0003 + targetX;
-            mesh.rotation.x = performance.now() * 0.0002 + targetY;
+            mesh.rotation.y = performance.now() * 0.00025 + targetX;
+            mesh.rotation.x = performance.now() * 0.00015 + targetY;
             renderer.render(scene, camera);
         }
     </script>
