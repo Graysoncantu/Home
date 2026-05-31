@@ -6,12 +6,11 @@
     <title>Grayson Cantu | Technical Communicator & Medical Information Architect</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     
     <style>
         /* Liquid Glassmorphism Utilities */
         .liquid-glass {
-            background: rgba(10, 10, 12, 0.45);
+            background: rgba(18, 18, 22, 0.45);
             backdrop-filter: blur(20px) saturate(140%);
             -webkit-backdrop-filter: blur(20px) saturate(140%);
             border: 1px solid rgba(255, 255, 255, 0.06);
@@ -19,7 +18,7 @@
         }
         .liquid-glass:hover {
             border: 1px solid rgba(255, 255, 255, 0.14);
-            background: rgba(18, 18, 22, 0.65);
+            background: rgba(26, 26, 32, 0.65);
         }
         
         /* Smooth Custom Scrollbar */
@@ -27,7 +26,7 @@
             width: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: #030305;
+            background: #020204;
         }
         ::-webkit-scrollbar-thumb {
             background: #222226;
@@ -39,8 +38,6 @@
     </style>
 </head>
 <body class="bg-[#020204] text-neutral-200 font-sans antialiased selection:bg-white selection:text-black overflow-x-hidden">
-
-    <canvas id="canvas3d" class="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none opacity-60"></canvas>
 
     <nav class="fixed top-0 left-0 w-full z-50 liquid-glass border-b border-neutral-900/60">
         <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
@@ -270,166 +267,8 @@
     </footer>
 
     <script>
+        // Initialize Lucide Icons
         lucide.createIcons();
-
-        const canvas = document.getElementById('canvas3d');
-        const scene = new THREE.Scene();
-        
-        // Camera Config
-        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.z = 4.0;
-
-        // WebGL Renderer Config
-        const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-        // --- PART 1: The Dark Deep Nebula Galaxy (Particle System) ---
-        const particleCount = 1800;
-        const starGeometry = new THREE.BufferGeometry();
-        const positions = new Float32Array(particleCount * 3);
-        const starColors = new Float32Array(particleCount * 3);
-
-        for (let i = 0; i < particleCount * 3; i += 3) {
-            // Mathematical structural layout mapping out a deep galaxy spiral
-            const radius = Math.random() * 6 + 0.2;
-            const spinAngle = radius * 1.5;
-            const branchAngle = ((i / 3) % 3) * ((2 * Math.PI) / 3);
-
-            const randomX = Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 0.4;
-            const randomY = Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 0.4;
-            const randomZ = Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 0.4;
-
-            positions[i] = Math.cos(branchAngle + spinAngle) * radius + randomX;
-            positions[i + 1] = randomY;
-            positions[i + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ;
-
-            // Strict Monochrome star brightness distribution
-            const brightness = Math.random() * 0.4 + 0.2;
-            starColors[i] = brightness;
-            starColors[i + 1] = brightness;
-            starColors[i + 2] = brightness + 0.05; // Extremely subtle cold bluish-grey undertone
-        }
-
-        starGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        starGeometry.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
-
-        // Create canvas texture dynamically for beautiful rounded blurred stars
-        const createStarTexture = () => {
-            const matCanvas = document.createElement('canvas');
-            matCanvas.width = 16;
-            matCanvas.height = 16;
-            const ctx = matCanvas.getContext('2d');
-            const gradient = ctx.createRadialGradient(8, 8, 0, 8, 8, 8);
-            gradient.addColorStop(0, 'rgba(255,255,255,1)');
-            gradient.addColorStop(1, 'rgba(255,255,255,0)');
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, 16, 16);
-            return new THREE.CanvasTexture(matCanvas);
-        };
-
-        const starMaterial = new THREE.PointsMaterial({
-            size: 0.04,
-            sizeAttenuation: true,
-            depthWrite: false,
-            blending: THREE.AdditiveBlending,
-            vertexColors: true,
-            map: createStarTexture(),
-            transparent: true
-        });
-
-        const galaxyPoints = new THREE.Points(starGeometry, starMaterial);
-        scene.add(galaxyPoints);
-
-        // --- PART 2: Central Liquid Glass Core Orb ---
-        const glassGeometry = new THREE.IcosahedronGeometry(1.4, 64);
-        const glassMaterial = new THREE.MeshPhysicalMaterial({
-            color: 0x0a0a0f,
-            roughness: 0.08,
-            metalness: 0.1,
-            transmission: 0.92, 
-            ior: 1.45,         
-            thickness: 1.5,
-            transparent: true,
-            opacity: 0.9,
-            clearcoat: 1.0,
-            clearcoatRoughness: 0.05
-        });
-
-        const glassMesh = new THREE.Mesh(glassGeometry, glassMaterial);
-        scene.add(glassMesh);
-
-        // Illuminating Environments
-        const ambientLight = new THREE.AmbientLight(0x111116, 12);
-        scene.add(ambientLight);
-
-        const pointLightForward = new THREE.PointLight(0xffffff, 6, 80);
-        pointLightForward.position.set(4, 4, 4);
-        scene.add(pointLightForward);
-
-        const pointLightBack = new THREE.PointLight(0x33333b, 4, 80);
-        pointLightBack.position.set(-4, -4, -2);
-        scene.add(pointLightBack);
-
-        // Local tracking arrays for vertex wave calculations
-        const initialPositions = glassGeometry.attributes.position.clone();
-
-        // Mouse Interactivity tracking state
-        let mouseX = 0, mouseY = 0;
-        let targetX = 0, targetY = 0;
-
-        window.addEventListener('mousemove', (event) => {
-            mouseX = (event.clientX - window.innerWidth / 2) / 150;
-            mouseY = (event.clientY - window.innerHeight / 2) / 150;
-        });
-
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-
-        // Animation Render Pipeline Loop
-        const clock = new THREE.Clock();
-
-        function animate() {
-            requestAnimationFrame(animate);
-
-            const elapsedTime = clock.getElapsedTime();
-
-            // Part A: Rotate Galaxy Fields smoothly
-            galaxyPoints.rotation.y = elapsedTime * 0.03;
-            galaxyPoints.rotation.x = Math.sin(elapsedTime * 0.01) * 0.05;
-
-            // Part B: Liquid Structural Distortions inside Glass Core Mesh
-            const posAttr = glassGeometry.attributes.position;
-            const currentVertex = new THREE.Vector3();
-
-            for (let i = 0; i < posAttr.count; i++) {
-                currentVertex.fromBufferAttribute(initialPositions, i);
-                
-                // Mathematical undulating layers modeling glass turbulence
-                const ripple1 = Math.sin(currentVertex.x * 2.5 + elapsedTime * 1.2) * 0.06;
-                const ripple2 = Math.cos(currentVertex.y * 2.2 + elapsedTime * 1.0) * 0.06;
-                const ripple3 = Math.sin(currentVertex.z * 2.8 + elapsedTime * 1.5) * 0.04;
-                
-                currentVertex.addScaledVector(currentVertex.clone().normalize(), ripple1 + ripple2 + ripple3);
-                posAttr.setXYZ(i, currentVertex.x, currentVertex.y, currentVertex.z);
-            }
-            posAttr.needsUpdate = true;
-            glassGeometry.computeVertexNormals();
-
-            // Part C: Interactivity Integration with structural inertia damping
-            targetX = mouseX * 0.2;
-            targetY = mouseY * 0.2;
-            
-            glassMesh.rotation.y += 0.003 + (targetX - glassMesh.rotation.y) * 0.04;
-            glassMesh.rotation.x += 0.002 + (targetY - glassMesh.rotation.x) * 0.04;
-
-            renderer.render(scene, camera);
-        }
-
-        animate();
     </script>
 </body>
 </html>
