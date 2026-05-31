@@ -7,12 +7,14 @@ _____
 
 
 📌 Overview
+
 A curated repository of technical documentation, standard operating procedures (SOPs), and architecture breakdowns. This portfolio demonstrates a **Documentation Engineer’s** approach to knowledge management: treating documentation as a product, designing scalable information architecture, and translating complex, low-level technical systems into high-impact, actionable resources. Focused on reducing developer friction, driving cross-functional alignment, and building robust internal knowledge ecosystems.
 
 
 ____
 
 🛠️ Core Competencies
+
 * **Information Architecture & Developer Experience (DX):** Designing intuitive, scalable navigation structures, API references, and developer portals that lower the barrier to entry for complex codebases.
 * **Systems & Process Documentation:** Translating intricate, distributed software workflows and microservices architectures into repeatable frameworks and comprehensive guides.
 * **Data & Technical Synthesis:** Partnering with data engineers and analytics teams to document complex data pipelines, extraction methodologies, and structured reporting schemas.
