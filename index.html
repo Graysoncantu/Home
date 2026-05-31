@@ -4,402 +4,226 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grayson Fabian Cantu | Technical Communicator</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- Design Tokens & Reset --- */
-        :root {
-            --bg-color: #0a0a0a;
-            --text-primary: #ffffff;
-            --text-secondary: #888888;
-            --border-color: rgba(255, 255, 255, 0.1);
-            /* Liquid Glass Effect */
-            --glass-bg: rgba(15, 15, 15, 0.4);
-            --glass-blur: blur(20px);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --glass-shine: inset 0 1px 1px rgba(255, 255, 255, 0.2);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        /* Custom Monochrome Liquid Glass Styles */
         body {
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #f5f5f5;
+            font-family: system-ui, -apple-system, sans-serif;
             overflow-x: hidden;
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
         }
 
-        /* --- 3D Canvas Background --- */
-        #canvas-container {
+        /* 3D Liquid Glass Glassmorphism Card */
+        .liquid-glass {
+            background: rgba(20, 20, 20, 0.45);
+            backdrop-filter: blur(20px) saturate(120%);
+            -webkit-backdrop-filter: blur(20px) saturate(120%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 
+                0 4px 30px rgba(0, 0, 0, 0.8),
+                inset 0 1px 2px rgba(255, 255, 255, 0.1),
+                inset 0 -10px 20px rgba(0, 0, 0, 0.4);
+            border-radius: 24px;
+            transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+        }
+
+        .liquid-glass:hover {
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.9),
+                inset 0 1px 4px rgba(255, 255, 255, 0.2),
+                0 0 30px rgba(255, 255, 255, 0.03);
+        }
+
+        /* Interactive custom canvas background */
+        #fluid-canvas {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 1;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
             pointer-events: none;
         }
 
-        /* --- Layout Structure --- */
-        main {
+        /* Micro-interactions */
+        .mono-link {
             position: relative;
-            z-index: 2;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 6rem;
+            transition: color 0.3s ease;
         }
-
-        @media (min-width: 900px) {
-            main {
-                grid-template-columns: 450px 1fr;
-                gap: 4rem;
-                padding: 6rem 4rem;
-            }
-            
-            .left-col {
-                position: sticky;
-                top: 6rem;
-                height: calc(100vh - 12rem);
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-            }
+        .mono-link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: #fff;
+            transform-origin: bottom right;
+            transition: transform 0.25s ease-out;
         }
-
-        /* --- Typography --- */
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            font-weight: 400;
-            letter-spacing: -0.03em;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-        }
-
-        h2 {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            font-weight: 600;
-        }
-
-        p {
-            color: var(--text-secondary);
-            line-height: 1.7;
-            font-size: 1rem;
-            font-weight: 300;
-        }
-
-        /* --- Liquid Glass Cards --- */
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--glass-shine), 0 20px 50px rgba(0, 0, 0, 0.5);
-            border-radius: 12px;
-            padding: 2.5rem;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
-        }
-
-        .glass-card:hover {
-            border-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-4px);
-        }
-
-        /* --- Navigation / Quick Links --- */
-        .nav-links {
-            list-style: none;
-            margin-top: 2rem;
-        }
-
-        .nav-links li {
-            margin-bottom: 1rem;
-        }
-
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            letter-spacing: 0.05em;
-            transition: color 0.3s ease, padding-left 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-        }
-
-        .nav-links a:hover {
-            color: var(--text-primary);
-            padding-left: 8px;
-        }
-
-        /* --- Portfolio Grid (Specializations) --- */
-        .right-col {
-            display: flex;
-            flex-direction: column;
-            gap: 2.5rem;
-        }
-
-        .spec-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-        }
-
-        .spec-item {
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 1.5rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .spec-item:hover {
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-
-        .spec-title {
-            font-size: 1.2rem;
-            font-weight: 400;
-            margin-bottom: 0.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .spec-arrow {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            transition: transform 0.3s ease;
-        }
-
-        .spec-item:hover .spec-arrow {
-            transform: translateX(4px);
-            color: var(--text-primary);
-        }
-
-        /* --- Contact Footer / CTA --- */
-        .contact-trigger {
-            display: inline-block;
-            margin-top: 1.5rem;
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            border-bottom: 1px solid var(--text-primary);
-            padding-bottom: 4px;
-            transition: opacity 0.3s ease;
-        }
-
-        .contact-trigger:hover {
-            opacity: 0.7;
-        }
-
-        .footer-info {
-            margin-top: auto;
-            padding-top: 2rem;
-        }
-
-        .footer-info p {
-            font-size: 0.85rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-info a {
-            color: var(--text-primary);
-            text-decoration: none;
+        .mono-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
         }
     </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col justify-between selection:bg-white selection:text-black">
 
-    <div id="canvas-container"></div>
+    <canvas id="fluid-canvas"></canvas>
 
-    <main>
-        <div class="left-col">
-            <div class="glass-card">
-                <h1>Grayson Fabian Cantu</h1>
-                <h2>Technical Communicator</h2>
-                <p>Architecting clarity out of complexity. Specializing in translating intricate technological systems into elegant, accessible human experiences across all domains of professional writing.</p>
-                
-                <ul class="nav-links">
-                    <li><a href="#specializations">// Domains of Expertise</a></li>
-                    <li><a href="https://github.com/Graysoncantu/Home/blob/main/Resume.pdf" target="_blank">// View Interactive Resume ↗</a></li>
-                    <li><a href="https://github.com/Graysoncantu" target="_blank">// GitHub Profile ↗</a></li>
-                </ul>
-            </div>
-
-            <div class="glass-card footer-info" style="margin-top: 1.5rem;">
-                <h2>Get In Touch</h2>
-                <p>Email: <a href="mailto:graysonfabiancantu@iCloud.com">graysonfabiancantu@iCloud.com</a></p>
-                <p>Phone: <a href="tel:7377701981">+1 (737) 770-1981</a></p>
-                <a href="mailto:graysonfabiancantu@iCloud.com" class="contact-trigger">Initiate Project Discourse →</a>
-            </div>
+    <header class="w-full max-w-5xl mx-auto px-6 py-8 flex justify-between items-center z-10">
+        <div class="text-sm font-semibold tracking-widest uppercase opacity-80">
+            GFC // PORTFOLIO
         </div>
+        <nav class="flex gap-6 text-sm tracking-wide text-neutral-400">
+            <a href="https://github.com/Graysoncantu/Home/blob/main/Resume.pdf" target="_blank" class="hover:text-white mono-link transition-colors">Resume</a>
+            <a href="https://github.com/Graysoncantu" target="_blank" class="hover:text-white mono-link transition-colors">GitHub</a>
+        </nav>
+    </header>
 
-        <div class="right-col" id="specializations">
-            <div class="glass-card">
-                <h2>The Spectrum of Communication</h2>
-                <p style="margin-bottom: 2.5rem;">Technical communication isn't just one discipline. It is a vital multi-disciplinary bridge. Select a node below to review associated project methodologies.</p>
+    <main class="w-full max-w-5xl mx-auto px-6 py-12 flex-grow flex items-center justify-center z-10">
+        
+        <div id="hero-card" class="liquid-glass w-full p-8 md:p-16 flex flex-col md:flex-row justify-between items-start md:items-center gap-12">
+            
+            <div class="space-y-6 max-w-xl">
+                <div class="space-y-2">
+                    <span class="text-xs uppercase tracking-widest text-neutral-500 font-mono">Technical Communicator</span>
+                    <h1 class="text-4xl md:text-5xl font-light tracking-tight text-white">
+                        Grayson Fabian Cantu
+                    </h1>
+                </div>
                 
-                <div class="spec-grid">
-                    <div class="spec-item">
-                        <div class="spec-title">
-                            <span>01 / Technical Writing & Docs</span>
-                            <span class="spec-arrow">→</span>
-                        </div>
-                        <p>API documentation, SDK guides, system architectures, and developer portals designed for seamless onboarding.</p>
-                    </div>
+                <p class="text-neutral-400 text-base md:text-lg leading-relaxed font-light">
+                    Bridging the gap between complex engineering architectures and human understanding. Designing minimalist documentation, clear workflows, and aesthetic structural narratives.
+                </p>
 
-                    <div class="spec-item">
-                        <div class="spec-title">
-                            <span>02 / UX Writing & Microcopy</span>
-                            <span class="spec-arrow">→</span>
-                        </div>
-                        <p>Designing intuitive interface copy, error states, and user flows that reduce cognitive friction within software products.</p>
-                    </div>
-
-                    <div class="spec-item">
-                        <div class="spec-title">
-                            <span>03 / Instructional Design</span>
-                            <span class="spec-arrow">→</span>
-                        </div>
-                        <p>Creating highly structured training frameworks, video scripts, interactive modules, and knowledge management systems.</p>
-                    </div>
-
-                    <div class="spec-item">
-                        <div class="spec-title">
-                            <span>04 / Scientific & Medical Editing</span>
-                            <span class="spec-arrow">→</span>
-                        </div>
-                        <p>Distilling dense peer-reviewed research, regulatory documentation, clinical trials, and compliance whitepapers.</p>
-                    </div>
-
-                    <div class="spec-item">
-                        <div class="spec-title">
-                            <span>05 / Proposals & Copywriting</span>
-                            <span class="spec-arrow">→</span>
-                        </div>
-                        <p>High-stakes RFPs, grant requests, corporate whitepapers, and brand case studies aimed at driving commercial alignment.</p>
-                    </div>
+                <div class="flex flex-wrap gap-3 pt-2">
+                    <span class="px-3 py-1 bg-neutral-900/60 border border-neutral-800 text-xs rounded-full text-neutral-300 font-mono">API Documentation</span>
+                    <span class="px-3 py-1 bg-neutral-900/60 border border-neutral-800 text-xs rounded-full text-neutral-300 font-mono">UX Writing</span>
+                    <span class="px-3 py-1 bg-neutral-900/60 border border-neutral-800 text-xs rounded-full text-neutral-300 font-mono">Information Architecture</span>
                 </div>
             </div>
 
-            <div class="glass-card">
-                <h2>Philosophy</h2>
-                <p style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #fff; font-style: italic; line-height: 1.5;">
-                    "Complexity is passive. Clarity is an active, aggressive design choice."
-                </p>
+            <div class="w-full md:w-auto flex flex-col gap-4 min-w-[280px]">
+                
+                <a href="https://github.com/Graysoncantu" target="_blank" class="group flex items-center justify-between p-4 bg-neutral-950/40 hover:bg-white hover:text-black border border-neutral-800/60 rounded-xl transition-all duration-300">
+                    <div class="flex items-center gap-3">
+                        <i class="fab fa-github text-xl group-hover:text-black"></i>
+                        <span class="text-sm font-medium tracking-wide">GitHub Profile</span>
+                    </div>
+                    <i class="fas fa-arrow-up-right-from-square text-xs opacity-50 group-hover:opacity-100 transition-opacity"></i>
+                </a>
+
+                <a href="https://github.com/Graysoncantu/Home/blob/main/Resume.pdf" target="_blank" class="group flex items-center justify-between p-4 bg-neutral-950/40 hover:bg-white hover:text-black border border-neutral-800/60 rounded-xl transition-all duration-300">
+                    <div class="flex items-center gap-3">
+                        <i class="far fa-file-pdf text-xl group-hover:text-black"></i>
+                        <span class="text-sm font-medium tracking-wide">View Resume</span>
+                    </div>
+                    <i class="fas fa-arrow-up-right-from-square text-xs opacity-50 group-hover:opacity-100 transition-opacity"></i>
+                </a>
+
+                <div class="h-[1px] bg-neutral-800/60 my-2"></div>
+
+                <div class="space-y-2 px-1 text-xs font-mono text-neutral-400">
+                    <div class="flex items-center gap-2">
+                        <i class="far fa-envelope w-4 opacity-60"></i>
+                        <a href="mailto:graysonfabiancantu@iCloud.com" class="hover:text-white transition-colors">graysonfabiancantu@iCloud.com</a>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-phone-alt w-4 opacity-60"></i>
+                        <a href="tel:7377701981" class="hover:text-white transition-colors">+1 (737) 770-1981</a>
+                    </div>
+                </div>
+
             </div>
         </div>
+
     </main>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <footer class="w-full max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-mono text-neutral-600 z-10">
+        <div>© 2026 GRAYSON FABIAN CANTU. ALL RIGHTS RESERVED.</div>
+        <div class="flex gap-4">
+            <span>LATENCY: Oms</span>
+            <span>ENV: PRODUCTION</span>
+        </div>
+    </footer>
+
     <script>
-        // --- 3D Liquid Particle Fluid Scene Setup ---
-        const container = document.getElementById('canvas-container');
-        const scene = new THREE.Scene();
-        
-        // Camera
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.z = 50;
+        // 1. 3D Card Tilt Effect
+        const card = document.getElementById('hero-card');
+        const range = 15; // Max tilt angle
 
-        // Renderer
-        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        container.appendChild(renderer.domElement);
-
-        // Geometry: Generates a dense grid of points for the liquid wave
-        const numParticles = 1200;
-        const positions = new Float32Array(numParticles * 3);
-        const scales = new Float32Array(numParticles);
-
-        let i = 0, j = 0;
-        for (let ix = 0; ix < 40; ix++) {
-            for (let iy = 0; iy < 30; iy++) {
-                positions[i] = (ix * 3) - 60; // x alignment
-                positions[i + 1] = 0;         // y starts flat
-                positions[i + 2] = (iy * 3) - 45; // z alignment
-                scales[j] = 1;
-                i += 3;
-                j++;
-            }
+        const transformCard = (x, y) => {
+            const box = card.getBoundingClientRect();
+            const calcX = -(y - box.y - (box.height / 2)) / parseInt(box.height / range);
+            const calcY = (x - box.x - (box.width / 2)) / parseInt(box.width / range);
+            
+            card.style.setProperty('--rx', `${calcX}deg`);
+            card.style.setProperty('--ry', `${calcY}deg`);
         }
 
-        const geometry = new THREE.BufferGeometry();
-        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        geometry.setAttribute('scale', new THREE.BufferAttribute(scales, 1));
-
-        // Monochrome Material (Subtle off-white/grey glowing points)
-        const material = new THREE.PointsMaterial({
-            color: 0xffffff,
-            size: 0.35,
-            transparent: true,
-            opacity: 0.25,
-            blending: THREE.AdditiveBlending
+        document.addEventListener('mousemove', (e) => {
+            requestAnimationFrame(() => {
+                transformCard(e.clientX, e.clientY);
+            });
         });
 
-        // Create Mesh System
-        const particles = new THREE.Points(geometry, material);
-        scene.add(particles);
-
-        // Interaction Tracking
-        let mouseX = 0, mouseY = 0;
-        let targetX = 0, targetY = 0;
-
-        window.addEventListener('mousemove', (event) => {
-            // Normalize values around center screen
-            mouseX = (event.clientX - window.innerWidth / 2) * 0.05;
-            mouseY = (event.clientY - window.innerHeight / 2) * 0.05;
+        card.addEventListener('mouseleave', () => {
+            card.style.setProperty('--rx', '0deg');
+            card.style.setProperty('--ry', '0deg');
         });
 
-        // Animation Loop
-        let count = 0;
-        function animate() {
-            requestAnimationFrame(animate);
+        // 2. Liquid Dark Visuals: Canvas Fluid Particle Background
+        const canvas = document.getElementById('fluid-canvas');
+        const ctx = canvas.getContext('2d');
 
-            // Smooth interpolation (Lerp) for mouse reaction
-            targetX += (mouseX - targetX) * 0.05;
-            targetY += (mouseY - targetY) * 0.05;
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
 
-            // Subtle rotation adjustments based on user movement
-            particles.rotation.x = targetY * 0.01;
-            particles.rotation.y = targetX * 0.01;
-
-            // Math physics formulas to create liquid undulating wave motions
-            const positions = particles.geometry.attributes.position.array;
-            let i = 0;
-            for (let ix = 0; ix < 40; ix++) {
-                for (let iy = 0; iy < 30; iy++) {
-                    // Generates smooth sinusoidal 3D curves
-                    positions[i + 1] = (Math.sin((ix + count) * 0.3) * 3) + (Math.sin((iy + count) * 0.5) * 3);
-                    i += 3;
-                }
-            }
-            particles.geometry.attributes.position.needsUpdate = true;
-            count += 0.015;
-
-            renderer.render(scene, camera);
-        }
-
-        // Handle Responsive Window Resizing gracefully
         window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
         });
 
+        // Liquid blob state
+        let mouse = { x: width / 2, y: height / 2, tx: width / 2, ty: height / 2 };
+        
+        window.addEventListener('mousemove', (e) => {
+            mouse.tx = e.clientX;
+            mouse.ty = e.clientY;
+        });
+
+        // Smooth fluid blob generation loop
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            // Interpolate mouse movement for smooth liquid organic lag
+            mouse.x += (mouse.tx - mouse.x) * 0.06;
+            mouse.y += (mouse.ty - mouse.y) * 0.06;
+
+            // Render a dark, abstract glowing liquid gradient that lives under the glass
+            let gradient = ctx.createRadialGradient(mouse.x, mouse.y, 10, mouse.x, mouse.y, 450);
+            gradient.addColorStop(0, 'rgba(40, 40, 40, 0.15)');
+            gradient.addColorStop(0.5, 'rgba(20, 20, 20, 0.05)');
+            gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, width, height);
+
+            // Secondary ambient glass refraction spot
+            let ambientGlow = ctx.createRadialGradient(width * 0.2, height * 0.3, 50, width * 0.2, height * 0.3, 600);
+            ambientGlow.addColorStop(0, 'rgba(30, 30, 30, 0.1)');
+            ambientGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+            ctx.fillStyle = ambientGlow;
+            ctx.fillRect(0, 0, width, height);
+
+            requestAnimationFrame(animate);
+        }
         animate();
     </script>
 </body>
