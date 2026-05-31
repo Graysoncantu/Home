@@ -15,7 +15,7 @@ A curated repository of standard operating procedures (SOPs), technical troubles
 
 🛠️ Core Competencies
 
-*   **Technical Writing & Documentation:** Designing clear, accessible internal documentation, API guides, and knowledge bases.
+*   **Technical Communication & Documentation:** Designing clear, accessible internal documentation, API guides, and knowledge bases.
 *   **Systems & Process Optimization:** Mapping intricate technical workflows into scalable, repeatable frameworks.
 *   **Data Synthesis & Insights:** Translating raw analytics and pipeline data into high-level, executive-ready strategies.
 *   **Cross-Functional Alignment:** Bridging the gap between engineering, data, and executive leadership through structured communication.
