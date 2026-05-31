@@ -1,279 +1,273 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grayson Fabian Cantu | Technical Communicator</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
-        /* Custom styles for Liquid Glass backdrop blur */
-        .glass-card {
-            background: rgba(15, 15, 15, 0.45);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        /* --- DESIGN SYSTEM & TOKENS --- */
+        :root {
+            --bg-color: #0a0a0a;
+            --card-bg: rgba(20, 20, 20, 0.4);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f5f5f7;
+            --text-secondary: #86868b;
+            --glow-color: rgba(255, 255, 255, 0.15);
+            --glass-shine: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 60%);
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
-        .glass-card:hover {
-            background: rgba(25, 25, 25, 0.6);
-            border-color: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-            transform: translateY(-4px);
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
+
         body {
-            background-color: #050505;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            min-height: 100vh;
             overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
         }
-        /* Custom scrollbar to match monochrome aesthetic */
-        ::-webkit-scrollbar {
-            width: 6px;
+
+        /* --- INTERACTIVE LIQUID BACKGROUND --- */
+        #liquid-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+            background: radial-gradient(circle 0px at 0px 0px, var(--glow-color) 0%, transparent 70%);
+            transition: background 0.1s ease-out;
         }
-        ::-webkit-scrollbar-track {
-            background: #050505;
+
+        /* --- 3D PERSPECTIVE CONTAINER --- */
+        .portfolio-wrapper {
+            perspective: 1000px;
+            z-index: 2;
+            width: 100%;
+            max-width: 650px;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #222;
-            border-radius: 3px;
+
+        /* --- LIQUID GLASS CARD --- */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out, box-shadow 0.3s ease;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #444;
+
+        /* The glossy sheen overlay */
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 24px;
+            background: var(--glass-shine);
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        /* --- TYPOGRAPHY & LAYOUT --- */
+        .header {
+            transform: translateZ(50px); /* 3D Pop */
+            margin-bottom: 2.5rem;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(180deg, #fff 0%, #86868b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+        }
+
+        /* --- CAPABILITIES (ALL WRITERS) --- */
+        .capabilities {
+            transform: translateZ(30px);
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .tag {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.02);
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover .tag {
+            border-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+
+        /* --- LINKS & INTERACTION --- */
+        .links-container {
+            transform: translateZ(40px);
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .interactive-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid transparent;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .interactive-link:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.15);
+            padding-left: 1.5rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .link-label {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+        }
+
+        .interactive-link:hover .link-label {
+            color: var(--text-primary);
+        }
+
+        .arrow {
+            font-size: 1.1rem;
+            transform: translateX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .interactive-link:hover .arrow {
+            transform: translateX(4px);
+        }
+
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 600px) {
+            body { padding: 1rem; }
+            .glass-card { padding: 2rem; }
+            .capabilities { grid-template-columns: 1fr; gap: 0.6rem; }
+            h1 { font-size: 1.8rem; }
         }
     </style>
 </head>
-<body class="text-zinc-100 font-sans antialiased selection:bg-zinc-800 selection:text-white">
+<body>
 
-    <canvas id="liquid-glass-canvas" class="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none"></canvas>
+    <div id="liquid-canvas"></div>
 
-    <nav class="fixed top-0 left-0 w-full z-50 bg-neutral-950/20 backdrop-blur-md border-b border-zinc-900/50 px-6 py-4 flex justify-between items-center">
-        <a href="#" class="text-xs tracking-[0.3em] uppercase font-bold text-zinc-400 hover:text-white transition">G. Cantu</a>
-        <div class="flex gap-8 text-xs tracking-widest uppercase text-zinc-500">
-            <a href="#about" class="hover:text-white transition-colors duration-300">About</a>
-            <a href="#disciplines" class="hover:text-white transition-colors duration-300">Expertise</a>
-            <a href="#contact" class="hover:text-white transition-colors duration-300">Contact</a>
-        </div>
-    </nav>
+    <div class="portfolio-wrapper">
+        
+        <main class="glass-card" id="tilt-card">
+            
+            <header class="header">
+                <h1>Grayson Fabian Cantu</h1>
+                <p class="subtitle">Technical Communicator & Information Architect</p>
+            </header>
 
-    <main class="min-h-screen flex flex-col justify-center px-6 md:px-24 pt-20 max-w-6xl mx-auto">
-        <div class="space-y-4 max-w-3xl">
-            <p class="text-xs tracking-[0.4em] uppercase text-zinc-500 animate-pulse">Portfolio &mdash; Technical Communicator</p>
-            <h1 class="text-5xl md:text-8xl font-light tracking-tighter text-zinc-200 leading-none">
-                Grayson Fabian Cantu
-            </h1>
-            <p class="text-lg md:text-xl font-light text-zinc-400 max-w-xl pt-4 leading-relaxed">
-                Architecting clarity out of complexity. Bridging the gap between deeply technical infrastructure and human intuition across all domains of professional writing.
-            </p>
-        </div>
-        <div class="mt-12 flex gap-6">
-            <a href="#disciplines" class="glass-card px-6 py-3 rounded-none text-xs tracking-widest uppercase text-zinc-300 hover:text-white">
-                View Disciplines &darr;
-            </a>
-            <a href="#contact" class="px-6 py-3 text-xs tracking-widest uppercase text-zinc-500 hover:text-white transition-colors">
-                Get In Touch
-            </a>
-        </div>
-    </main>
+            <section class="capabilities">
+                <div class="tag">Technical Documentation</div>
+                <div class="tag">UX & Product Writing</div>
+                <div class="tag">API & Dev Rel Content</div>
+                <div class="tag">Copy & Creative Strategy</div>
+            </section>
 
-    <section id="disciplines" class="py-32 px-6 md:px-24 max-w-6xl mx-auto">
-        <div class="border-b border-zinc-900 pb-6 mb-16">
-            <p class="text-xs tracking-[0.3em] uppercase text-zinc-500">01 / Focus Areas</p>
-            <h2 class="text-3xl font-light tracking-tight text-zinc-300 mt-2">Writing Across the Stack</h2>
-        </div>
+            <nav class="links-container">
+                <a href="https://github.com/Graysoncantu/Home/blob/main/Resume.pdf" target="_blank" class="interactive-link">
+                    <span class="link-label">Resume</span>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="https://github.com/Graysoncantu" target="_blank" class="interactive-link">
+                    <span class="link-label">GitHub</span>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="mailto:graysonfabiancantu@iCloud.com" class="interactive-link">
+                    <span class="link-label">Email</span>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="tel:7377701981" class="interactive-link">
+                    <span class="link-label">Phone</span>
+                    <span class="arrow">→</span>
+                </a>
+            </nav>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="glass-card p-8 group">
-                <span class="text-xs text-zinc-600 font-mono">01 // STRUCTURE</span>
-                <h3 class="text-xl font-normal text-zinc-200 mt-4 mb-2">Technical Writing</h3>
-                <p class="text-sm text-zinc-400 font-light leading-relaxed">
-                    API references, architecture deep-dives, developer documentation, and SDK guides. Turning rigid source code into accessible workflows.
-                </p>
-            </div>
-
-            <div class="glass-card p-8 group">
-                <span class="text-xs text-zinc-600 font-mono">02 // INTERACTION</span>
-                <h3 class="text-xl font-normal text-zinc-200 mt-4 mb-2">UX Writing & Content Design</h3>
-                <p class="text-sm text-zinc-400 font-light leading-relaxed">
-                    Microcopy, error states, onboarding flows, and product taxonomy. Crafting the conversational UI layer that guides users intuitively.
-                </p>
-            </div>
-
-            <div class="glass-card p-8 group">
-                <span class="text-xs text-zinc-600 font-mono">03 // EDUCATION</span>
-                <h3 class="text-xl font-normal text-zinc-200 mt-4 mb-2">Instructional Design & Training</h3>
-                <p class="text-sm text-zinc-400 font-light leading-relaxed">
-                    Curriculum development, interactive tutorials, knowledge bases, and enablement materials built around cognitive load theory.
-                </p>
-            </div>
-
-            <div class="glass-card p-8 group">
-                <span class="text-xs text-zinc-600 font-mono">04 // COMPLIANCE</span>
-                <h3 class="text-xl font-normal text-zinc-200 mt-4 mb-2">Medical & Scientific Writing</h3>
-                <p class="text-sm text-zinc-400 font-light leading-relaxed">
-                    Regulatory submissions, clinical summaries, and complex research translation. Adhering to strict compliance frameworks without sacrificing readability.
-                </p>
-            </div>
-
-            <div class="glass-card p-8 group">
-                <span class="text-xs text-zinc-600 font-mono">05 // STRATEGY</span>
-                <h3 class="text-xl font-normal text-zinc-200 mt-4 mb-2">Proposals, RFPs & Grants</h3>
-                <p class="text-sm text-zinc-400 font-light leading-relaxed">
-                    High-stakes business documentation, technical proposals, and public-private grant writing engineered to win buy-in and funding.
-                </p>
-            </div>
-
-            <div class="glass-card p-8 group">
-                <span class="text-xs text-zinc-600 font-mono">06 // GROWTH</span>
-                <h3 class="text-xl font-normal text-zinc-200 mt-4 mb-2">Technical Marketing & Thought Leadership</h3>
-                <p class="text-sm text-zinc-400 font-light leading-relaxed">
-                    Whitepapers, technical blogs, and product positioning. Translating cutting-edge features into clear, commercial value propositions.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="py-32 px-6 md:px-24 max-w-6xl mx-auto bg-neutral-950/40 border-t border-zinc-900/60">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div>
-                <p class="text-xs tracking-[0.3em] uppercase text-zinc-500">02 / Connection</p>
-                <h2 class="text-4xl font-light tracking-tight text-zinc-200 mt-2 mb-6">Let's build a clearer system together.</h2>
-                <p class="text-sm text-zinc-400 font-light max-w-md leading-relaxed">
-                    Currently accepting technical documentation, consultation, and full-stack communications design contracts. 
-                </p>
-            </div>
-
-            <div class="flex flex-col justify-end space-y-6 md:text-right">
-                <div>
-                    <span class="text-[10px] tracking-widest text-zinc-600 uppercase block">Inquire via Email</span>
-                    <a href="mailto:graysonfabiancantu@iCloud.com" class="text-lg font-light text-zinc-300 hover:text-white transition">
-                        graysonfabiancantu@iCloud.com
-                    </a>
-                </div>
-                <div>
-                    <span class="text-[10px] tracking-widest text-zinc-600 uppercase block">Direct Line</span>
-                    <a href="tel:7377701981" class="text-lg font-light text-zinc-300 hover:text-white transition">
-                        +1 (737) 770-1981
-                    </a>
-                </div>
-                <div>
-                    <span class="text-[10px] tracking-widest text-zinc-600 uppercase block">Codebase & Contributions</span>
-                    <a href="https://github.com/Graysoncantu" target="_blank" rel="noopener noreferrer" class="text-lg font-light text-zinc-300 hover:text-white transition inline-flex items-center gap-2 justify-end">
-                        github.com/Graysoncantu
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-8 px-6 text-center text-[10px] tracking-widest text-zinc-700 uppercase">
-        &copy; 2026 Grayson Fabian Cantu. All rights reserved.
-    </footer>
+        </main>
+    </div>
 
     <script>
-        const canvas = document.getElementById('liquid-glass-canvas');
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-        
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        const card = document.getElementById('tilt-card');
+        const canvas = document.getElementById('liquid-canvas');
 
-        // Create a morphing geometric mesh to act as the base for the liquid glass
-        const geometry = new THREE.IcosahedronGeometry(2, 64);
-        
-        // Custom physical material configurations for a "Liquid Glass / Chrome" effect
-        const material = new THREE.MeshPhysicalMaterial({
-            color: 0x111111,
-            roughness: 0.1,
-            metalness: 0.9,
-            clearcoat: 1.0,
-            clearcoatRoughness: 0.1,
-            transmission: 0.6, // Gives it that fluid glass quality
-            ior: 1.5,
-            thickness: 2.0,
-            flatShading: false
+        // 1. LIQUID GLASS MOUSE TRACKING
+        // Creates a seamless flowing soft glow behind the blurred glass matrix
+        window.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            canvas.style.background = `radial-gradient(circle 250px at ${x}px ${y}px, var(--glow-color) 0%, transparent 100%)`;
         });
 
-        const mesh = new THREE.Mesh(geometry, material);
-        scene.add(mesh);
+        // 2. 3D CARD TILT INTERACTION
+        // Calculates subtle angle offsets relative to center point of the card
+        document.addEventListener('mousemove', (e) => {
+            if (!card) return;
 
-        // Position the mesh toward the right side on desktop layouts
-        if(window.innerWidth > 768) {
-            mesh.position.x = 1.5;
-        }
-        camera.position.z = 4.5;
+            const rect = card.getBoundingClientRect();
+            const cardCenterX = rect.left + rect.width / 2;
+            const cardCenterY = rect.top + rect.height / 2;
 
-        // Dynamic Lighting
-        const mainLight = new THREE.DirectionalLight(0xffffff, 2.5);
-        mainLight.position.set(5, 5, 5);
-        scene.add(mainLight);
+            // Normalize values between -1 and 1
+            const angleX = (e.clientY - cardCenterY) / (window.innerHeight / 2);
+            const angleY = (e.clientX - cardCenterX) / (window.innerWidth / 2);
 
-        const backlight = new THREE.DirectionalLight(0x333333, 2);
-        backlight.position.set(-5, -5, -5);
-        scene.add(backlight);
+            // Cap the rotation to keep it sleek and minimalist (max 12 degrees)
+            const rotateX = angleX * -12;
+            const rotateY = angleY * 12;
 
-        // Track interactive mouse positions to manipulate the fluid
-        let mouseX = 0;
-        let mouseY = 0;
-        let targetX = 0;
-        let targetY = 0;
-
-        window.addEventListener('mousemove', (event) => {
-            mouseX = (event.clientX / window.innerWidth) - 0.5;
-            mouseY = (event.clientY / window.innerHeight) - 0.5;
+            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
         });
 
-        // Vertex Displacement animation script to make it "Liquid"
-        const clock = new THREE.Clock();
-        const originalPositions = geometry.attributes.position.clone();
-
-        function animate() {
-            requestAnimationFrame(animate);
-
-            const elapsedTime = clock.getElapsedTime();
-            const positionAttribute = geometry.attributes.position;
-            
-            // Simulating waves/liquidity on the object's surface mesh
-            for (let i = 0; i < positionAttribute.count; i++) {
-                const x = originalPositions.getX(i);
-                const y = originalPositions.getY(i);
-                const z = originalPositions.getZ(i);
-
-                // Complex sine/cosine distortion calculation to emulate glass fluid dynamics
-                const waveX = Math.sin(x * 2 + elapsedTime) * 0.12;
-                const waveY = Math.cos(y * 2 + elapsedTime) * 0.12;
-                const waveZ = Math.sin(z * 2 + elapsedTime) * 0.12;
-
-                positionAttribute.setXYZ(i, x + waveX, y + waveY, z + waveZ);
-            }
-            geometry.attributes.position.needsUpdate = true;
-            geometry.computeVertexNormals();
-
-            // Smooth mouse inertia integration
-            targetX += (mouseX - targetX) * 0.05;
-            targetY += (mouseY - targetY) * 0.05;
-
-            // Interactive response rotation based on user scroll and hover
-            mesh.rotation.y = elapsedTime * 0.15 + (targetX * 0.5);
-            mesh.rotation.x = elapsedTime * 0.1 + (targetY * 0.5);
-
-            renderer.render(scene, camera);
-        }
-
-        animate();
-
-        // Screen resizing listener
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            
-            if(window.innerWidth <= 768) {
-                mesh.position.x = 0;
-                mesh.position.y = 0.5;
-            } else {
-                mesh.position.x = 1.5;
-                mesh.position.y = 0;
-            }
+        // Reset the 3D position flawlessly when the mouse leaves the viewport
+        document.addEventListener('mouseleave', () => {
+            card.style.transform = `rotateX(0deg) rotateY(0deg)`;
+            canvas.style.background = `radial-gradient(circle 0px at 0px 0px, var(--glow-color) 0%, transparent 70%)`;
         });
     </script>
 </body>
