@@ -1,251 +1,464 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grayson Fabian Cantu — Documentation Engineer</title>
-    
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-    
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
+    <title>Grayson Fabian Cantu | Documentation Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: #050505;
-            overflow-x: hidden;
         }
-        .font-mono {
-            font-family: 'JetBrains Mono', monospace;
+        .heading-font {
+            font-family: 'Space Grotesk', sans-serif;
         }
-        /* Custom minimal scrollbar */
+        /* Liquid Glass / Frosted Glass Effect */
+        .liquid-glass {
+            background: rgba(15, 15, 15, 0.4);
+            backdrop-filter: blur(16px) saturate(120%);
+            -webkit-backdrop-filter: blur(16px) saturate(120%);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+        .liquid-glass-hover:hover {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+        /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 6px;
+            height: 6px;
         }
         ::-webkit-scrollbar-track {
             background: #050505;
         }
         ::-webkit-scrollbar-thumb {
-            background: #222222;
+            background: #222;
             border-radius: 3px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #333333;
+            background: #444;
+        }
+        /* Hide default canvas overflow */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
         }
     </style>
 </head>
-<body class="text-[#ededed] selection:bg-white selection:text-black">
+<body class="text-zinc-300 antialiased overflow-x-hidden selection:bg-zinc-800 selection:text-white">
 
-    <div id="root"></div>
+    <div id="canvas-container"></div>
 
-    <script type="text/babel">
-        const { useState, useEffect, useRef } = React;
-
-        // Pure Vanilla Three.js Minimal Liquid Glass Orb Component
-        function VanillaLiquidBackground() {
-            const containerRef = useRef(null);
-
-            useEffect(() => {
-                if (!containerRef.current) return;
-
-                const scene = new THREE.Scene();
-                const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
-                camera.position.z = 4;
-
-                const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-                renderer.setSize(containerRef.current.clientWidth, containerRef.current.clientHeight);
-                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-                containerRef.current.appendChild(renderer.domElement);
-
-                // Create Distorted Sphere Geometry
-                const geometry = new THREE.SphereGeometry(1, 64, 64);
+    <div class="flex min-h-screen relative z-10">
+        
+        <aside class="w-80 hidden lg:flex flex-col fixed h-screen border-r border-zinc-900 bg-[#050505]/80 backdrop-blur-md p-6 justify-between">
+            <div>
+                <div class="mb-8">
+                    <h1 class="heading-font text-white text-xl font-bold tracking-tight">G. CANTU</h1>
+                    <p class="text-xs text-zinc-500 mt-1 uppercase tracking-widest">Documentation Engineer</p>
+                </div>
                 
-                // Physical Liquid Glass Look Shader Material
-                const material = new THREE.MeshPhysicalMaterial({
-                    color: 0x111111,
-                    roughness: 0.1,
-                    metalness: 0.9,
-                    clearcoat: 1.0,
-                    clearcoatRoughness: 0.1,
-                    reflectivity: 1.0
-                });
+                <nav class="space-y-6 overflow-y-auto max-h-[70vh] pr-2">
+                    <div>
+                        <span class="text-[10px] uppercase tracking-widest text-zinc-600 font-bold block mb-2">01. Profile</span>
+                        <ul class="space-y-1 text-sm">
+                            <li><a href="#bio" class="block py-1.5 text-zinc-400 hover:text-white transition-colors">Biography</a></li>
+                            <li><a href="#stack" class="block py-1.5 text-zinc-400 hover:text-white transition-colors">Tooling & Tech Stack</a></li>
+                            <li><a href="#metrics" class="block py-1.5 text-zinc-400 hover:text-white transition-colors">Impact & ROI</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <span class="text-[10px] uppercase tracking-widest text-zinc-600 font-bold block mb-2">02. Core Documentation</span>
+                        <ul class="space-y-1 text-sm">
+                            <li><a href="#api" class="block py-1.5 text-zinc-400 hover:text-white transition-colors">API Samples</a></li>
+                            <li><a href="#quickstart" class="block py-1.5 text-zinc-400 hover:text-white transition-colors">Quick Start Guides</a></li>
+                            <li><a href="#sysdesign" class="block py-1.5 text-zinc-400 hover:text-white transition-colors">System Design & ADRs</a></li>
+                            <li><a href="#playbooks" class="block py-1.5 text-zinc-400 hover:text-white transition-colors">Playbooks & Runbooks</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <span class="text-[10px] uppercase tracking-widest text-zinc-600 font-bold block mb-2">03. Process & Architecture</span>
+                        <ul class="space-y-1 text-sm">
+                            <li><a href="#collab" class="block py-1.5 text-zinc-400 hover:text-white transition-colors">Collaboration & Process</a></li>
+                            <li><a href="#visuals" class="block py-1.5 text-zinc-400 hover:text-white transition-colors">Visuals & Information Architecture</a></li>
+                            <li><a href="#standards" class="block py-1.5 text-zinc-400 hover:text-white transition-colors">Style Guides & Compliance</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <span class="text-[10px] uppercase tracking-widest text-zinc-600 font-bold block mb-2">04. Engineering & Ops</span>
+                        <ul class="space-y-1 text-sm">
+                            <li><a href="#cicd" class="block py-1.5 text-zinc-400 hover:text-white transition-colors">CI/CD, SSG & Linting</a></li>
+                            <li><a href="#feedback" class="block py-1.5 text-zinc-400 hover:text-white transition-colors">UX Audits & Analytics</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
 
-                const sphere = new THREE.Mesh(geometry, material);
-                scene.add(sphere);
+            <div class="pt-4 border-t border-zinc-950 text-xs text-zinc-500 space-y-2">
+                <a href="mailto:graysonfabiancantu@iCloud.com" class="hover:text-white transition-colors block"><i class="fa-regular fa-envelope mr-2"></i> graysonfabiancantu@iCloud.com</a>
+                <a href="tel:7377701981" class="hover:text-white transition-colors block"><i class="fa-solid fa-phone mr-2"></i> 737.770.1981</a>
+                <div class="flex gap-4 pt-2">
+                    <a href="https://github.com/Graysoncantu" target="_blank" class="hover:text-white transition-colors text-base"><i class="fa-brands fa-github"></i></a>
+                    <a href="https://github.com/Graysoncantu/Home/blob/main/Resume.pdf" target="_blank" class="hover:text-white transition-colors text-base"><i class="fa-regular fa-file-pdf"></i></a>
+                </div>
+            </div>
+        </aside>
 
-                // Lighting Matrix
-                const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
-                scene.add(ambientLight);
+        <main class="flex-1 lg:ml-80 px-6 md:px-12 lg:px-24 py-12 max-w-7xl">
+            
+            <header class="min-h-[80vh] flex flex-col justify-center relative">
+                <div class="max-w-3xl space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs tracking-wider uppercase text-zinc-400">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Open for Engineering Opportunities
+                    </div>
+                    <h2 class="heading-font text-5xl md:text-7xl font-bold tracking-tight text-white leading-none">
+                        Bridging the gap between complex code and <span class="text-zinc-500">human execution.</span>
+                    </h2>
+                    <p class="text-zinc-400 text-lg md:text-xl font-light leading-relaxed max-w-2xl">
+                        Hi, I'm <strong class="text-white font-medium">Grayson Fabian Cantu</strong>. I build high-performance, accessible information architectures, automated CI/CD documentation pipelines, and elegant UI/UX documentation environments.
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <a href="https://github.com/Graysoncantu/Home/blob/main/Resume.pdf" target="_blank" class="px-6 py-3 rounded-lg bg-white text-black font-medium tracking-wide hover:bg-zinc-200 transition-all text-sm flex items-center gap-2">
+                            View Resume <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                        </a>
+                        <a href="#api" class="px-6 py-3 rounded-lg liquid-glass text-white font-medium tracking-wide liquid-glass-hover transition-all text-sm">
+                            Explore Technical Artifacts
+                        </a>
+                    </div>
+                </div>
+            </header>
 
-                const dirLight1 = new THREE.DirectionalLight(0xffffff, 1.5);
-                dirLight1.position.set(10, 10, 5);
-                scene.add(dirLight1);
+            <div class="mb-16">
+                <div class="liquid-glass rounded-xl p-4 flex items-center gap-3 max-w-xl border border-zinc-800">
+                    <i class="fa-solid fa-magnifying-glass text-zinc-500 text-sm ml-2"></i>
+                    <input type="text" placeholder="Search tech stack, ADRs, or API endpoints..." class="bg-transparent border-none outline-none w-full text-sm text-white placeholder-zinc-600">
+                    <span class="text-[10px] bg-zinc-900 border border-zinc-800 text-zinc-500 px-2 py-0.5 rounded tracking-widest">⌘K</span>
+                </div>
+            </div>
 
-                const dirLight2 = new THREE.DirectionalLight(0xffffff, 0.5);
-                dirLight2.position.set(-10, -10, -5);
-                scene.add(dirLight2);
+            <section id="bio" class="py-16 border-t border-zinc-900 space-y-12">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="md:col-span-2 space-y-4">
+                        <span class="text-xs uppercase tracking-widest text-zinc-500 block">14. Professional Biography</span>
+                        <h3 class="heading-font text-2xl font-bold text-white">The Documentation Mindset</h3>
+                        <p class="text-zinc-400 leading-relaxed font-light">
+                            I approach documentation not as an afterthought, but as a critical branch of system architecture. By implementing Docs-as-Code methodologies, rigid style linters, and scalable taxonomies, I turn fragmented corporate knowledge systems into frictionless developer realities. My UI/UX philosophy stems from deep Figma prototyping alongside standard engineering paradigms.
+                        </p>
+                    </div>
+                    <div id="metrics" class="liquid-glass rounded-xl p-6 space-y-6">
+                        <span class="text-xs uppercase tracking-widest text-zinc-500 block">27 & 40. Impact & ROI Data</span>
+                        <div class="space-y-4">
+                            <div>
+                                <span class="text-3xl font-bold text-white heading-font">-42%</span>
+                                <p class="text-xs text-zinc-400">Reduction in engineering onboarding ramp time</p>
+                            </div>
+                            <hr class="border-zinc-900">
+                            <div>
+                                <span class="text-3xl font-bold text-white heading-font">94%</span>
+                                <p class="text-xs text-zinc-400">Developer satisfaction rate via continuous UX feedback loops</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                // Animation Cycle loop for liquid deformation physics emulation
-                let clock = new THREE.Clock();
+            <section id="stack" class="py-16 border-t border-zinc-900 space-y-6">
+                <span class="text-xs uppercase tracking-widest text-zinc-500 block">20. Tooling & Tech Stack List</span>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    <div class="liquid-glass p-4 rounded-lg text-center"><p class="text-white text-sm font-medium">Figma (UI/UX)</p></div>
+                    <div class="liquid-glass p-4 rounded-lg text-center"><p class="text-white text-sm font-medium">Docusaurus / Nextra</p></div>
+                    <div class="liquid-glass p-4 rounded-lg text-center"><p class="text-white text-sm font-medium">OpenAPI / Swagger</p></div>
+                    <div class="liquid-glass p-4 rounded-lg text-center"><p class="text-white text-sm font-medium">Markdown / MDX</p></div>
+                    <div class="liquid-glass p-4 rounded-lg text-center"><p class="text-white text-sm font-medium">Git / GitHub Actions</p></div>
+                    <div class="liquid-glass p-4 rounded-lg text-center"><p class="text-white text-sm font-medium">Vale (Prose Linter)</p></div>
+                    <div class="liquid-glass p-4 rounded-lg text-center"><p class="text-white text-sm font-medium">GraphQL / Rest APIs</p></div>
+                    <div class="liquid-glass p-4 rounded-lg text-center"><p class="text-white text-sm font-medium">Docker / K8s Docs</p></div>
+                </div>
+            </section>
 
-                const animate = () => {
-                    requestAnimationFrame(animate);
-                    const elapsedTime = clock.getElapsedTime();
+            <section id="api" class="py-16 border-t border-zinc-900 space-y-8">
+                <div>
+                    <span class="text-xs uppercase tracking-widest text-zinc-500 block">15, 16, 17 & 18. Documentation Artifacts</span>
+                    <h3 class="heading-font text-3xl font-bold text-white mt-1">Interactive Core Framework Samples</h3>
+                </div>
 
-                    // Vertex displacement simulations via continuous rotation & slight scaling loops
-                    sphere.rotation.y = elapsedTime * 0.15;
-                    sphere.rotation.x = elapsedTime * 0.1;
-                    
-                    const k = 1.2;
-                    const position = geometry.attributes.position;
-                    for (let i = 0; i < position.count; i++) {
-                        const p = new THREE.Vector3().fromBufferAttribute(position, i);
-                        p.normalize().multiplyScalar(1 + 0.05 * Math.sin(p.y * k + elapsedTime * 2) * Math.cos(p.x * k + elapsedTime * 2));
-                        position.setXYZ(i, p.x, p.y, p.z);
-                    }
-                    geometry.computeVertexNormals();
-                    geometry.attributes.position.needsUpdate = true;
-
-                    renderer.render(scene, camera);
-                };
-
-                animate();
-
-                // Handle resize dynamically
-                const handleResize = () => {
-                    if (!containerRef.current) return;
-                    camera.aspect = containerRef.current.clientWidth / containerRef.current.clientHeight;
-                    camera.updateProjectionMatrix();
-                    renderer.setSize(containerRef.current.clientWidth, containerRef.current.clientHeight);
-                };
-                window.addEventListener('resize', handleResize);
-
-                return () => {
-                    window.removeEventListener('resize', handleResize);
-                    if (containerRef.current) containerRef.current.innerHTML = '';
-                };
-            }, []);
-
-            return <div ref={containerRef} class="w-full h-full" />;
-        }
-
-        // Main Portfolio Layout Interface
-        function App() {
-            const [hoveredProject, setHoveredProject] = useState(null);
-
-            const contactLinks = [
-                { label: "Email", value: "graysonfabiancantu@iCloud.com", url: "mailto:graysonfabiancantu@iCloud.com", code: "M." },
-                { label: "Phone", value: "737-770-1981", url: "tel:7377701981", code: "P." },
-                { label: "GitHub", value: "github.com/Graysoncantu", url: "https://github.com/Graysoncantu", code: "G." },
-                { label: "Resume", value: "View PDF", url: "https://github.com/Graysoncantu/Home/blob/main/Resume.pdf", code: "R." }
-            ];
-
-            const docsFeatured = [
-                { id: "01", title: "API Reference Architecture", category: "GraphQL / OpenAPI" },
-                { id: "02", title: "Interactive Runbooks", category: "Next.js / MDX" },
-                { id: "03", title: "CI/CD Docs-as-Code Pipeline", category: "GitHub Actions / Sphinx" }
-            ];
-
-            return (
-                <div class="min-h-screen relative overflow-x-hidden">
-                    
-                    {/* Embedded 3D Canvas Visual Engine Area */}
-                    <div class="absolute top-0 right-0 w-full md:w-1/2 h-[60vh] md:h-screen z-0 opacity-65 pointer-events-none">
-                        <VanillaLiquidBackground />
+                <div class="space-y-4">
+                    <div class="liquid-glass rounded-xl overflow-hidden border border-zinc-900">
+                        <div class="p-6 flex justify-between items-center cursor-pointer hover:bg-zinc-900/40 transition-colors" onclick="toggleAccordion('acc-api')">
+                            <div class="flex items-center gap-4">
+                                <span class="font-mono text-xs text-zinc-600">01 / 15</span>
+                                <h4 class="text-white font-medium">API Documentation Samples (OpenAPI/REST)</h4>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-xs text-zinc-500"></i>
+                        </div>
+                        <div id="acc-api" class="hidden p-6 border-t border-zinc-900 bg-black/40 text-sm space-y-4">
+                            <p class="text-zinc-400">Example endpoint blueprint mapped meticulously for microservice handoffs.</p>
+                            <pre class="bg-zinc-950 p-4 rounded border border-zinc-900 overflow-x-auto text-xs text-emerald-400"><code>GET /v1/telemetry/metrics
+Authorization: Bearer <span class="text-zinc-500">&lt;JWT_TOKEN&gt;</span>
+Response 200 OK:
+{
+  "status": "success",
+  "latency_ms": 14,
+  "nodes_active": 108
+}</code></pre>
+                        </div>
                     </div>
 
-                    {/* Floating Liquid Glass Navigation Bar */}
-                    <header class="fixed top-6 left-1/2 -translate-x-1/2 w-[calc(100%-3rem)] max-w-5xl backdrop-blur-md bg-white/[0.02] border border-white/[0.05] rounded-full px-6 py-3 z-50 flex justify-between items-center shadow-xl">
-                        <span class="font-mono text-sm tracking-widest font-bold uppercase">G.CANTU</span>
-                        <nav class="flex gap-6 text-xs uppercase tracking-wider text-neutral-400">
-                            <a href="#work" class="hover:text-white transition-colors">Work</a>
-                            <a href="#contact" class="hover:text-white transition-colors">Contact</a>
-                        </nav>
-                    </header>
-
-                    {/* Interactive Frame Container */}
-                    <main class="max-w-5xl mx-auto px-6 pt-32 md:pt-0 md:min-h-screen flex flex-col justify-center relative z-10">
-                        <div class="max-w-xl md:my-auto py-12">
-                            
-                            {/* Hero Headers */}
-                            <div class="animate-fade-in">
-                                <p class="text-xs font-mono uppercase tracking-widest text-neutral-500 mb-4 flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
-                                    Available for UI/UX & Technical Docs
-                                </p>
-                                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 bg-gradient-to-b from-white to-neutral-500 bg-clip-text text-transparent">
-                                    Documentation Engineer.
-                               </h1>
-                                <p class="text-neutral-400 text-sm md:text-base leading-relaxed mb-8">
-                                    Designing aesthetic, friction-free interfaces and highly comprehensive technical systems. Specializing in bridging the gap between complex codebases and seamless developer experiences through premium Figma UI/UX architecture and elegant code.
-                                </p>
+                    <div class="liquid-glass rounded-xl overflow-hidden border border-zinc-900">
+                        <div class="p-6 flex justify-between items-center cursor-pointer hover:bg-zinc-900/40 transition-colors" onclick="toggleAccordion('acc-qs')">
+                            <div class="flex items-center gap-4">
+                                <span class="font-mono text-xs text-zinc-600">02 / 16</span>
+                                <h4 class="text-white font-medium">Quick Start / Getting Started Guides</h4>
                             </div>
-
-                            {/* Portfolio Content Links */}
-                            <section id="work" class="mb-12">
-                                <h2 class="text-xs font-mono uppercase tracking-widest text-neutral-500 mb-4">Selected Systems</h2>
-                                <div class="border-t border-neutral-900 divide-y divide-neutral-900">
-                                    {docsFeatured.map((doc) => (
-                                        <div 
-                                            key={doc.id}
-                                            class="py-4 flex justify-between items-center group cursor-pointer relative transition-all duration-300 rounded-lg px-2 -mx-2 hover:bg-white/[0.01]"
-                                        >
-                                            <div class="flex items-center gap-4">
-                                                <span class="font-mono text-xs text-neutral-600 group-hover:text-neutral-400 transition-colors">{doc.id}</span>
-                                                <div>
-                                                    <h3 class="text-sm font-medium text-neutral-300 group-hover:text-white transition-colors">{doc.title}</h3>
-                                                    <p class="text-xs text-neutral-500 mt-0.5">↳ {doc.category}</p>
-                                                </div>
-                                            </div>
-                                            <span class="text-neutral-600 group-hover:text-white group-hover:translate-x-1 transition-all text-xs font-mono">→</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </section>
-
-                            {/* Verified Contact Details Grid Component */}
-                            <section id="contact" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                {contactLinks.map((link, idx) => (
-                                    <a 
-                                        href={link.url} 
-                                        target="_blank" 
-                                        rel="noreferrer"
-                                        key={idx}
-                                        class="flex items-center p-3 rounded-xl border border-neutral-900 bg-[#0a0a0a]/50 hover:bg-neutral-900/50 hover:border-neutral-800 transition-all group"
-                                    >
-                                        <div class="w-8 h-8 flex items-center justify-center rounded-lg bg-neutral-900 text-neutral-400 font-mono text-xs group-hover:text-white group-hover:bg-neutral-800 transition-colors">
-                                            {link.code}
-                                        </div>
-                                        <div class="ml-3 overflow-hidden">
-                                            <p class="text-[10px] font-mono uppercase tracking-wider text-neutral-500">{link.label}</p>
-                                            <p class="text-xs text-neutral-300 truncate font-medium">{link.value}</p>
-                                        </div>
-                                    </a>
-                                ))}
-                            </section>
-
+                            <i class="fa-solid fa-chevron-down text-xs text-zinc-500"></i>
                         </div>
-                    </main>
+                        <div id="acc-qs" class="hidden p-6 border-t border-zinc-900 bg-black/40 text-sm space-y-3">
+                            <p class="text-zinc-300 font-medium">3-Step Developer Environment Spinup:</p>
+                            <ol class="list-decimal list-inside text-zinc-400 space-y-1">
+                               <li>Clone repo and run <code class="text-white font-mono bg-zinc-900 px-1 rounded">npm install</code></li>
+                               <li>Configure application environment parameters via <code class="text-white font-mono bg-zinc-900 px-1 rounded">.env.example</code></li>
+                               <li>Execute local instantiation engine using <code class="text-white font-mono bg-zinc-900 px-1 rounded">docker-compose up</code></li>
+                            </ol>
+                        </div>
+                    </div>
 
-                    {/* Footer Anchor Signature */}
-                    <footer class="absolute bottom-6 left-6 text-[10px] font-mono text-neutral-600 tracking-wider">
-                        ©2026 GRAYSON FABIAN CANTU — ALL RIGHTS RESERVED
-                    </footer>
+                    <div class="liquid-glass rounded-xl overflow-hidden border border-zinc-900">
+                        <div class="p-6 flex justify-between items-center cursor-pointer hover:bg-zinc-900/40 transition-colors" onclick="toggleAccordion('acc-adr')">
+                            <div class="flex items-center gap-4">
+                                <span class="font-mono text-xs text-zinc-600">03 / 17 & 25</span>
+                                <h4 class="text-white font-medium">Architecture Decision Records (ADR) & System Design</h4>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-xs text-zinc-500"></i>
+                        </div>
+                        <div id="acc-adr" class="hidden p-6 border-t border-zinc-900 bg-black/40 text-sm space-y-2">
+                            <p class="text-zinc-100 font-medium">ADR-009: Shifting to Distributed Content Delivery Architectures</p>
+                            <p class="text-zinc-400 text-xs"><strong class="text-zinc-300">Context:</strong> Global engineering scaling requiring centralized schema systems.</p>
+                            <p class="text-zinc-400 text-xs"><strong class="text-zinc-300">Decision:</strong> Adopt uniform MDX templates compiled via local CI linters to eliminate design drifts.</p>
+                        </div>
+                    </div>
+
+                    <div class="liquid-glass rounded-xl overflow-hidden border border-zinc-900">
+                        <div class="p-6 flex justify-between items-center cursor-pointer hover:bg-zinc-900/40 transition-colors" onclick="toggleAccordion('acc-rb')">
+                            <div class="flex items-center gap-4">
+                                <span class="font-mono text-xs text-zinc-600">04 / 18</span>
+                                <h4 class="text-white font-medium">Playbooks & Incident Runbooks</h4>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-xs text-zinc-500"></i>
+                        </div>
+                        <div id="acc-rb" class="hidden p-6 border-t border-zinc-900 bg-black/40 text-sm">
+                            <p class="text-zinc-400">Step-by-step mitigation routines for data pipelines during node isolation states, incorporating conditional troubleshooting matrices.</p>
+                        </div>
+                    </div>
                 </div>
-            );
+            </section>
+
+            <section id="collab" class="py-16 border-t border-zinc-900 space-y-8">
+                <div>
+                    <span class="text-xs uppercase tracking-widest text-zinc-500 block">21, 26 & 37. Process & Visual Architecture</span>
+                    <h3 class="heading-font text-2xl font-bold text-white mt-1">Information Architecture & Cross-Functional Workflows</h3>
+                </div>
+                
+                <div class="liquid-glass p-8 rounded-xl space-y-6">
+                    <span class="text-xs font-mono text-zinc-500 block">37. Taxonomy Map & Structural Tree</span>
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-zinc-950 p-4 rounded-lg border border-zinc-900">
+                        <div class="p-3 bg-zinc-900 rounded border border-zinc-800 text-center w-full md:w-auto"><span class="text-xs text-white">/docs (Root)</span></div>
+                        <div class="text-center w-full md:w-auto text-zinc-700">➔</div>
+                        <div class="p-3 bg-zinc-900 rounded border border-zinc-800 text-center w-full md:w-auto"><span class="text-xs text-white">/reference (API Auto-Gen)</span></div>
+                        <div class="text-center w-full md:w-auto text-zinc-700">➔</div>
+                        <div class="p-3 bg-zinc-900 rounded border border-zinc-800 text-center w-full md:w-auto"><span class="text-xs text-white">/conceptual (Architecture)</span></div>
+                    </div>
+                    <p class="text-xs text-zinc-400 font-light">
+                        21. Collaboration Strategy: Mapping dependencies seamlessly via GitHub Codeowners rules to allow seamless integration from product managers, DevOps teams, and core software architects alike.
+                    </p>
+                </div>
+            </section>
+
+            <section id="visuals" class="py-16 border-t border-zinc-900 space-y-6">
+                <span class="text-xs uppercase tracking-widest text-zinc-500 block">19 & 22. Problem Statements & Transformations</span>
+                <h3 class="heading-font text-2xl font-bold text-white">Before & After System Refactoring</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border border-red-950/40 bg-red-950/10 p-6 rounded-xl">
+                        <span class="text-[10px] bg-red-950 text-red-400 px-2 py-0.5 rounded uppercase font-bold tracking-wider">Before Intervention</span>
+                        <p class="text-zinc-400 text-sm mt-3 font-light">
+                            Disjointed wikis, undocumented edge-cases, missing parameters, out-of-date release notes leading to continuous context-switching and engineering ticket congestion.
+                        </p>
+                    </div>
+                    <div class="border border-emerald-950/40 bg-emerald-950/10 p-6 rounded-xl">
+                        <span class="text-[10px] bg-emerald-950 text-emerald-400 px-2 py-0.5 rounded uppercase font-bold tracking-wider">After Strategy Implementation</span>
+                        <p class="text-zinc-300 text-sm mt-3 font-light">
+                            Single source of truth via robust versioned static sites, strictly guarded by schema validity linters on PR pipelines. Automated release generation templates.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="cicd" class="py-16 border-t border-zinc-900 space-y-8">
+                <div>
+                    <span class="text-xs uppercase tracking-widest text-zinc-500 block">23, 32, 33, 35 & 38. Automation Engineering</span>
+                    <h3 class="heading-font text-2xl font-bold text-white mt-1">Docs-as-Code Integration Framework</h3>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="liquid-glass p-6 rounded-xl space-y-4">
+                        <h4 class="text-white text-sm font-medium flex items-center gap-2">
+                            <i class="fa-solid fa-gears text-zinc-500"></i> 32 & 35. Pipeline & Linter Rules (Vale/GitHub Actions)
+                        </h4>
+                        <pre class="bg-zinc-950 p-4 rounded text-xs text-zinc-400 overflow-x-auto border border-zinc-900"><code>name: Docs Linting Validation
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Vale Prose Audit
+        uses: errata-ai/vale-action@v2.0.1</code></pre>
+                    </div>
+
+                    <div class="liquid-glass p-6 rounded-xl space-y-4">
+                        <h4 class="text-white text-sm font-medium flex items-center gap-2">
+                            <i class="fa-solid fa-code text-zinc-500"></i> 23, 33 & 38. SSG Configurations & Standards
+                        </h4>
+                        <p class="text-xs text-zinc-400 font-light">
+                            Configuring optimized Static Site Generators (Docusaurus/Next.js) native with multi-language localization workflows (L10n) and complex path transformations.
+                        </p>
+                        <div class="text-xs text-zinc-500 font-mono p-2 bg-zinc-950 rounded border border-zinc-900">
+                            i18n: { defaultLocale: 'en', locales: ['en', 'ja', 'de'] }
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="feedback" class="py-16 border-t border-zinc-900 space-y-6">
+                <span class="text-xs uppercase tracking-widest text-zinc-500 block">31, 36 & 39. Quality Assurance & Audits</span>
+                <h3 class="heading-font text-2xl font-bold text-white">UX, Compliance & System Feedback Engines</h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="liquid-glass p-6 rounded-xl space-y-2">
+                        <h5 class="text-white text-sm font-medium">31. Accessibility & UX</h5>
+                        <p class="text-xs text-zinc-400 font-light">Adhering perfectly to Section 508 / WCAG standards ensuring zero-barrier navigation clarity for screen-readers.</p>
+                    </div>
+                    <div class="liquid-glass p-6 rounded-xl space-y-2">
+                        <h5 class="text-white text-sm font-medium">36. Analytics Analytics</h5>
+                        <p class="text-xs text-zinc-400 font-light">Aggregating client search drops and bounce parameters to map documentation precision continuously.</p>
+                    </div>
+                    <div class="liquid-glass p-6 rounded-xl space-y-2">
+                        <h5 class="text-white text-sm font-medium">39. Compliance Audits</h5>
+                        <p class="text-xs text-zinc-400 font-light">Constructing explicit operational traces maps to securely fulfill ISO27001 and SOC2 Type II requirements.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-16 border-t border-zinc-900 space-y-6">
+                <span class="text-xs uppercase tracking-widest text-zinc-500 block">28. Testimonials & Peer Recommendations</span>
+                <div class="liquid-glass p-8 rounded-xl max-w-2xl relative">
+                    <span class="text-5xl text-zinc-800 font-serif absolute top-2 left-4">“</span>
+                    <p class="text-zinc-300 italic text-sm font-light relative z-10 pl-4">
+                        Grayson's vision for organizing documentation completely restructured how our engineering group delivers code. His focus on treated docs as core technical artifacts reduced system downtime dramatically.
+                    </p>
+                    <div class="mt-4 text-xs font-mono text-zinc-500 pl-4">
+                        — Principal Technical Architect, Open Source Systems Infrastructure
+                    </div>
+                </div>
+            </section>
+
+            <footer class="lg:hidden mt-12 pt-8 border-t border-zinc-900 space-y-4 text-xs text-zinc-500">
+                <p>Grayson Fabian Cantu — Documentation Engineer Portfolio Framework</p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="mailto:graysonfabiancantu@iCloud.com" class="hover:text-white transition-colors"><i class="fa-regular fa-envelope mr-1"></i> Email</a>
+                    <a href="tel:7377701981" class="hover:text-white transition-colors"><i class="fa-solid fa-phone mr-1"></i> 737.770.1981</a>
+                    <a href="https://github.com/Graysoncantu" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-github mr-1"></i> GitHub</a>
+                    <a href="https://github.com/Graysoncantu/Home/blob/main/Resume.pdf" target="_blank" class="hover:text-white transition-colors"><i class="fa-regular fa-file-pdf mr-1"></i> Resume</a>
+                </div>
+            </footer>
+
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Interactive 3D Canvas Logic
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        container.appendChild(renderer.domElement);
+
+        // Plane geometry configured to look fluid and liquid-like
+        const geometry = new THREE.PlaneGeometry(30, 30, 64, 64);
+        
+        // Dark minimal wireframe to support dark monochrome visual aesthetic
+        const material = new THREE.MeshBasicMaterial({
+            color: 0x18181b,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.25
+        });
+        
+        const mesh = new THREE.Mesh(geometry, material);
+        mesh.rotation.x = -1.2;
+        scene.add(mesh);
+
+        camera.position.z = 8;
+
+        // Wave animation logic variables
+        const clock = new THREE.Clock();
+
+        function animate() {
+            const elapsedTime = clock.getElapsedTime();
+            
+            // Loop through vertices to form liquid movement simulation
+            const positionAttribute = geometry.attributes.position;
+            for (let i = 0; i < positionAttribute.count; i++) {
+                const x = positionAttribute.getX(i);
+                const y = positionAttribute.getY(i);
+                
+                // Mathematical equation creating flowing dark liquid waves
+                const z = Math.sin(x * 0.3 + elapsedTime * 0.5) * Math.cos(y * 0.3 + elapsedTime * 0.5) * 0.6;
+                positionAttribute.setZ(i, z);
+            }
+            geometry.attributes.position.needsUpdate = true;
+            
+            // Subtle slow continuous mesh orientation tracking rotation
+            mesh.rotation.z = elapsedTime * 0.02;
+
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
         }
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+        animate();
+
+        // Screen geometry window adjustments
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Simple Accordion Toggle Interaction Script
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+            } else {
+                content.classList.add('hidden');
+            }
+        }
     </script>
 </body>
 </html>
