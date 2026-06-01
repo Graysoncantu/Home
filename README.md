@@ -24,7 +24,7 @@ ____
 
 ____
 
-📁 documentations
+📁 Documentations
 
 | Document Title | Core Focus & Methodologies | Impact & Context |
 | :--- | :--- | :--- |
