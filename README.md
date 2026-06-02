@@ -8,7 +8,7 @@ _____
 
 📌 Overview
 
-A curated repository of technical documentation, standard operating procedures (SOPs), and architecture breakdowns. This portfolio demonstrates a **Documentation Engineer’s** approach to knowledge management: treating documentation as a product, designing scalable information architecture, and translating complex, low-level technical systems into high-impact, actionable resources. Focused on reducing developer friction, driving cross-functional alignment, and building robust internal knowledge ecosystems.
+A curated repository of technical documentation, standard operating procedures (SOPs), and architecture breakdowns. This portfolio demonstrates a Documentation Engineer’s approach to knowledge management: treating documentation as a product, designing scalable information architecture, and translating complex, low-level technical systems into high-impact, actionable resources. Focused on reducing developer friction, driving cross-functional alignment, and building robust internal knowledge ecosystems.
 
 
 ____
